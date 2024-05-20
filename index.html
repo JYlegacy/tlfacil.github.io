@@ -105,6 +105,18 @@
 			vertical-align: middle;
 		}
 		
+		#opcoesFinanciamento input[type="radio"] {
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 5px; /* Ajuste conforme necessário */
+			width: auto;
+		}
+
+		#opcoesFinanciamento label {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		
 		#header {
             background-color: #f8f9fa; /* Cor de fundo */
             padding: 10px;
@@ -163,34 +175,55 @@
         <input type="text" id="nomeCor" placeholder="Ex: Preto Carbon"></br></br>
 
         <label for="priceDE">Preço DE:</label>
-        <input type="text" id="priceDE" name="priceDE" onkeyup="formatCurrency(this)" required><br><br>
+        <input type="text" id="priceDE" name="priceDE" placeholder="R$ 0,00" onkeyup="formatCurrency(this)" required><br><br>
 
         <label for="pricePOR">Preço POR:</label>
-        <input type="text" id="pricePOR" name="pricePOR" onkeyup="formatCurrency(this)" required><br><br>
+        <input type="text" id="pricePOR" name="pricePOR" placeholder="R$ 0,00" onkeyup="formatCurrency(this)" required><br><br>
 
-        <label for="financiamentoCheckbox">Financiamento?</label>		
-		<input type="checkbox" id="financiamentoCheckbox" onchange="toggleCamposFinanciamento()"></br>
+<label for="checkboxFinanciamento">Financiamento:</label>
+        <input type="checkbox" id="checkboxFinanciamento" name="checkboxFinanciamento" onclick="mostrarOpcoesFinanciamento()"><br><br>
 
-		<div id="camposFinanciamento" style="display: none;">
-			<label for="taxa">Taxa de juros (não digitar %):</label>
-			<input type="text" id="taxa"  placeholder="Ex: 1,49"></br>
+        <div id="opcoesFinanciamento" style="display: none;">
+            <label for="taxaJuros">Taxa de Juros:</label>
+			<input type="text" id="taxaJuros" name="taxaJuros" placeholder="0,00%" onkeyup="formatarTaxaJuros(this)"><br><br>
 
-			<label for="entrada">Entrada (digitar R$ ou %):</label>
-			<input type="text" id="entrada" placeholder="Ex: R$ 50.000,00 ou 80%"></br>
 
-			<label for="parcelas">Qtd. Parcelas (seguir o exemplo):</label>
-			<input type="text" id="parcelas" placeholder="Ex: 36 parcelas ou 36x de R$ 990,00">
+            <label for="checkboxEntrada">Entrada:</label><br>
+            <input type="radio" id="entradaPorcentagem" name="entradaTipo" onclick="mostrarCampoEntrada(this.value)" value="porcentagem">
+            <label for="entradaPorcentagem">Valor em %</label><br>
+            <input type="radio" id="entradaReal" name="entradaTipo" onclick="mostrarCampoEntrada(this.value)" value="real">
+            <label for="entradaReal">Valor em R$</label><br><br>
 
-			<label for="carencia">Carência (dias):</label>
-			<input type="text" id="carencia" placeholder="Ex: 30">
-		</div></br>
-		
-		<label for="parcelaBalaoFinalCheckbox">Parcela Final (Balão)?</label>
-		<input type="checkbox" id="parcelaBalaoFinalCheckbox" onchange="toggleValorParcelaBalaoFinal()"></br>
+            <div id="campoEntradaPorcentagem" style="display: none;">
+                <label for="valorEntradaPorcentagem">Valor da Entrada (%):</label>
+                <input type="text" id="valorEntradaPorcentagem" name="valorEntradaPorcentagem" placeholder="0,00%" onkeyup="formatarTaxaJuros(this)"><br><br>
+            </div>
 
-		<div id="valorParcelaBalaoFinalFields" style="display: none;">
-			<input type="text" id="valorParcelaBalaoFinal" placeholder="Ex: 36ª parcela de R$ 2.000,00">
-		</div></br>
+            <div id="campoEntradaReal" style="display: none;">
+                <label for="valorEntradaReal">Valor da Entrada (R$):</label>
+                <input type="text" id="valorEntradaReal" name="valorEntradaReal" placeholder="R$ 0,00" onkeyup="formatCurrency(this)" required><br><br>
+            </div>
+
+            <label for="quantidadeParcelas">Quantidade de Parcelas:</label>
+            <input type="number" id="quantidadeParcelas" name="quantidadeParcelas"><br><br>
+
+            <label for="valorParcela">Valor da Parcela:</label>
+            <input type="text" id="valorParcela" name="valorParcela" placeholder="R$ 0,00" onkeyup="formatCurrency(this)" required><br><br>
+
+            <label for="carencia">Carência:</label>
+            <input type="text" id="carencia" name="carencia"><br><br>
+
+            <input type="checkbox" id="checkboxParcelaFinal" name="checkboxParcelaFinal" onclick="mostrarCamposParcelaFinal()">
+            <label for="checkboxParcelaFinal">Parcela Final (Plano Balão)</label><br><br>
+
+            <div id="camposParcelaFinal" style="display: none;">
+                <label for="numeroParcelaFinal">Número da Parcela Final:</label>
+                <input type="number" id="numeroParcelaFinal" name="numeroParcelaFinal"><br><br>
+
+                <label for="valorParcelaFinal">Valor da Parcela Final:</label>
+                <input type="text" id="valorParcelaFinal" name="valorParcelaFinal" placeholder="R$ 0,00" onkeyup="formatCurrency(this)" required><br><br>
+            </div>
+        </div>
 
 
         <label for="ipvaGratis">IPVA 2024 Grátis:</label>
@@ -211,7 +244,7 @@
         <label for="validade">Válido até:</label>
         <input type="date" id="validade">
 
-        <button onclick="gerarTexto()">Criar Texto</button>
+        <button onclick="criarTexto()">Criar Texto</button>
 		
 		<button onclick="copiarTexto()">Copiar Texto Criado</button>
 		
@@ -222,9 +255,7 @@
     <!-- JavaScript para controlar o parallax -->
     <script>
         const images = [
-            'https://stellantis3.dam-broadcast.com/medias/domain12808/media105791/1737406-3iikxmjr8b-whr.jpg',
-            'https://stellantis3.dam-broadcast.com/medias/domain12808/media102759/827719-kqbk55ndxb-whr.jpg',
-			'https://stellantis3.dam-broadcast.com/medias/domain12808/media105791/1737379-m67t51iqo4-whr.jpg',
+           
         ];
 
         const parallax = document.getElementById('parallax');
@@ -244,8 +275,16 @@
             input.value = value; // Atualiza o valor formatado no campo
         }
 		
+		// Função para formatar a taxa de juros
+		function formatarTaxaJuros(input) {
+			let value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+			value = parseFloat(value / 100).toFixed(2); // Converte para decimal com duas casas decimais
+			value = value.replace('.', ',') + '%'; // Substitui o ponto por vírgula e adiciona o símbolo de porcentagem
+			input.value = value; // Atualiza o valor formatado no campo
+		}
 		
-		function gerarTexto() {
+		
+	function criarTexto() {
     const nomeCarro = document.getElementById("nomeCarro").value;
     const anoModelo = document.getElementById("anoModelo").value;
     const chassiUnico = document.getElementById("chassiUnicoCheckbox").checked;
@@ -256,27 +295,30 @@
     const nomeCor = document.getElementById("nomeCor").value;
     const priceDE = document.getElementById('priceDE').value;
     const pricePOR = document.getElementById('pricePOR').value;
-    const financiamento = document.getElementById("financiamentoCheckbox").checked;
-    const taxa = document.getElementById("taxa").value;
-    const entrada = document.getElementById("entrada").value;
-    const parcelas = document.getElementById("parcelas").value;
+    const financiamento = document.getElementById("checkboxFinanciamento").checked;
+    const taxa = document.getElementById("taxaJuros").value;
+    const entradaPorcentagem = document.getElementById("valorEntradaPorcentagem").value;
+    const entradaReal = document.getElementById("valorEntradaReal").value;
+    const quantidadeParcelas = document.getElementById("quantidadeParcelas").value;
+    const valorParcela = document.getElementById("valorParcela").value;
     const carencia = document.getElementById("carencia").value;
     const ipvaGratis = document.getElementById("ipvaGratis").checked;
     const entradaCartao = document.getElementById("entradaCartao").checked;
     const tipoCliente = document.getElementById("tipoCliente").value;
     const validade = document.getElementById("validade").value;
-    const valorParcelaBalaoFinal = document.getElementById("valorParcelaBalaoFinal").value;
+    const valorParcelaBalaoFinal = document.getElementById("valorParcelaFinal").value;
+    const numeroParcelaFinal = document.getElementById("numeroParcelaFinal").value; // Incluído o campo numeroParcelaFinal
 
     const partesData = validade.split("-");
     const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
 
     let textoFinal = `${nomeCarro} 0km, ${anoModelo}, `;
 
-    if (chassiUnico === true) {
+    if (chassiUnico) {
         textoFinal += `chassi final: ${numeroChassi}, `;
     }
 
-    if (opcional === true) {
+    if (opcional) {
         textoFinal += `opcional incluso: ${nomeOpcional}, `;
     } else {
         textoFinal += "sem opcional, \n";
@@ -284,16 +326,30 @@
 
     textoFinal += `cor ${cor} \n`;
     textoFinal += `${nomeCor}, com valor à vista \n`;
-    textoFinal += `de: ${priceDE} \n`;
-    textoFinal += `por: ${pricePOR}. \n`;
+    textoFinal += `de ${priceDE} \n`;
+    textoFinal += `por ${pricePOR}. \n`;
 
-    if (financiamento === true) {
-        textoFinal += `Financiamento com taxa a partir de ${taxa}% a.m., \n`;
-        textoFinal += ` com entrada de ${entrada} \n`;
-        textoFinal += `e saldo em ${parcelas}, \n`;
-		if (document.getElementById("parcelaBalaoFinalCheckbox").checked) {
-            textoFinal += `mais uma ${valorParcelaBalaoFinal}, `;
+    if (financiamento) {
+        textoFinal += `Financiamento com taxa a partir de ${taxa} a.m., \n`;
+
+        if (entradaPorcentagem) {
+            textoFinal += `com entrada de ${entradaPorcentagem} \n`;
+        } else if (entradaReal) {
+            textoFinal += `com entrada de ${entradaReal} \n`;
         }
+
+        textoFinal += `e saldo em ${quantidadeParcelas}x \n`;
+		
+	// Verifica se o campo valorParcela não está vazio antes de incluir no texto final
+	if (valorParcela.trim() !== "") {
+		textoFinal += `de ${valorParcela}, \n`;
+    }
+
+        if (document.getElementById("checkboxParcelaFinal").checked) {
+            textoFinal += `mais uma ${numeroParcelaFinal}ª `; // Incluído número da parcela final
+			textoFinal += `parcela resídual de ${valorParcelaBalaoFinal}, `;     
+        }
+		
         textoFinal += `com ${carencia} dias de carência para pagamento da 1ª parcela, na modalidade crédito direto ao consumidor – cdc, pessoa física, incluindo tarifas, custos e impostos (i.O.F.). Todas as propostas estarão sujeitas a aprovação de crédito pelo banco STELLANTIS. \n`;
     }
 
@@ -311,6 +367,9 @@
 
     document.getElementById("textoGerado").textContent = textoFinal;
 }
+	
+
+
 
         function copiarTexto() {
             const textoGerado = document.getElementById('textoGerado').textContent;
@@ -333,15 +392,30 @@
 			numeroChassi.style.display = this.checked ? "block" : "none";
 		});
 		
-		function toggleCamposFinanciamento() {
-			const camposFinanciamento = document.getElementById("camposFinanciamento");
-			camposFinanciamento.style.display = document.getElementById("financiamentoCheckbox").checked ? "block" : "none";
-		}
+		        function mostrarOpcoesFinanciamento() {
+            var checkBox = document.getElementById("checkboxFinanciamento");
+            var opcoesFinanciamento = document.getElementById("opcoesFinanciamento");
+            opcoesFinanciamento.style.display = checkBox.checked ? "block" : "none";
+        }
 
-		function toggleValorParcelaBalaoFinal() {
-			const valorParcelaBalaoFinalFields = document.getElementById("valorParcelaBalaoFinalFields");
-			valorParcelaBalaoFinalFields.style.display = document.getElementById("parcelaBalaoFinalCheckbox").checked ? "block" : "none";
-		}
+        function mostrarCampoEntrada(tipo) {
+            var campoEntradaPorcentagem = document.getElementById("campoEntradaPorcentagem");
+            var campoEntradaReal = document.getElementById("campoEntradaReal");
+
+            if (tipo === "porcentagem") {
+                campoEntradaPorcentagem.style.display = "block";
+                campoEntradaReal.style.display = "none";
+            } else if (tipo === "real") {
+                campoEntradaPorcentagem.style.display = "none";
+                campoEntradaReal.style.display = "block";
+            }
+        }
+
+        function mostrarCamposParcelaFinal() {
+            var checkBoxParcelaFinal = document.getElementById("checkboxParcelaFinal");
+            var camposParcelaFinal = document.getElementById("camposParcelaFinal");
+            camposParcelaFinal.style.display = checkBoxParcelaFinal.checked ? "block" : "none";
+        }
 
     </script>
 </body>
