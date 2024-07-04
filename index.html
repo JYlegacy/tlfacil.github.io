@@ -584,16 +584,17 @@
 
 			// Verifica se pricePOR não está vazio antes de incluí-lo no texto final
 			if (pricePOR.trim() !== '') {
-				textoFinal += ` por ${pricePOR}. `;
+				textoFinal += ` por ${pricePOR}`;
 			} else {
-				textoFinal += `. `;
+				textoFinal += ``;
 			}
 			
 			
 			if (comusadonatroca) {
-                textoFinal += ", com seu seminovo na troca.";
+                textoFinal += ", com seu seminovo na troca";
             }
 			
+			textoFinal += `. `;
 			
 			// Include FIPE text if provided
 			if (textoFipeInserido.trim() !== '') {
