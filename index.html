@@ -234,8 +234,10 @@
         <label for="nomeCor">Nome da Cor:</label>
         <input type="text" id="nomeCor" placeholder="Ex: Preto Carbon">
         <br><br>
-
+		
+		
         <label for="priceDE">Preço DE:</label>
+		<span style="font-size: 0.9em; font-weight: 300;">(Para ofertas "a partir de", preencher apenas esse campo)</span>
         <input type="text" id="priceDE" name="priceDE" placeholder="R$ 0,00" required>
         <br><br>
 
@@ -252,7 +254,7 @@
 		<button class="tl-fipe-btn" onclick="window.open('https://ythallo89.github.io/texto_juridico_tabela_fipe/', '_blank')">Criar TL: "Até 100% da Tabela FIPE no Usado"</button>
         
 		
-		 <!-- Botão Bônus no Usado adicionado aqui -->
+		<!-- Botão Bônus no Usado adicionado aqui -->
 		<button class="tl-bonus-usado-btn" onclick="window.open('https://ythallo89.github.io/texto_juridico_bonus_usado/', '_blank')">Criar TL: "Bônus / Supervalorização no Usado"</button>
         <br><br><br>
 		
@@ -336,16 +338,15 @@
         <input type="date" id="validade">
         <br><br>
 
-        		
-	<button onclick="criarTexto()">Criar Texto</button>
-	
-	<button class="inserirfipe-btn" onclick="popupInserirFipe()">Inserir TL "100% FIPE"</button>
-	
-	<button class="inserirBonusUsado-btn" onclick="popupBonusUsado()">Inserir TL "Bônus Usado"</button>
+        <button onclick="criarTexto()">Criar Texto</button>
+		
+		<button class="inserirfipe-btn" onclick="popupInserirFipe()">Inserir TL "100% FIPE"</button>
+		
+		<button class="inserirBonusUsado-btn" onclick="popupBonusUsado()">Inserir TL "Bônus Usado"</button>
 		
         <button class="limpar-texto-btn" onclick="limparResultado()">Excluir "Fipe" e "Bônus"</button>
 		
-	<button onclick="copiarTexto()">Copiar Texto</button>
+		<button onclick="copiarTexto()">Copiar Texto</button>
 
 		
         <br><br>
@@ -410,7 +411,7 @@
 			decimal: ',',
 			precision: 2,
 			allowNegative: false,
-			allowZero: false
+			allowZero: true
 		});
 		
 		$('#valorEntradaPorcentagem').maskMoney({
@@ -420,7 +421,7 @@
 			decimal: ',',
 			precision: 2,
 			allowNegative: false,
-			allowZero: false
+			allowZero: true
 		});
     });
 				
@@ -654,7 +655,8 @@
     
 			// Atualiza o texto final
 			criarTexto();
-		
+		}
+
 
         function copiarTexto() {
             const textoGerado = document.getElementById('textoGerado').textContent;
