@@ -249,11 +249,11 @@
 		<br>
 		
 		 <!-- Botão FIPE adicionado aqui -->
-		<button class="tl-fipe-btn" onclick="window.open('https://ythallo89.github.io/texto_juridico_tabela_fipe/', '_blank')">Criar Texto: "Até 100% da Tabela FIPE no Usado"</button>
+		<button class="tl-fipe-btn" onclick="window.open('https://ythallo89.github.io/texto_juridico_tabela_fipe/', '_blank')">Criar TL: "Até 100% da Tabela FIPE no Usado"</button>
         
 		
 		 <!-- Botão Bônus no Usado adicionado aqui -->
-		<button class="tl-bonus-usado-btn" onclick="window.open('https://ythallo89.github.io/texto_juridico_bonus_usado/', '_blank')">Criar Texto: "Bônus / Supervalorização no Usado"</button>
+		<button class="tl-bonus-usado-btn" onclick="window.open('https://ythallo89.github.io/texto_juridico_bonus_usado/', '_blank')">Criar TL: "Bônus / Supervalorização no Usado"</button>
         <br><br><br>
 		
         <label for="checkboxFinanciamento">Financiamento:</label>
@@ -336,15 +336,16 @@
         <input type="date" id="validade">
         <br><br>
 
-        <button onclick="criarTexto()">Criar Texto</button>
+        		
+	<button onclick="criarTexto()">Criar Texto</button>
+	
+	<button class="inserirfipe-btn" onclick="popupInserirFipe()">Inserir TL "100% FIPE"</button>
+	
+	<button class="inserirBonusUsado-btn" onclick="popupBonusUsado()">Inserir TL "Bônus Usado"</button>
 		
-		<button class="inserirfipe-btn" onclick="popupInserirFipe()">Inserir Texto "100% da FIPE"</button>
+        <button class="limpar-texto-btn" onclick="limparResultado()">Excluir "Fipe" e "Bônus"</button>
 		
-		<button class="inserirBonusUsado-btn" onclick="popupBonusUsado()">Inserir Texto "Bônus no Usado"</button>
-		
-        <button onclick="copiarTexto()">Copiar Texto</button>
-		
-		<button class="limpar-texto-btn" onclick="limparResultado()">Limpar Texto</button>
+	<button onclick="copiarTexto()">Copiar Texto</button>
 
 		
         <br><br>
@@ -647,8 +648,13 @@
         }
 				
 		function limparResultado() {
-			document.getElementById("textoGerado").textContent = "";
-		}
+			// Redefine as variáveis globais
+			textoFipeInserido = '';
+			textoBonusUsadoInserido = '';
+    
+			// Atualiza o texto final
+			criarTexto();
+		
 
         function copiarTexto() {
             const textoGerado = document.getElementById('textoGerado').textContent;
