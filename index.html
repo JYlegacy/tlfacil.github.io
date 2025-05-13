@@ -4,167 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Texto Jurídico</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-            color: #333;
-            overflow: auto;
-        }
-
-        .parallax {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            transition: background-image 1s ease-in-out;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 16px;
-            color: #333;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input, select {
-			margin-bottom: 10px;
-            padding: 8px;
-            width: calc(100% - 18px);
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        input[type="checkbox"], input[type="radio"] {
-            width: auto;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-		
-		
-		
-		
-		button.tl-fipe-btn {
-			background-color: #195da2; /* Cor  */
-			color: #fff; /* Cor do texto branca */
-		}
-
-		button.tl-fipe-btn:hover {
-			background-color: #073e59; /* Preto mais claro ao passar o mouse */
-		}
-		
-		
-		
-		
-		button.tl-bonus-usado-btn {
-			background-color: #07396b; /* Cor  */
-			color: #fff; /* Cor do texto branca */
-		}
-
-		button.tl-bonus-usado-btn:hover {
-			background-color: #06364d; /* Preto mais claro ao passar o mouse */
-		}
-		
-		
-		
-		
-		button.inserirfipe-btn {
-			background-color: #195da2; /* Cor  */
-			color: #fff; /* Cor do texto branca */
-		}
-
-		button.inserirfipe-btn:hover {
-			background-color: #073e59; /* Preto mais claro ao passar o mouse */
-		}
-		
-		
-		
-		
-		button.inserirBonusUsado-btn {
-			background-color: #07396b; /* Cor */
-			color: #fff; /* Cor do texto branca */
-		}
-			
-		button.inserirBonusUsado-btn:hover {
-			background-color: #06364d; /* Cor mais claro ao passar o mouse */
-		}
-		
-		
-		
-		
-		.limpar-texto-btn {
-			background-color: #ff0000; /* Cor vermelha, por exemplo */
-			color: #fff; /* Cor do texto branco */
-		}
-
-		.limpar-texto-btn:hover {
-			background-color: #cc0000; /* Cor vermelha mais escura ao passar o mouse */
-		}
-
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #opcoesCor, #opcoesFinanciamento {
-            display: flex;
-            gap: 10px;
-        }
-
-        #header {
-            background-color: #f8f9fa;
-            padding: 10px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #logo {
-            top: 10px;
-            left: 10px;
-            width: 200px;
-            height: auto;
-        }
-		
-		#textoGerado {
-			text-align: justify; /* Justifica o texto */
-		}
-		
-		
-    </style>
-	
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="parallax" id="parallax"></div>
@@ -176,33 +19,31 @@
             <h1>Texto Jurídico</h1>
         </div>
         <br><br>
-			
-        <label for="nomeCarro">Nome do Carro:</label>
-        <input type="text" id="nomeCarro" placeholder="Ex: Argo Drive 1.3">
-		<br><br>
-		
-		<label for="cambio">Tipo de Câmbio:</label>
-		<div id="opcoesCambio">
-			<input type="radio" id="cambioManual" name="cambio" value="MANUAL"> <label for="cambioManual">Manual</label>
-			<input type="radio" id="cambioAutomatico" name="cambio" value="AUTOMÁTICO"> <label for="cambioAutomatico">Automático</label>
+
+        <h4>Escolha o Veículo:</h4>
+		<div class="radio-group">
+			<label><input type="radio" name="marca" value="FIAT"> FIAT</label>
+			<label><input type="radio" name="marca" value="JEEP"> JEEP</label>
+			<label><input type="radio" name="marca" value="RAM"> RAM</label>
 		</div>
 		<br>
 
-		
-		<label for="motor">Tipo de Motor:</label>
-		<div id="opcoesmotor">
-			<input type="radio" id="motorFlex" name="motor" value="FLEX"> <label for="motorFlex">Flex</label>
-			<input type="radio" id="motorGasolina" name="motor" value="GASOLINA"> <label for="motorGasolina">Gasolina</label>
-			<input type="radio" id="motorDiesel" name="motor" value="DIESEL"> <label for="motorDiesel">Diesel</label>
-			<input type="radio" id="motorHibrido" name="motor" value="HÍBRIDO"> <label for="motorHibrido">Híbrido</label>
-			<input type="radio" id="motorEletrico" name="motor" value="ELÉTRICO"> <label for="motorEletrico">Elétrico</label>
-		</div>
-		<br>
+			<label for="modelo"></label>
+			<select id="modelo" disabled>
+				<option value="">Selecione o modelo</option>
+			</select>
+			</br>
 
+			<label for="versao"></label>
+			<select id="versao" disabled>
+				<option value="">Selecione a versão</option>
+			</select>
+		</form>
+        <br><br>
 
         <label for="anoModelo">Ano/Modelo:</label>
         <select id="anoModelo">
-			<option value="">Selecione o ano/modelo</option>
+            <option value="">Selecione o ano/modelo</option>
             <option value="2024/2024">2024/2024</option>
             <option value="2024/2025">2024/2025</option>
             <option value="2025/2025">2025/2025</option>
@@ -213,17 +54,18 @@
         </select>
         <br><br>
 
-        <label for="chassiUnico">Chassi único?</label>
+        <label for="chassiUnico">Chassi único:</label>
         <input type="checkbox" id="chassiUnicoCheckbox">
         <input type="text" id="numeroChassi" placeholder="Nº final do chassi (Ex: K590634)" style="display: none;">
         <br><br>
 
-        <label for="opcional">Opcional?</label>
+        <label for="opcional">Opcional:</label>
         <input type="checkbox" id="opcionalCheckbox">
         <input type="text" id="nomeOpcional" placeholder="Nome do opcional" style="display: none;">
         <br><br>
 
-        <label for="cor">Cor:</label>
+        <label for="cor">Tipo da Cor:</label>
+		<br><br>
         <div id="opcoesCor">
             <input type="radio" id="corSolida" name="cor" value="Sólida"> <label for="corSolida">Sólida</label>
             <input type="radio" id="corMetalica" name="cor" value="Metálica"> <label for="corMetalica">Metálica</label>
@@ -234,32 +76,33 @@
         <label for="nomeCor">Nome da Cor:</label>
         <input type="text" id="nomeCor" placeholder="Ex: Preto Carbon">
         <br><br>
-		
-		
-        <label for="priceDE">Preço DE:</label>
-		<span style="font-size: 0.9em; font-weight: 300;">(Para ofertas "a partir de", preencher apenas esse campo)</span>
+        
+        
+        <label for="priceDE">Preço "DE":</label>
+        <span style="font-size: 0.9em; font-weight: 300;">(Para ofertas "a partir de", preencher apenas esse campo)</span>
         <input type="text" id="priceDE" name="priceDE" placeholder="R$ 0,00" required>
         <br><br>
 
-        <label for="pricePOR">Preço POR:</label>
+        <label for="pricePOR">Preço "POR":</label>
         <input type="text" id="pricePOR" name="pricePOR" placeholder="R$ 0,00" required>
         <br><br>
-		
-		<label for="comusadonatroca">Valor final com seminovo na troca?</label>
-		<input type="checkbox" id="comusadonatroca">
-		<span style="font-size: 0.9em; font-weight: 300;">Ex: Pulse de R$110.000 por R$85.990 com seu seminovo na troca.</span>
-		<br>
-		
-		 <!-- Botão FIPE adicionado aqui -->
-		<button class="tl-fipe-btn" onclick="window.open('https://ythallo89.github.io/texto_juridico_tabela_fipe/', '_blank')">Criar TL: "Até 100% da Tabela FIPE no Usado"</button>
         
-		
-		<!-- Botão Bônus no Usado adicionado aqui -->
-		<button class="tl-bonus-usado-btn" onclick="window.open('https://ythallo89.github.io/texto_juridico_bonus_usado/', '_blank')">Criar TL: "Bônus / Supervalorização no Usado"</button>
+        <label for="comusadonatroca">Valor final com seminovo na troca?</label>
+		<br><br>
+        <input type="checkbox" id="comusadonatroca">
+        <span style="font-size: 0.9em; font-weight: 300;">Ex: Pulse de R$110.000 por R$85.990 com seu seminovo na troca.</span>
+        <br>
+        
+         <!-- Botão FIPE adicionado aqui -->
+        <button class="tl-fipe-btn">Criar TL: "Até 100% da Tabela FIPE no Usado"</button>
+        
+        
+         <!-- Botão Bônus no Usado adicionado aqui -->
+        <button class="tl-bonus-usado-btn">Criar TL: "Bônus / Supervalorização no Usado"</button>
         <br><br><br>
-		
+        
         <label for="checkboxFinanciamento">Financiamento:</label>
-        <input type="checkbox" id="checkboxFinanciamento" name="checkboxFinanciamento" onclick="mostrarOpcoesFinanciamento()">
+        <input type="checkbox" id="checkboxFinanciamento" name="checkboxFinanciamento">
         <br><br>
 
         <div id="opcoesFinanciamento" style="display: none;">
@@ -269,9 +112,9 @@
 
             <label for="checkboxEntrada">Entrada:</label>
             <br>
-            <input type="radio" id="entradaPorcentagem" name="entradaTipo" onclick="mostrarCampoEntrada(this.value)" value="porcentagem">
+            <input type="radio" id="entradaPorcentagem" name="entradaTipo" value="porcentagem">
             <label for="entradaPorcentagem">Valor em %</label>
-            <input type="radio" id="entradaReal" name="entradaTipo" onclick="mostrarCampoEntrada(this.value)" value="real">
+            <input type="radio" id="entradaReal" name="entradaTipo" value="real">
             <label for="entradaReal">Valor em R$</label>
             <br><br>
 
@@ -299,8 +142,9 @@
             <input type="text" id="carencia" name="carencia" placeholder="Ex: 30">
             <br><br>
 
-            <input type="checkbox" id="checkboxParcelaFinal" name="checkboxParcelaFinal" onclick="mostrarCamposParcelaFinal()">
+            
             <label for="checkboxParcelaFinal">Parcela Final (Plano Balão)</label>
+			<input type="checkbox" id="checkboxParcelaFinal" name="checkboxParcelaFinal">
             <br><br>
 
             <div id="camposParcelaFinal" style="display: none;">
@@ -314,8 +158,20 @@
             </div>
         </div>
 
-        <label for="ipvaGratis">IPVA 2024 Grátis:</label>
+        <label for="ipvaGratis">IPVA Grátis:</label>
         <input type="checkbox" id="ipvaGratis">
+        <br><br>
+		
+		<label for="emplacamentoGratis">Emplacamento Grátis:</label>
+        <input type="checkbox" id="emplacamentoGratis">
+        <br><br>
+		
+		<label for="revisãoGratis">1ª Revisão Grátis:</label>
+        <input type="checkbox" id="revisãoGratis">
+        <br><br>
+		
+		<label for="bonusAcessorios">Bônus em Acessórios (valor em dinheiro):</label>
+        <input type="text" id="bonusAcessorios" name="bonusAcessorios" placeholder="R$ 0,00" required>
         <br><br>
 
         <label for="entradaCartao">Entrada em 21x no cartão:</label>
@@ -324,13 +180,14 @@
 
         <label for="tipoCliente">Tipo de Cliente:</label>
         <select id="tipoCliente">
-			<option value="">Selecione o tipo de cliente</option>
-            <option value="Pessoa Física">Pessoa Física</option>
-			<option value="Pessoa Física Pessoa Física no canal de VENDAS DIRETAS">Pessoa Física em VD pelo CPF</option>
-            <option value="CNPJ e Produtor Rural">CNPJ e Produtor Rural</option>
-			<option value="Táxi com isenções de IPI e ICMS">Táxi (isenções de IPI e ICMS)</option>
-			<option value="Táxi com isenções de IPI">Táxi (isenções de IPI)</option>
-			<option value="PCD (pessoas com deficiência)">PCD</option>
+            <option value="">Selecione o tipo de cliente</option>
+            <option value="Pessoa Física no canal VAREJO">Pessoa Física</option>
+            <option value="Pessoa Física Pessoa Física no canal de VENDAS DIRETAS">Pessoa Física em VD pelo CPF</option>
+            <option value="CNPJ e Produtor Rural no canal de VENDAS DIRETAS">CNPJ e Produtor Rural</option>
+            <option value="Táxi com isenções de IPI e ICMS no canal de VENDAS DIRETAS">Táxi (isenções de IPI e ICMS)</option>
+            <option value="Táxi com isenções de IPI no canal de VENDAS DIRETAS">Táxi (isenções de IPI)</option>
+            <option value="PCD com isenções de IPI e ICMS no canal de VENDAS DIRETAS">PCD (isenções de IPI e ICMS)</option>
+			<option value="PCD com isenções de IPI no canal de VENDAS DIRETAS">PCD (isenção de IPI)</option>
         </select>
         <br><br>
 
@@ -338,334 +195,22 @@
         <input type="date" id="validade">
         <br><br>
 
-        <button onclick="criarTexto()">Criar Texto</button>
-		
-		<button class="inserirfipe-btn" onclick="popupInserirFipe()">Inserir TL "100% FIPE"</button>
-		
-		<button class="inserirBonusUsado-btn" onclick="popupBonusUsado()">Inserir TL "Bônus Usado"</button>
-		
-        <button class="limpar-texto-btn" onclick="limparResultado()">Excluir "Fipe" e "Bônus"</button>
-		
-		<button onclick="copiarTexto()">Copiar Texto</button>
+        <button id="criarTextoBtn">Criar Texto</button>
+        
+        <button class="inserirfipe-btn" id="inserirFipeBtn">Inserir TL "100% FIPE"</button>
+        
+        <button class="inserirBonusUsado-btn" id="inserirBonusUsadoBtn">Inserir TL "Bônus Usado"</button>
+        
+        <button class="limpar-texto-btn" id="limparTextoBtn">Excluir "Fipe" e "Bônus"</button>
+        
+        <button id="copiarTextoBtn">Copiar Texto</button>
 
-		
+        
         <br><br>
 
         <div>
             <p id="textoGerado" style="white-space: pre-line;"></p>
         </div>
     </div>
-
-     <script>
-    $(document).ready(function() {
-        // Inicializa maskMoney nos campos de preço e Juros
-        $('#priceDE').maskMoney({
-            prefix: 'R$ ',
-            thousands: '.',
-            decimal: ',',
-            precision: 2,
-            allowZero: false,
-            allowNegative: false
-        });
-
-        $('#pricePOR').maskMoney({
-            prefix: 'R$ ',
-            thousands: '.',
-            decimal: ',',
-            precision: 2,
-            allowZero: false,
-            allowNegative: false
-        });
-		
-		$('#valorEntradaReal').maskMoney({
-            prefix: 'R$ ',
-            thousands: '.',
-            decimal: ',',
-            precision: 2,
-            allowZero: false,
-            allowNegative: false
-        });
-		
-		$('#valorParcela').maskMoney({
-            prefix: 'R$ ',
-            thousands: '.',
-            decimal: ',',
-            precision: 2,
-            allowZero: false,
-            allowNegative: false
-        });
-		
-		$('#valorParcelaFinal').maskMoney({
-            prefix: 'R$ ',
-            thousands: '.',
-            decimal: ',',
-            precision: 2,
-            allowZero: false,
-            allowNegative: false
-        });
-		
-		$('#taxaJuros').maskMoney({
-			prefix: '',
-			suffix: '%',
-			thousands: '.',
-			decimal: ',',
-			precision: 2,
-			allowNegative: false,
-			allowZero: true
-		});
-		
-		$('#valorEntradaPorcentagem').maskMoney({
-			prefix: '',
-			suffix: '%',
-			thousands: '.',
-			decimal: ',',
-			precision: 2,
-			allowNegative: false,
-			allowZero: true
-		});
-    });
-				
-        const images = [
-            // Adicione URLs de imagens aqui
-        ];
-
-        let currentIndex = 0;
-
-        function changeBackgroundImage() {
-            if (images.length === 0) return;
-            const parallax = document.getElementById("parallax");
-            parallax.style.backgroundImage = `url(${images[currentIndex]})`;
-            currentIndex = (currentIndex + 1) % images.length;
-        }
-
-        setInterval(changeBackgroundImage, 5000);
-
-        document.getElementById("opcionalCheckbox").addEventListener("change", function () {
-            const nomeOpcional = document.getElementById("nomeOpcional");
-            nomeOpcional.style.display = this.checked ? "block" : "none";
-            if (!this.checked) {
-                nomeOpcional.value = '';
-            }
-        });
-
-        document.getElementById("chassiUnicoCheckbox").addEventListener("change", function () {
-            const numeroChassi = document.getElementById("numeroChassi");
-            numeroChassi.style.display = this.checked ? "block" : "none";
-            if (!this.checked) {
-                numeroChassi.value = '';
-            }
-        });
-
-        function mostrarOpcoesFinanciamento() {
-            const opcoesFinanciamento = document.getElementById("opcoesFinanciamento");
-            opcoesFinanciamento.style.display = document.getElementById("checkboxFinanciamento").checked ? "block" : "none";
-        }
-
-        function mostrarCampoEntrada(value) {
-            const campoEntradaPorcentagem = document.getElementById("campoEntradaPorcentagem");
-            const campoEntradaReal = document.getElementById("campoEntradaReal");
-
-            if (value === "porcentagem") {
-                campoEntradaPorcentagem.style.display = "block";
-                campoEntradaReal.style.display = "none";
-                document.getElementById("valorEntradaReal").value = ''; // Limpa o campo não selecionado
-            } else {
-                campoEntradaReal.style.display = "block";
-                campoEntradaPorcentagem.style.display = "none";
-                document.getElementById("valorEntradaPorcentagem").value = ''; // Limpa o campo não selecionado
-            }
-        }
-
-        function mostrarCamposParcelaFinal() {
-            const camposParcelaFinal = document.getElementById("camposParcelaFinal");
-            camposParcelaFinal.style.display = document.getElementById("checkboxParcelaFinal").checked ? "block" : "none";
-        }
-
-		
-		
-		<!-- Abrir popup no botão Inserir FIPE -->
-		function popupInserirFipe() {
-			const textoInserido = prompt("Por favor, insira o texto da FIPE:");
-			if (textoInserido !== null) {
-				textoFipeInserido = textoInserido;
-				criarTexto(); // Atualiza o texto gerado com o novo texto da FIPE
-			}
-		}
-
-		
-		<!-- Global Variable for FIPE Text: Add a global variable to store the FIPE text entered by the user -->        
-		let textoFipeInserido = '';  // Global variable to store FIPE text
-
-		function adicionarFIPE(texto) {
-			textoFipeInserido = texto;
-			criarTexto();  // Update the generated text with the new FIPE text
-		}
-		
-		
-		
-		<!-- Abrir popup no botão Inserir Bônus no Usado -->
-		function popupBonusUsado() {
-			const textoInserido = prompt("Por favor, insira o texto do Bônus / Supervalorização no Usado:");
-			if (textoInserido !== null) {
-				textoBonusUsadoInserido = textoInserido;
-				criarTexto(); // Atualiza o texto gerado com o novo texto do Bônus no Usado
-			}
-		}
-
-		
-		<!-- Global Variable for FIPE Text: Add a global variable to store the FIPE text entered by the user -->        
-		let textoBonusUsadoInserido = '';  // Global variable to store FIPE text
-
-		function adicionarBonusUsado(texto) {
-			textoBonusUsadoInserido = texto;
-			criarTexto();  // Update the generated text with the new Bônus Usado text
-		}
-        
-		<!-- Limpar Texto Final -->  
-		function limparResultado() {
-			document.getElementById("textoGerado").textContent = ""; // Limpa o conteúdo do elemento com id "textoGerado"
-		}
-
-		
-
-        function criarTexto() {
-            const nomeCarro = document.getElementById("nomeCarro").value || '';
-			const cambio = document.querySelector('input[name="cambio"]:checked')?.value || '';
-			const motor = document.querySelector('input[name="motor"]:checked')?.value || '';
-            const anoModelo = document.getElementById("anoModelo").value || '';
-            const chassiUnico = document.getElementById("chassiUnicoCheckbox").checked;
-            const numeroChassi = document.getElementById("numeroChassi").value || '';
-            const opcional = document.getElementById("opcionalCheckbox").checked;
-            const nomeOpcional = document.getElementById("nomeOpcional").value || '';
-            const cor = document.querySelector('input[name="cor"]:checked')?.value || '';
-            const nomeCor = document.getElementById("nomeCor").value || '';
-            const priceDE = document.getElementById('priceDE').value || '';
-            const pricePOR = document.getElementById('pricePOR').value || '';
-			const comusadonatroca = document.getElementById("comusadonatroca").checked;
-            const financiamento = document.getElementById("checkboxFinanciamento").checked;
-            const taxa = document.getElementById("taxaJuros").value || '';
-            const entradaPorcentagem = document.getElementById("valorEntradaPorcentagem").value || '';
-            const entradaReal = document.getElementById("valorEntradaReal").value || '';
-            const quantidadeParcelas = document.getElementById("quantidadeParcelas").value || '';
-            const valorParcela = document.getElementById("valorParcela").value || '';
-            const carencia = document.getElementById("carencia").value || '';
-            const ipvaGratis = document.getElementById("ipvaGratis").checked;
-            const entradaCartao = document.getElementById("entradaCartao").checked;
-            const tipoCliente = document.getElementById("tipoCliente").value || '';
-            const validade = document.getElementById("validade").value || '';
-            const valorParcelaBalaoFinal = document.getElementById("valorParcelaFinal").value || '';
-            const numeroParcelaFinal = document.getElementById("numeroParcelaFinal").value || '';
-
-            if (!validade) {
-                alert('Por favor, insira uma data de validade.');
-                return;
-            }
-
-            const partesData = validade.split("-");
-            const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
-
-            let textoFinal = `${nomeCarro}`;
-				textoFinal += ` ${cambio}`;
-				textoFinal += ` ${motor}`;
-				textoFinal += `, 0km`;
-				textoFinal += `, ${anoModelo}, `;
-
-            if (chassiUnico) {
-                textoFinal += `chassi final ${numeroChassi}, `;
-            }
-
-            if (opcional) {
-                textoFinal += `opcional incluso ${nomeOpcional}, `;
-            } else {
-                textoFinal += "sem opcional, ";
-            }
-
-            textoFinal += `cor ${cor} `;
-            textoFinal += `${nomeCor}, com valor à vista `;
-            textoFinal += `de ${priceDE}`;
-
-			// Verifica se pricePOR não está vazio antes de incluí-lo no texto final
-			if (pricePOR.trim() !== '') {
-				textoFinal += ` por ${pricePOR}`;
-			} else {
-				textoFinal += ``;
-			}
-			
-			
-			if (comusadonatroca) {
-                textoFinal += ", com seu seminovo na troca";
-            }
-			
-			textoFinal += `. `;
-			
-			// Include FIPE text if provided
-			if (textoFipeInserido.trim() !== '') {
-				textoFinal += ` ${textoFipeInserido}. `;
-			}
-			
-			// Include Bônus no Usado text if provided
-			if (textoBonusUsadoInserido.trim() !== '') {
-				textoFinal += ` ${textoBonusUsadoInserido}. `;
-			}
-			
-				
-			
-            if (financiamento) {
-                textoFinal += `Financiamento com taxa a partir de ${taxa} a.m., `;
-
-                if (entradaPorcentagem) {
-                    textoFinal += `com entrada de ${entradaPorcentagem} `;
-                } else if (entradaReal) {
-                    textoFinal += `com entrada de ${entradaReal} `;
-                }
-
-                textoFinal += `e saldo em ${quantidadeParcelas}x `;
-
-                if (valorParcela.trim() !== "") {
-                    textoFinal += `de ${valorParcela}, `;
-                }
-
-                if (document.getElementById("checkboxParcelaFinal").checked) {
-                    textoFinal += `mais uma ${numeroParcelaFinal}ª `; // Incluído número da parcela final
-                    textoFinal += `parcela residual de ${valorParcelaBalaoFinal}, `;
-                }
-
-                textoFinal += `com ${carencia} dias de carência para pagamento da 1ª parcela, na modalidade crédito direto ao consumidor – cdc, pessoa física, incluindo tarifas, custos e impostos (i.O.F.). Todas as propostas estarão sujeitas a aprovação de crédito pelo banco STELLANTIS. `;
-            }
-
-            if (ipvaGratis) {
-                textoFinal += "Ação “IPVA 2024 grátis”. O veículo divulgado neste anúncio que for adquirido e faturado em nome do cliente, exclusivamente, através do estoque da concessionária, terá o valor correspondente ao IPVA de 2024 custeados pela Concessionária ITALIANA. ";
-            }
-
-            if (entradaCartao) {
-                textoFinal += "Entrada facilitada no cartão de crédito da operadora LUCREE, em até 21 vezes com incidência de juros do cartão de acordo com o parcelamento solicitado. ";
-            }
-
-            textoFinal += `Ofertas citadas acima são exclusivas para ${tipoCliente}, `;
-            textoFinal += `válido até ${dataFormatada} ou enquanto durar o estoque, prevalecendo o que ocorrer primeiro. `;
-            textoFinal += "Oferta não cumulativa com outras ofertas vigentes da Stellantis ou da Rede de Concessionárias ITALIANA. Imagens meramente ilustrativas. Consulte os demais termos e condições em nossa central de atendimento.";
-
-            document.getElementById("textoGerado").textContent = textoFinal;
-        }
-				
-		function limparResultado() {
-			// Redefine as variáveis globais
-			textoFipeInserido = '';
-			textoBonusUsadoInserido = '';
-    
-			// Atualiza o texto final
-			criarTexto();
-		}
-
-
-        function copiarTexto() {
-            const textoGerado = document.getElementById('textoGerado').textContent;
-            navigator.clipboard.writeText(textoGerado).then(() => {
-                alert('Texto copiado para a área de transferência!');
-            }).catch(err => {
-                console.error('Erro ao copiar texto: ', err);
-            });
-        }
-    </script>
 </body>
 </html>
