@@ -13,12 +13,17 @@
     <div class="parallax" id="parallax"></div>
 
     <div class="container">
-        <img src="https://" alt="Logotipo" id="logo">
+        <img src="resources/logo-top_racer_car.png" alt="Logotipo" id="logo">
         <br><br>
         <div id="header">
             <h1>Texto Jurídico</h1>
         </div>
-        <br><br>
+        
+		
+	<div style="text-align: center; margin-top: 10px;">
+		<button id="darkModeToggle">Ativar Dark Mode</button>
+	</div>
+	
 
         <h4>Escolha o Veículo:</h4>
 		<div class="radio-group">
@@ -39,9 +44,14 @@
 				<option value="">Selecione a versão</option>
 			</select>
 		</form>
-        <br><br>
+        </br>
 
-        <label for="anoModelo">Ano/Modelo:</label>
+        <label for="nomeCor"></label>
+		<select id="nomeCor" disabled>
+			<option value="">Selecione a Cor</option>
+		</select>
+
+		<label for="anoModelo"></label>
         <select id="anoModelo">
             <option value="">Selecione o ano/modelo</option>
             <option value="2024/2024">2024/2024</option>
@@ -64,19 +74,6 @@
         <input type="text" id="nomeOpcional" placeholder="Nome do opcional" style="display: none;">
         <br><br>
 
-        <label for="cor">Tipo da Cor:</label>
-		<br><br>
-        <div id="opcoesCor">
-            <input type="radio" id="corSolida" name="cor" value="Sólida"> <label for="corSolida">Sólida</label>
-            <input type="radio" id="corMetalica" name="cor" value="Metálica"> <label for="corMetalica">Metálica</label>
-            <input type="radio" id="corPerolizada" name="cor" value="Perolizada"> <label for="corPerolizada">Perolizada</label>
-        </div>
-        <br>
-
-        <label for="nomeCor">Nome da Cor:</label>
-        <input type="text" id="nomeCor" placeholder="Ex: Preto Carbon">
-        <br><br>
-        
         
         <label for="priceDE">Preço "DE":</label>
         <span style="font-size: 0.9em; font-weight: 300;">(Para ofertas "a partir de", preencher apenas esse campo)</span>
