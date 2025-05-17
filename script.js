@@ -6,7 +6,17 @@ let currentIndex = 0;
 
 // Document ready function
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Document ready - initializing...');
+    
+    // Ativar automaticamente o modo escuro se o navegador estiver configurado assim
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark-mode');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (darkModeToggle) {
+            darkModeToggle.textContent = 'Desativar Dark Mode';
+        }
+    }
+
+console.log('Document ready - initializing...');
 
     // Initialize maskMoney for price and interest fields
     if (typeof $ !== 'undefined' && typeof $.fn.maskMoney !== 'undefined') {
@@ -102,7 +112,136 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Função para inserir COR de forma automática para cada carro
 function setupEventListeners() {
+
+    const coresPorVersao = {
+	// LISTA DE CORES PARA MODELOS FIAT
+    "ARGO": {
+        "1.0 Flex Manual": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+        "Drive 1.0 Flex Manual": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+        "Drive 1.3 Flex Automático": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+        "Trekking 1.3 Flex Automático": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA SILVERSTONE (metálica)"]
+    },
+    "CRONOS": {
+        "Drive 1.0 Flex Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Drive 1.3 Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Precision 1.3 Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"]
+    },
+    "DUCATO": {
+        "Cargo Diesel Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "MaxiCargo Diesel Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Multi Diesel Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Minibus Confort 19L Diesel Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Minibus Luxo 16L Diesel Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Minibus Executivo 17L Diesel Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"]
+    },
+    "FASTBACK": {
+        "T200 Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo", "Cinza Silverstone", "Prata Bari", "Cinza Strato"],
+        "Audace T200 Hybrid Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo", "Cinza Silverstone", "Cinza Strato"],
+        "Impetus T200 Hybrid Automático": ["Preto Vulcano", "Branco Banchisa com Teto Preto Vulcano", "Vermelho Montecarlo com Teto Preto Vulcano", "Cinza Silverstone com Teto Preto Vulcano", "Prata Bari com Teto Preto Vulcano", "Cinza Strato com Teto Preto Vulcano"],
+        "Limited Edition T270 Flex Automático": ["Preto Vulcano", "Branco Banchisa com Teto Preto Vulcano", "Vermelho Montecarlo com Teto Preto Vulcano", "Cinza Silverstone com Teto Preto Vulcano", "Prata Bari com Teto Preto Vulcano", "Cinza Strato com Teto Preto Vulcano"],
+        "Abarth T270 Flex Automático": ["Preto Vulcano", "Branco Banchisa com Teto Preto Vulcano", "Vermelho Montecarlo com Teto Preto Vulcano", "Cinza Strato com Teto Preto Vulcano"]
+    },
+    "FIORINO": {
+        "Endurance 1.3 Flex Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"]
+    },
+    "MOBI": {
+        "Like 1.0 Flex Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Trekking 1.0 Flex Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"]
+    },
+    "PULSE": {
+        "Drive 1.3 Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo", "Cinza Silverstone"],
+        "Audace T200 Hybrid Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo", "Cinza Silverstone", "Cinza Strato com Teto Preto"],
+        "Impetus T200 Hybrid Automático": ["Preto Vulcano", "Branco Alaska com Teto Preto", "Vermelho Montecarlo com Teto Preto", "Cinza Strato com Teto Preto"],
+        "Abarth T270 Flex Automático": ["Vermelho Montecarlo com Teto Preto", "Preto Vulcano", "Branco Alaska com Teto Preto", "Cinza Strato com Teto Preto"]
+    },
+    "SCUDO": {
+        "Cargo 1.5 Manual TurboDiesel": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Multi 1.5 Manual TurboDiesel": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"]
+    },
+    "STRADA": {
+        "Endurance 1.3 CP Flex Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Freedom 1.3 CP Flex Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Freedom 1.3 CD Flex Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Volcano 1.3 CD Flex Manual": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Volcano 1.3 CD Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Ranch Turbo 200 CD Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Ultra Turbo 200 CD Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"]
+    },
+    "TITANO": {
+        "Endurance 2.2 4x4 Automático Diesel": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Volcano 2.2 4x4 Automático Diesel": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Ranch 2.2 4x4 Automático Diesel": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"]
+    },
+    "TORO": {
+        "Endurance T270 4x2 Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Freedom T270 4x2 Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Volcano T270 4x2 Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Ultra T270 Flex Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Volcano 2.0 TurboDiesel 4x4 Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"],
+        "Ranch 2.0 TurboDiesel 4x4 Automático": ["Preto Vulcano", "Branco Banchisa", "Vermelho Montecarlo"]
+    },
+	// LISTA DE CORES PARA MODELOS JEEP
+    "Renegade": {
+        "1.3 TURBO T270 4X2 Flex automático": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+        "SPORT T270 4X2 Flex automático": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+        "ALTITUDE T270 4X2 Flex automático": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+        "LONGITUDE T270 4X2 Flex automático": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "STING GREY (metálica)", "BRANCO POLAR (perolizada)"],
+        "SAHARA T270 4X2 Flex automático": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
+        "TRAILHAWK T270 4X4 Flex automático": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"],
+        "WILLYS T270 4X4 Flex automático": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "VERDE RECON (perolizada)", "STING GREY (perolizado)", "BRANCO POLAR (perolizada)"]
+    },
+    "Compass": {
+        "SPORT T270 Flex automático": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+        "LONGITUDE T270 Flex automático": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "PRATA BILLET (metálica)", "CINZA GRANITE (metálica)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"],
+        "LIMITED T270 Flex automático": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+        "SERIE S T270 Flex automático": ["PRETO CARBON (sólida) (padrão)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"],
+        "OVERLAND HURRICANE GASOLINA automático": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+        "BLACKHAWK HURRICANE GASOLINA automático": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"],
+        "4XE Hibrido PHEV automático": ["PRETO CARBON (sólida) (padrão)", "ALPINE WHITE BICOLOR (sólida)", "BLUE SHADE BICOLOR (metálica)"]
+    },
+    "Commander": {
+        "LONGITUDE 5L T270 Flex automático": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+        "LIMITED T270 Flex automático": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
+        "OVERLAND T270 Flex automático": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
+        "OVERLAND 2.2 TurboDIESEL 4X4 automático": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
+        "OVERLAND HURRICANE 4X4 automático": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
+        "BLACKHAWK HURRICANE 4X4 automático": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"]
+    },
+    "Wrangler": {
+        "RUBICON 4x4 Gasolina automático": ["BRANCO (sólida) (padrão)", "VERMELHO FIRECRACKER (sólida)", "PRETO (sólida)", "ANVIL (metálica)", "GRANITE CRYSTAL (metálica)", "HYDRO BLUE (metálica)"]
+    },
+    "Gladiator": {
+        "RUBICON 4x4 Gasolina automático": ["BRANCO (sólida) (padrão)", "VERMELHO FIRECRACKER (sólida)", "PRETO (sólida)", "ANVIL (metálica)", "GRANITE CRYSTAL (metálica)", "HYDRO BLUE (metálica)"]
+    },
+    "Grand Cherokee": {
+        "4XE Hibrido PHEV": ["BRIGHT WHITE (sólida) (padrão)", "MIDNIGHT SKY (metálica)", "BALTIC GREY METALLIC (metálica)", "DIAMOND BLACK (perolizada)"]
+    },
+	// LISTA DE CORES PARA MODELOS RAM
+    "Rampage": {
+        "BIG HORN 2.2 TURBODIESEL AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+        "REBEL 2.2 TURBODIESEL AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+        "REBEL 2.0 TURBO GASOLINA AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+        "LARAMIE 2.2 TURBODIESEL AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+        "LARAMIE 2.0 TURBO GASOLINA AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+        "R/T 2.0 TURBO GASOLINA AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+    },
+    "1500": {
+        "LARAMIE 3.0 BITURBO GASOLINA AT8 4X4": ["PRETO DIAMOND (perolizada) (padrão)", "PRATA BILLET (metálica)", "BRANCO MARFIM (perolizada)", "VERMELHO DELMONICO (perolizada)"],
+        "LARAMIE NIGHT EDITION 3.0 BITURBO GASOLINA AT8 4X4": ["PRETO DIAMOND (perolizada) (padrão)", "PRATA BILLET (metálica)", "BRANCO MARFIM (perolizada)"]
+    },
+    "2500": {
+        "LARAMIE 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (padrão)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"],
+        "LARAMIE NIGHT EDITION 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (padrão)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"]
+    },
+    "3500": {
+        "LARAMIE 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (padrão)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"],
+        "LARAMIE NIGHT EDITION 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (padrão)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"],
+        "LIMITED LONGHORN 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (padrão)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"]
+    }
+};
+	// Função para selecionar VERSÃO do carro de acordo com o MODELO selecionado
     console.log('Setting up event listeners...');
 	
 	
@@ -160,24 +299,53 @@ function setupEventListeners() {
         }
       });
     });
+	
+    modeloSelect.addEventListener("change", function() {
+    const marca = document.querySelector('input[name="marca"]:checked')?.value;
+    const modelo = this.value;
+    versaoSelect.innerHTML = '<option value="">Selecione a versão</option>';
 
-    modeloSelect.addEventListener("change", function () {
-      const marca = document.querySelector('input[name="marca"]:checked')?.value;
-      const modelo = this.value;
-      versaoSelect.innerHTML = '<option value="">Selecione a versão</option>';
-
-      if (marca && modelo && dados[marca][modelo]) {
+    if (marca && modelo && dados[marca][modelo]) {
         versaoSelect.disabled = false;
         dados[marca][modelo].forEach(versao => {
-          const opt = document.createElement("option");
-          opt.value = versao;
-          opt.textContent = versao;
-          versaoSelect.appendChild(opt);
+            const opt = document.createElement("option");
+            opt.value = versao;
+            opt.textContent = versao;
+            versaoSelect.appendChild(opt);
         });
-      } else {
+    } else {
         versaoSelect.disabled = true;
-      }
-    });
+    }
+	
+});
+
+// Adicionar este novo evento para a versão
+versaoSelect.addEventListener("change", function() {
+    const marca = document.querySelector('input[name="marca"]:checked')?.value;
+    const modelo = modeloSelect.value;
+    const versao = this.value;
+    const nomeCorSelect = document.getElementById("nomeCor");
+
+    if (nomeCorSelect) {
+        nomeCorSelect.innerHTML = '<option value="">Selecione a Cor</option>';
+        nomeCorSelect.disabled = true;
+
+        // Verifica se há cores para esta combinação marca/modelo/versão
+        if (marca && modelo && versao && coresPorVersao[modelo] && coresPorVersao[modelo][versao]) {
+            coresPorVersao[modelo][versao].forEach(cor => {
+                const opt = document.createElement("option");
+                opt.value = cor;
+                opt.textContent = cor;
+                nomeCorSelect.appendChild(opt);
+            });
+            nomeCorSelect.disabled = false;
+        }
+    }
+});
+
+
+
+
 
     // Optional checkbox
     const opcionalCheckbox = document.getElementById("opcionalCheckbox");
@@ -238,23 +406,39 @@ function setupEventListeners() {
     const copiarTextoBtn = document.getElementById("copiarTextoBtn");
     if (copiarTextoBtn) copiarTextoBtn.addEventListener("click", copiarTexto);
     
-    // TL buttons
+    // Redirecionamento do botão FIPE para o formulário de TABELA FIPE
     const tlFipeBtn = document.querySelector(".tl-fipe-btn");
     if (tlFipeBtn) {
         tlFipeBtn.addEventListener("click", function() {
-            window.open('https://ythallo89.github.io/texto_juridico_tabela_fipe/', '_blank');
+            window.open('FIPE/index.html', '_blank');
         });
     }
-    
+	
+    // Redirecionamento do botão BÔNUS para o formulário de BÔNUS NO USADO
     const tlBonusBtn = document.querySelector(".tl-bonus-usado-btn");
     if (tlBonusBtn) {
         tlBonusBtn.addEventListener("click", function() {
-            window.open('https://ythallo89.github.io/texto_juridico_bonus_usado/', '_blank');
+            window.open('Bônus no Usado/index.html', '_blank');
         });
     }
+	
+	const darkModeToggle = document.getElementById('darkModeToggle');
+	if (darkModeToggle) {
+		darkModeToggle.addEventListener('click', function () {
+			document.body.classList.toggle('dark-mode');
+			darkModeToggle.textContent = document.body.classList.contains('dark-mode') 
+				? 'Desativar Dark Mode' 
+				: 'Ativar Dark Mode';
+		});
+	}
+
+	
 
     console.log('Event listeners setup complete');
 }
+
+
+
 
 // Functions with enhanced error handling
 function changeBackgroundImage() {
@@ -378,7 +562,6 @@ function criarTexto() {
         const numeroChassi = getValue("numeroChassi");
         const opcional = getCheckboxValue("opcionalCheckbox");
         const nomeOpcional = getValue("nomeOpcional");
-        const cor = getRadioValue("cor");
         const nomeCor = getValue("nomeCor");
         const priceDE = getValue("priceDE");
         const pricePOR = getValue("pricePOR");
@@ -425,8 +608,7 @@ function criarTexto() {
             textoFinal += "sem opcional, ";
         }
 
-        textoFinal += `cor ${cor} `;
-        textoFinal += `${nomeCor}, com valor à vista `;
+        textoFinal += `cor ${nomeCor}, com valor à vista `;
         textoFinal += `de ${priceDE}`;
 
         if (pricePOR && pricePOR.trim() !== '') {
