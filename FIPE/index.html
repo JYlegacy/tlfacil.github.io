@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Modelos de Carro</title>
+    <!-- Inclua estilos CSS se necessário -->
+    <style>
+		 body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+            overflow: auto;
+        }
+
+        .parallax {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        label {
+            font-weight: bold;
+        }		
+		
+        input, select {
+			margin-bottom: 10px;
+			padding: 0px;
+			width: calc(30% - 18px);
+			border-radius: 4px;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+		}		
+		
+		.modelo {
+            margin-bottom: 30px;
+            position: relative;
+        }
+		
+		.tabelaFipe {
+            margin-top: 0px;
+			padding: 0px;
+			width: calc(130% - 18px);
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+		
+		.usadoNaFipe {
+            margin-top: 5px;
+			padding: 0px;
+			width: calc(80% - 18px);
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+		
+	
+		button {
+            margin-top: 0;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+		
+		button:hover {
+            background-color: #0056b3;
+        }
+		
+		.remove-button {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background-color: red;
+			color: white;
+			border: none;
+			cursor: pointer;
+			padding: 5px 10px;
+		}
+		
+		.remove-button:hover {
+			background-color: #8b0000;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            width: auto;
+        }
+		       
+
+        #header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #logo {
+            top: 10px;
+            left: 10px;
+            width: 200px;
+            height: auto;
+        }
+		
+        #textoFinal {
+			margin-top: 20px;
+			white-space: pre-wrap;
+			border-top: 1px solid #000;
+			padding-top: 20px;
+			max-width: 800px; /* Adicione esta propriedade */
+			margin-left: 0; /* Centralize horizontalmente */
+			margin-right: auto; /* Centralize horizontalmente */
+			text-align: justify; /* Justifica o texto */
+		}
+        	
+        
+    </style>
+</head>
+<body>
+	<div class="parallax" id="parallax"></div>
+
+    <div class="container">
+        <img src="https://cdn.appdealersites.com.br/italiana/italiana-institucional/logos/logo-italiana.png" alt="Logotipo" id="logo">
+        <br><br>
+	<h1>Formulário: 100% da Tabela Fipe no seu usado</h1>
+	<br>
+   <form id="carForm">
+        <!-- Seção para escolher carro da oferta -->
+        <div class="modelo">            
+            <label>Modelo do carro:</label>
+            <input type="text" name="modelo[]" placeholder="Ex: Argo, Wrangler, etc." required>
+			<div>
+			
+			<label>Ano / Modelo:</label>
+            <select name="ano_modelo[]">
+				<option value="">Selecione o ano / modelo</option>
+                <option value="2024/2024">2024/2024</option>
+                <option value="2024/2025">2024/2025</option>
+                <option value="2025/2025">2025/2025</option>
+                <option value="2025/2026">2025/2026</option>
+                <option value="2026/2026">2026/2026</option>
+                <option value="2026/2027">2026/2027</option>
+            </select>
+            </div>
+			
+            <label>Selecione as versões que são válidas para oferta:</label>
+            <div>
+                <input type="checkbox" name="versao_todas[]" value="todas" onchange="handleCheckboxChange(this)"> Todas as versões
+            </div>
+            <div>
+                <input type="checkbox" name="versao_exceto[]" value="exceto" onchange="handleCheckboxChange(this)"> Exceto versões:
+                <input type="text" name="versao_exceto_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+            </div>
+            <div>
+                <input type="checkbox" name="versao_exclusivamente[]" value="exclusivamente" onchange="handleCheckboxChange(this)"> Exclusivamente nas versões:
+                <input type="text" name="versao_exclusivamente_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+            </div>
+			
+            
+            <!-- Função Remover Modelo -->
+            <button type="button" class="remove-button" onclick="removeModelo(this)">Remover modelo</button>
+            <br><br>
+        </div>
+
+        <!-- Botão para adicionar novo modelo -->
+        <button type="button" onclick="addModelo()">Adicionar modelo</button>
+        <br><br><br>
+			
+            
+        <!-- Seção permanente de Tabela FIPE -->
+        <div class="tabelaFipe">
+            <label>Tabela FIPE elegível para:</label><br>
+            <input type="checkbox" name="tabela_fipe[]" value="qualquer_marca" onchange="handleTabelaFipeChange(this)"> Qualquer marca
+            <div>
+            <input type="checkbox" name="tabela_fipe[]" value="fiat_nacional" onchange="handleTabelaFipeChange(this)"> Fiat nacional
+            <div>
+            <input type="checkbox" name="tabela_fipe[]" value="fiat_especifico" onchange="handleTabelaFipeChange(this)"> Fiat modelo(s) especifico(s): <input type="text" name="fiat_modelo" placeholder="Ex: Pulse, Fastback, etc." size="20">
+            <div>
+            <input type="checkbox" name="tabela_fipe[]" value="jeep_nacional" onchange="handleTabelaFipeChange(this)"> Jeep nacional
+            <div>
+            <input type="checkbox" name="tabela_fipe[]" value="jeep_especifico" onchange="handleTabelaFipeChange(this)"> Jeep modelo(s) especifico(s): <input type="text" name="jeep_modelo" placeholder="Ex: Compass, Wrangler, etc." size="20">
+        </div>
+		<br>
+        <!-- Seletor para mês de referência FIPE -->
+        <div class="usadoNaFipe">
+            <label>Mês de referência FIPE:</label>
+            <select name="mes_referencia_fipe">
+				<option value="">Selecione o Mês</option>
+                <option value="Janeiro">Janeiro</option>
+                <option value="Fevereiro">Fevereiro</option>
+                <option value="Março">Março</option>
+                <option value="Abril">Abril</option>
+                <option value="Maio">Maio</option>
+                <option value="Junho">Junho</option>
+                <option value="Julho">Julho</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Setembro">Setembro</option>
+                <option value="Outubro">Outubro</option>
+                <option value="Novembro">Novembro</option>
+                <option value="Dezembro">Dezembro</option>
+            </select>
+            <!-- usar <br> para quebrar linha se precisar -->
+			<span style="font-size: 0.8em; font-weight: 300;">Padrão: 01 mês antes do mês atual.</span>
+        </div>
+        
+        <!-- Seletor para ano de referência FIPE -->
+        <div class="usadoNaFipe">
+            <label>Ano de referência FIPE:</label>
+            <select name="ano_referencia_fipe">
+				<option value="">Selecione o Ano</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+                <option value="2030">2030</option>
+                <!-- Adicionar mais opções conforme necessário -->
+            </select>
+			<span style="font-size: 0.8em; font-weight: 300;">Padrão: Ano atual.</span>
+            <!-- usar <br> para quebrar linha se precisar -->
+        </div>
+
+        <!-- Campo para valor máximo da avaliação -->
+        <div class="usadoNaFipe">
+            <label for="valorMaximo">Valor máximo da avaliação:</label>
+            <input type="text" id="valorMaximo" name="valorMaximo" placeholder="Valor Padrão: R$140.000">
+        </div>
+        
+        <!-- Seletor para ano mínimo de fabricação do usado -->
+        <div class="usadoNaFipe">
+            <label>Ano mínimo de Fabricação do Usado:</label>
+            <select name="anoMinimoFabricacao">
+				<option value="">Selecione o Ano</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <!-- Adicionar mais opções conforme necessário -->
+            </select>
+			<span style="font-size: 0.8em; font-weight: 300;">Padrão: 04 a menos do ano atual.</span>
+            <!-- usar <br> para quebrar linha se precisar -->
+        </div>
+        
+        <!-- Campo para média de KM por ano -->
+        <div class="usadoNaFipe">
+            <label>Média de KM por ano:</label>
+            <input type="text" id="mediaKmAno" name="mediaKmAno" placeholder="Valor Padrão: 10.000KM">
+            <!-- usar <br> para quebrar linha se precisar -->
+        </div>
+        
+        <!-- Seletor para ano do IPVA quitado -->
+        <div class="usadoNaFipe">
+            <label>Ano do IPVA quitado:</label>
+            <select name="anoIpvaQuitado">
+				<option value="">Selecione o Ano</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+                <option value="2030">2030</option>
+                <!-- Adicionar mais opções conforme necessário -->
+			</select>
+			<span style="font-size: 0.8em; font-weight: 300;">Padrão: Ano atual.</span>
+            <br>
+        </div>
+        
+    </form>
+    
+    <br>
+    <button type="button" onclick="gerarTextoFinal()">Criar Texto Júridico</button>
+    <button type="button" onclick="copiarTexto()">Copiar Texto</button>
+    
+    <div id="textoFinal"></div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+    <script>
+        // Função para aplicar a máscara de dinheiro no campo de valor máximo
+        $(document).ready(function() {
+            $('#valorMaximo').maskMoney({
+                prefix: 'R$ ',
+                thousands: '.',
+                decimal: ','
+            });
+            
+            $('#mediaKmAno').maskMoney({
+                suffix: ' KM',
+                thousands: '.',
+                decimal: '', // Remove o decimal
+				precision: 0 // Define a precisão como 0 para números inteiros
+            });
+        });
+
+        // Funções existentes no seu código para manipulação do formulário e geração de texto final
+        function handleCheckboxChange(checkbox) {
+            const modeloDiv = checkbox.closest('.modelo');
+            const checkboxes = modeloDiv.querySelectorAll('input[type="checkbox"]');
+            
+            checkboxes.forEach((cb) => {
+                if (cb !== checkbox) {
+                    cb.checked = false;
+                }
+            });
+        }
+
+        function handleTabelaFipeChange(checkbox) {
+            const checkboxes = document.querySelectorAll('input[name="tabela_fipe[]"]');
+            
+            checkboxes.forEach((cb) => {
+                if (cb !== checkbox) {
+                    cb.checked = false;
+                }
+            });
+        }
+
+        function addModelo() {
+            const form = document.getElementById('carForm');
+            const newModelo = document.createElement('div');
+            newModelo.classList.add('modelo');
+            newModelo.innerHTML = `
+                <label>Modelo do carro:</label>
+                <input type="text" name="modelo[]" placeholder="Ex: Argo, Wrangler, etc." required>
+                <div>
+                    <label>Ano / Modelo:</label>
+                    <select name="ano_modelo[]">
+                        <option value="2024/2024">2024/2024</option>
+                        <option value="2024/2025">2024/2025</option>
+                        <option value="2025/2025">2025/2025</option>
+                        <option value="2025/2026">2025/2026</option>
+                        <option value="2026/2026">2026/2026</option>
+                        <option value="2026/2027">2026/2027</option>
+                    </select>
+                </div>
+                <label>Selecione as versões que são válidas para oferta:</label>
+                <div>
+                    <input type="checkbox" name="versao_todas[]" value="todas" onchange="handleCheckboxChange(this)"> Todas as versões
+                </div>
+                <div>
+                    <input type="checkbox" name="versao_exceto[]" value="exceto" onchange="handleCheckboxChange(this)"> Exceto versões:
+                    <input type="text" name="versao_exceto_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+                </div>
+                <div>
+                    <input type="checkbox" name="versao_exclusivamente[]" value="exclusivamente" onchange="handleCheckboxChange(this)"> Exclusivamente nas versões:
+                    <input type="text" name="versao_exclusivamente_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+                </div>
+                
+                <button type="button" class="remove-button" onclick="removeModelo(this)">Remover modelo</button>
+                <br><br>
+				`;
+            form.insertBefore(newModelo, form.querySelector('button[onclick="addModelo()"]'));
+        }
+
+        function removeModelo(button) {
+            const modeloDiv = button.closest('.modelo');
+            modeloDiv.remove();
+        }
+
+        function gerarTextoFinal() {
+    const modelos = document.querySelectorAll('.modelo');
+    let textoFinal = 'Ação "Avaliação de até 100% da FIPE no seu seminovo". Condição válida para a compra dos veículos';
+
+    modelos.forEach((modeloDiv, index) => {
+        const modelo = modeloDiv.querySelector('input[name="modelo[]"]').value;
+        const anoModelo = modeloDiv.querySelector('select[name="ano_modelo[]"]').value;
+        const versaoTodasCheckbox = modeloDiv.querySelector('input[name="versao_todas[]"]');
+        const versaoExcetoCheckbox = modeloDiv.querySelector('input[name="versao_exceto[]"]');
+        const versaoExcetoText = modeloDiv.querySelector('input[name="versao_exceto_text[]"]').value;
+        const versaoExclusivamenteCheckbox = modeloDiv.querySelector('input[name="versao_exclusivamente[]"]');
+        const versaoExclusivamenteText = modeloDiv.querySelector('input[name="versao_exclusivamente_text[]"]').value;
+
+        textoFinal += ` ${modelo}`;
+        textoFinal += ` ${anoModelo}`;
+        if (versaoTodasCheckbox.checked) {
+            textoFinal += ` (todas as versões)`;
+        }
+        if (versaoExcetoCheckbox.checked) {
+            textoFinal += ` (exceto versões: ${versaoExcetoText})`;
+        }
+        if (versaoExclusivamenteCheckbox.checked) {
+            textoFinal += ` (exclusivamente para versões: ${versaoExclusivamenteText})`;
+        }
+        textoFinal += ', ';
+    });
+
+    const mesReferencia = document.querySelector('select[name="mes_referencia_fipe"]').value;
+    const anoReferencia = document.querySelector('select[name="ano_referencia_fipe"]').value;
+    textoFinal += `faturados na Italiana. O veículo seminovo que atender os critérios abaixo relacionados será avaliado no valor da Tabela FIPE (dados de referência de  ${mesReferencia}/${anoReferencia})`;
+
+    const valorMaximoAvaliacao = document.getElementById('valorMaximo').value;
+    textoFinal += `, limitado ao valor de ${valorMaximoAvaliacao}. O veículo seminovo deve, necessariamente, enquadrar-se nos seguintes critérios: `;
+
+    const tabelaFipeCheckboxes = document.querySelectorAll('input[name="tabela_fipe[]"]:checked');
+    tabelaFipeCheckboxes.forEach((checkbox) => {
+        const value = checkbox.value;
+        if (value === 'qualquer_marca') {
+            textoFinal += `seminovo de qualquer marca`;
+        } else if (value === 'fiat_nacional') {
+            textoFinal += `Fiat Nacional de qualquer modelo`;
+        } else if (value === 'fiat_especifico') {
+            const fiatModelo = document.querySelector('input[name="fiat_modelo"]').value;
+            textoFinal += `Fiat ${fiatModelo}`;
+        } else if (value === 'jeep_nacional') {
+            textoFinal += `Jeep Nacional de qualquer modelo`;
+        } else if (value === 'jeep_especifico') {
+            const jeepModelo = document.querySelector('input[name="jeep_modelo"]').value;
+            textoFinal += `Jeep ${jeepModelo}`;
+        }
+    });
+
+    const anoMinimoFabricacao = document.querySelector('select[name="anoMinimoFabricacao"]').value;
+    textoFinal += `, ano de fabricação a partir de ${anoMinimoFabricacao}`;
+
+    const mediaKmAno = document.getElementById('mediaKmAno').value;
+    textoFinal += `, com no máximo ${mediaKmAno} rodados por ano (considerando-se a média da quilometragem), em boas condições, pintura original, sem avarias e/ou problemas mecânicos, com todas as revisões de fábrica realizadas nas concessionárias e anotadas no manual e que tenha sido aprovado nos Laudos de Vistoria Veicular (EVC e Cautelar).`;
+
+    const anoIpvaQuitado = document.querySelector('select[name="anoIpvaQuitado"]').value;
+    textoFinal += ` O Seminovo dado como parte de pagamento deverá estar com o IPVA ${anoIpvaQuitado} quitado. Caso o cliente opte pela compra de um modelo ou versão de veículo 0KM abaixo do valor atribuído à FIPE do seu veículo usado, lhe será concedido pela concessionária um voucher com o crédito correspondente à diferença entre valor do veículo novo e usado. O crédito deverá ser utilizado, exclusivamente, em serviço e/ou produtos na Concessionária contratada. Essa promoção não contempla a devolução de valor em espécie. Não são elegíveis para essa oferta táxi, veículos importados, veículos comerciais e/ou modificados, veículos blindados, veículos com registros de sinistros, furtos, leilões e recuperados, veículos com avarias presentes, veículos que não tenham passado pelas revisões de fábrica nas concessionárias e anotadas no manual e veículos com qualquer tipo de ônus, débitos, dívidas, encargos, restrições e multas. Caso o automóvel usado na troca esteja em nome de Pessoa Jurídica e o novo automóvel será adquirido por Pessoa Física, deverá ser comprovado esse vínculo. Não são elegíveis à promoção os casos em que o automóvel usado esteja em nome de Pessoa Física diferente daquela que está adquirindo o veículo zero Km. No caso de o veículo usado estar em nome de parente de primeiro grau (esposa/marido/filho, filha/ pai ou mãe), o vínculo dessas pessoas deverá ser comprovado por meio de documentação complementar. Não serão aceitos outros níveis de parentesco que os citados acima.\n`;
+
+    document.getElementById('textoFinal').textContent = textoFinal.trim();
+}
+
+
+        function copiarTexto() {
+            const texto = document.getElementById('textoFinal');
+            const textarea = document.createElement('textarea');
+            textarea.value = texto.textContent;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Texto copiado para a área de transferência.');
+        }
+    </script>
+</body>
+</html>

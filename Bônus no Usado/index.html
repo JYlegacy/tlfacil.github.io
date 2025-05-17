@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Modelos de Carro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+            overflow: auto;
+        }
+
+        .parallax {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+		
+		.modelo {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        input, select {
+			margin-bottom: 12px;
+			padding: 2px;
+			width: calc(100% - 18px);
+			border-radius: 4px;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+		}
+	
+		button {
+            margin-top: 0;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+		
+		button:hover {
+            background-color: #0056b3;
+        }
+		
+		.remove-button {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background-color: red;
+			color: white;
+			border: none;
+			cursor: pointer;
+			padding: 5px 10px;
+		}
+		
+		.remove-button:hover {
+			background-color: #8b0000;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            width: auto;
+        }
+		       
+
+        #header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #logo {
+            top: 10px;
+            left: 10px;
+            width: 200px;
+            height: auto;
+        }
+		
+        #textoFinal {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            border-top: 1px solid #000;
+            padding-top: 20px;
+			text-align: justify; /* Justifica o texto */
+        }
+       
+    </style>
+<head>
+</head>
+<body>
+	<div class="parallax" id="parallax"></div>
+
+    <div class="container">
+        <img src="https://cdn.appdealersites.com.br/italiana/italiana-institucional/logos/logo-italiana.png" alt="Logotipo" id="logo">
+        <br><br>
+    <h1>Formulário: Bônus / Supervalorização no seu Usado</h1>
+	<br>
+    <form id="carForm">
+        <!-- Seção para escolher carro da oferta -->
+        <div class="modelo">            
+            <label>Modelo do carro:</label>
+            <input type="text" name="modelo[]" placeholder="Ex: Argo, Wrangler, etc." required>
+			<div>
+			
+			<label>Ano / Modelo:</label>
+            <select name="ano_modelo[]">
+				<option value="">Selecione o ano / modelo</option>
+                <option value="2024/2024">2024/2024</option>
+                <option value="2024/2025">2024/2025</option>
+                <option value="2025/2025">2025/2025</option>
+                <option value="2025/2026">2025/2026</option>
+                <option value="2026/2026">2026/2026</option>
+                <option value="2026/2027">2026/2027</option>
+            </select>
+            </div>
+			
+            <label>Selecione as versões que são válidas para oferta:</label>
+            <div>
+                <input type="checkbox" name="versao_todas[]" value="todas" onchange="handleCheckboxChange(this)"> Todas as versões
+            </div>
+            <div>
+                <input type="checkbox" name="versao_exceto[]" value="exceto" onchange="handleCheckboxChange(this)"> Exceto versões:
+                <input type="text" name="versao_exceto_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+            </div>
+            <div>
+                <input type="checkbox" name="versao_exclusivamente[]" value="exclusivamente" onchange="handleCheckboxChange(this)"> Exclusivamente nas versões:
+                <input type="text" name="versao_exclusivamente_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+            </div>
+			
+            
+            <!-- Função Remover Modelo -->
+            <button type="button" class="remove-button" onclick="removeModelo(this)">Remover modelo</button>
+            <br><br>
+        </div>
+
+        <!-- Botão para adicionar novo modelo -->
+        <button type="button" onclick="addModelo()">Adicionar modelo</button>
+        <br><br><br>
+
+        <!-- Campo para valor máximo da avaliação -->
+        <div class="tabelaFipe">
+            <label for="valorBonus">Valor do Bônus no usado:</label>
+            <input type="text" id="valorBonus" name="valorBonus" placeholder="Ex: R$ 6.000,00">
+        </div>
+        
+    </form>
+    
+    <br>
+    <button type="button" onclick="gerarTextoFinal()">Criar Texto Jurídico</button>
+    <button type="button" onclick="copiarTexto()">Copiar Texto</button>
+    
+    <div id="textoFinal"></div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#valorBonus').maskMoney({
+                prefix: 'R$ ',
+                thousands: '.',
+                decimal: ','
+            });
+        });
+
+        function handleCheckboxChange(checkbox) {
+            const modeloDiv = checkbox.closest('.modelo');
+            const checkboxes = modeloDiv.querySelectorAll('input[type="checkbox"]');
+            
+            checkboxes.forEach((cb) => {
+                if (cb !== checkbox) {
+                    cb.checked = false;
+                }
+            });
+        }
+
+        function addModelo() {
+            const form = document.getElementById('carForm');
+            const newModelo = document.createElement('div');
+            newModelo.classList.add('modelo');
+            newModelo.innerHTML = `
+                <label>Modelo do carro:</label>
+                <input type="text" name="modelo[]" placeholder="Ex: Argo, Wrangler, etc." required>
+                <div>
+                    <label>Ano / Modelo:</label>
+                    <select name="ano_modelo[]">
+                        <option value="2024/2024">2024/2024</option>
+                        <option value="2024/2025">2024/2025</option>
+                        <option value="2025/2025">2025/2025</option>
+                        <option value="2025/2026">2025/2026</option>
+                        <option value="2026/2026">2026/2026</option>
+                        <option value="2026/2027">2026/2027</option>
+                    </select>
+                </div>
+                <label>Selecione as versões que são válidas para oferta:</label>
+                <div>
+                    <input type="checkbox" name="versao_todas[]" value="todas" onchange="handleCheckboxChange(this)"> Todas as versões
+                </div>
+                <div>
+                    <input type="checkbox" name="versao_exceto[]" value="exceto" onchange="handleCheckboxChange(this)"> Exceto versões:
+                    <input type="text" name="versao_exceto_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+                </div>
+                <div>
+                    <input type="checkbox" name="versao_exclusivamente[]" value="exclusivamente" onchange="handleCheckboxChange(this)"> Exclusivamente nas versões:
+                    <input type="text" name="versao_exclusivamente_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+                </div>
+                
+                <button type="button" class="remove-button" onclick="removeModelo(this)">Remover modelo</button>
+                <br><br>
+            `;
+            form.insertBefore(newModelo, form.querySelector('button[onclick="addModelo()"]'));
+        }
+
+        function removeModelo(button) {
+            const modeloDiv = button.closest('.modelo');
+            modeloDiv.remove();
+        }
+
+        function gerarTextoFinal() {
+            const form = document.getElementById('carForm');
+            const modelos = form.querySelectorAll('.modelo');
+            let textoFinal = 'Ação "Bônus no Usado". Condição válida para veículos';
+
+            modelos.forEach((modelo, index) => {
+                textoFinal += ` ${modelo.querySelector('input[name="modelo[]"]').value}`;
+                textoFinal += ` ${modelo.querySelector('select[name="ano_modelo[]"]').value}`;
+
+                const checkboxes = modelo.querySelectorAll('input[type="checkbox"]:checked');
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.value === 'todas') {
+                        textoFinal += ` (todas as versões),`;
+                    } else if (checkbox.value === 'exceto') {
+                        textoFinal += ` (exceto versões ${modelo.querySelector('input[name="versao_exceto_text[]"]').value}),`;
+                    } else if (checkbox.value === 'exclusivamente') {
+                        textoFinal += ` (exclusivamente nas versões ${modelo.querySelector('input[name="versao_exclusivamente_text[]"]').value}),`;
+                    }
+                });
+
+                textoFinal += ``;
+            });
+
+            const valorBonus = form.querySelector('input[name="valorBonus"]').value;
+
+            textoFinal += ` faturados na Italiana. A concessionária participante avaliará, com base em seus exclusivos critérios, o seminovo do cliente, com valorização a partir de ${valorBonus} na avaliação, que poderá ser usado como parte do pagamento, a depender da avaliação feita pela concessionária. `;
+
+            const textoFinalElement = document.getElementById('textoFinal');
+            textoFinalElement.textContent = textoFinal;
+        }
+
+        function copiarTexto() {
+            const textoFinalElement = document.getElementById('textoFinal');
+            const textoFinal = textoFinalElement.textContent;
+
+            navigator.clipboard.writeText(textoFinal).then(() => {
+                alert('Texto copiado para a área de transferência!');
+            }).catch((error) => {
+                console.error('Erro ao copiar texto: ', error);
+            });
+        }
+    </script>
+</body>
+</html>
