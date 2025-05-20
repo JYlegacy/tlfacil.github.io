@@ -84,11 +84,15 @@
         <input type="text" id="pricePOR" name="pricePOR" placeholder="R$ 0,00" required>
         <br><br>
         
-        <label for="comusadonatroca">Valor final com seminovo na troca?</label>
-		<br><br>
-        <input type="checkbox" id="comusadonatroca">
-        <span style="font-size: 0.9em; font-weight: 300;">Ex: Pulse de R$110.000 por R$85.990 com seu seminovo na troca.</span>
-        <br>
+        <label for="comusadonatroca">Oferta com Seminovo na Troca?</label>
+		<select id="comusadonatroca">
+			<option value="">Não tem seminovo na troca</option>
+			<option value="Seminovo de qualquer marca na troca">Seminovo de qualquer marca na troca</option>
+			<option value="Seminovo FIAT na troca">Seminovo FIAT na troca</option>
+			<option value="Seminovo JEEP na troca">Seminovo JEEP na troca</option>
+			<option value="Seminovo RAM na troca">Seminovo RAM na troca</option>
+		</select>
+		<br>
         
          <!-- Botão FIPE adicionado aqui -->
         <button class="tl-fipe-btn">Criar texto "100% TABELA FIPE no Usado"</button>
