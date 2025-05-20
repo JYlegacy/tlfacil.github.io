@@ -586,7 +586,7 @@ function criarTexto() {
         const nomeCor = getValue("nomeCor");
         const priceDE = getValue("priceDE");
         const pricePOR = getValue("pricePOR");
-        const comusadonatroca = getCheckboxValue("comusadonatroca");
+        const comusadonatroca = getValue("comusadonatroca"); // Changed from checkbox to select
         const financiamento = getCheckboxValue("checkboxFinanciamento");
         const taxa = getValue("taxaJuros");
         const entradaPorcentagem = getValue("valorEntradaPorcentagem");
@@ -636,8 +636,8 @@ function criarTexto() {
             textoFinal += ` por ${pricePOR}`;
         }
         
-        if (comusadonatroca) {
-            textoFinal += ", com seu seminovo na troca";
+        if (comusadonatroca && comusadonatroca.trim() !== '') {
+            textoFinal += ` com ${comusadonatroca.toLowerCase()}`;
         }
         
         textoFinal += `. `;
