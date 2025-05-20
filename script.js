@@ -344,22 +344,7 @@ versaoSelect.addEventListener("change", function() {
 });
 
 
-
-
-
-    // Optional checkbox
-    const opcionalCheckbox = document.getElementById("opcionalCheckbox");
-    if (opcionalCheckbox) {
-        opcionalCheckbox.addEventListener("change", function() {
-            const nomeOpcional = document.getElementById("nomeOpcional");
-            if (nomeOpcional) {
-                nomeOpcional.style.display = this.checked ? "block" : "none";
-                if (!this.checked) nomeOpcional.value = '';
-            }
-        });
-    }
-
-    // Chassi checkbox
+	// Chassi checkbox
     const chassiCheckbox = document.getElementById("chassiUnicoCheckbox");
     if (chassiCheckbox) {
         chassiCheckbox.addEventListener("change", function() {
@@ -370,6 +355,31 @@ versaoSelect.addEventListener("change", function() {
             }
         });
     }
+
+    // Opcional checkbox
+    const opcionalCheckbox = document.getElementById("opcionalCheckbox");
+    if (opcionalCheckbox) {
+        opcionalCheckbox.addEventListener("change", function() {
+            const nomeOpcional = document.getElementById("nomeOpcional");
+            if (nomeOpcional) {
+                nomeOpcional.style.display = this.checked ? "block" : "none";
+                if (!this.checked) nomeOpcional.value = '';
+            }
+        });
+    }
+	
+	const bonusAcessoriosCheckbox = document.getElementById("bonusAcessoriosCheckbox");
+	if (bonusAcessoriosCheckbox) {
+		bonusAcessoriosCheckbox.addEventListener("change", function() {
+			const bonusAcessorios = document.getElementById("bonusAcessorios");
+			if (bonusAcessorios) {
+				bonusAcessorios.style.display = this.checked ? "block" : "none";
+				if (!this.checked) bonusAcessorios.value = '';
+			}
+		});
+	}
+
+  
 
     // Financing options
     const financiamentoCheckbox = document.getElementById("checkboxFinanciamento");
@@ -665,9 +675,9 @@ function criarTexto() {
         }
 		
 		
-        if (bonusAcessorios && bonusAcessorios.trim() !== '') {
-            textoFinal += ` "Ação \"BÔNUS EM ACESSÓRIOS\". Será bonificado ao cliente o valor de ${bonusAcessorios} em acessórios para serem instalados no veículo comprado. Não será possível resgatar o valor total ou parcial deste bônus em dinheiro ou transferido para outra pessoa. `;
-        }
+        if (getCheckboxValue("bonusAcessoriosCheckbox") && bonusAcessorios && bonusAcessorios.trim() !== '') {
+			textoFinal += ` "Ação \"BÔNUS EM ACESSÓRIOS\". Será bonificado ao cliente o valor de ${bonusAcessorios} em acessórios para serem instalados no veículo comprado. Não será possível resgatar o valor total ou parcial deste bônus em dinheiro ou transferido para outra pessoa. `;
+		}
 
         if (entradaCartao) {
             textoFinal += "Entrada facilitada no cartão de crédito da operadora LUCREE, em até 21 vezes com incidência de juros do cartão de acordo com o parcelamento solicitado. ";
