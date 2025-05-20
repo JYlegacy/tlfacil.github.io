@@ -278,32 +278,44 @@ function setupEventListeners() {
     const modeloSelect = document.getElementById("modelo");
     const versaoSelect = document.getElementById("versao");
 
-    document.querySelectorAll('input[name="marca"]').forEach(radio => {
-      radio.addEventListener("change", function () {
+// evento de change da marca
+document.querySelectorAll('input[name="marca"]').forEach(radio => {
+    radio.addEventListener("change", function () {
         const marca = this.value;
         modeloSelect.innerHTML = '<option value="">Selecione o modelo</option>';
         versaoSelect.innerHTML = '<option value="">Selecione a versão</option>';
         versaoSelect.disabled = true;
+        
+        // Resetar e desabilitar o campo de cor
+        const nomeCorSelect = document.getElementById("nomeCor");
+        nomeCorSelect.innerHTML = '<option value="">Selecione a Cor</option>';
+        nomeCorSelect.disabled = true;
 
         if (dados[marca]) {
-          modeloSelect.disabled = false;
-          const modelos = Object.keys(dados[marca]);
-          modelos.forEach(modelo => {
-            const opt = document.createElement("option");
-            opt.value = modelo;
-            opt.textContent = modelo;
-            modeloSelect.appendChild(opt);
-          });
+            modeloSelect.disabled = false;
+            const modelos = Object.keys(dados[marca]);
+            modelos.forEach(modelo => {
+                const opt = document.createElement("option");
+                opt.value = modelo;
+                opt.textContent = modelo;
+                modeloSelect.appendChild(opt);
+            });
         } else {
-          modeloSelect.disabled = true;
+            modeloSelect.disabled = true;
         }
-      });
     });
-	
-    modeloSelect.addEventListener("change", function() {
+});
+
+// evento de change do modelo
+modeloSelect.addEventListener("change", function() {
     const marca = document.querySelector('input[name="marca"]:checked')?.value;
     const modelo = this.value;
     versaoSelect.innerHTML = '<option value="">Selecione a versão</option>';
+    
+    // Resetar e desabilitar o campo de cor
+    const nomeCorSelect = document.getElementById("nomeCor");
+    nomeCorSelect.innerHTML = '<option value="">Selecione a Cor</option>';
+    nomeCorSelect.disabled = true;
 
     if (marca && modelo && dados[marca][modelo]) {
         versaoSelect.disabled = false;
@@ -316,10 +328,9 @@ function setupEventListeners() {
     } else {
         versaoSelect.disabled = true;
     }
-	
 });
 
-// Adicionar este novo evento para a versão
+// evento para a versão
 versaoSelect.addEventListener("change", function() {
     const marca = document.querySelector('input[name="marca"]:checked')?.value;
     const modelo = modeloSelect.value;
