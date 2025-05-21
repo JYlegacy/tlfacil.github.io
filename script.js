@@ -4,16 +4,21 @@ let textoBonusUsadoInserido = '';
 const images = [];
 let currentIndex = 0;
 
-// Document ready function
 document.addEventListener('DOMContentLoaded', function() {
-    
     // Ativar automaticamente o modo escuro se o navegador estiver configurado assim
+    const darkModeButton = document.getElementById('darkModeButton');
+    const icon = darkModeButton.querySelector('.material-symbols-outlined');
+    
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.body.classList.add('dark-mode');
+        icon.textContent = 'light_mode'; // Ícone de sol (modo claro)
+        
         const darkModeToggle = document.getElementById('darkModeToggle');
         if (darkModeToggle) {
             darkModeToggle.textContent = 'Desativar Dark Mode';
         }
+    } else {
+        icon.textContent = 'dark_mode'; // Ícone de lua (modo escuro)
     }
 
 console.log('Document ready - initializing...');
@@ -452,6 +457,17 @@ versaoSelect.addEventListener("change", function() {
 				: 'Ativar Dark Mode';
 		});
 	}
+	
+	document.getElementById('darkModeButton').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    
+    const icon = this.querySelector('.material-symbols-outlined');
+    if (document.body.classList.contains('dark-mode')) {
+        icon.textContent = 'light_mode'; // Ícone de sol (modo claro)
+    } else {
+        icon.textContent = 'dark_mode'; // Ícone de lua (modo escuro)
+    }
+});
 
 	
 
@@ -615,8 +631,8 @@ function criarTexto() {
         const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
 
         // Build the text
-        let textoFinal = `${marca} ${modelo} ${versao}`;
-        textoFinal += `, 0km`;
+        let textoFinal = `${marca} ${modelo} ${versao}, 0km`;
+        
         textoFinal += `, ${anoModelo}, `;
 
         if (chassiUnico && numeroChassi) {
