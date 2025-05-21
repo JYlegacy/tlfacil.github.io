@@ -20,7 +20,18 @@ body {
     transition: background-image 1s ease-in-out;
 }
 
+/* Ajustes do botão toggle do MODO ESCURO*/
+.toggle-container {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* Ajuste o padding do container principal para acomodar o toggle */
 .container {
+    position: relative; /* Importante para o posicionamento absoluto do toggle */
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
@@ -28,6 +39,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 
 h1 {
     text-align: center;
@@ -127,14 +139,26 @@ button:hover {
 }
 
 #logo {
-    top: 10px;
-    left: 10px;
-    width: 180px;
-    height: auto;
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    display: flex;
+    align-items: center;
 }
 
 #textoGerado {
     text-align: justify;
+}
+
+
+/* Configurações do MODO ESCURO */
+.dark-mode-toggle-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
 }
 
 body.dark-mode {
@@ -155,11 +179,137 @@ body.dark-mode textarea {
     border: 1px solid #555;
 }
 
-body.dark-mode button {
-    background-color: #333;
-    color: #fff;
+body.dark-mode #header {
+    background-color: #2c2c2c; /* Cor de fundo escura */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra mais escura */
 }
 
-body.dark-mode button:hover {
-    background-color: #555;
+body.dark-mode #header h1 {
+    color: #ffffff;
+	
+}
+
+body.dark-mode .dark-mode-toggle-container {
+    color: #ffffff;
+}
+
+
+
+
+
+/* Estilo do Toggle Switch do MODO ESCURO */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #195da2;
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+#toggleLabel {
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+body.dark-mode #toggleLabel {
+    color: #ffffff;
+}
+
+/* Estilo para o modo escuro */
+body.dark-mode .toggle-container {
+    color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+/* Estilo do botão de modo escuro */
+.dark-mode-btn {
+    position: absolute;
+    top: 0px;
+    right: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: transparent;
+    border: none; /* Removemos a borda quadrada */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.dark-mode-btn:hover {
+    background-color: rgba(240, 240, 240, 0.5); /* Fundo mais suave no hover */
+}
+
+/* Estilos para o modo escuro */
+body.dark-mode .dark-mode-btn {
+    color: #ffffff;
+}
+
+body.dark-mode .dark-mode-btn:hover {
+    background-color: rgba(51, 51, 51, 0.5); /* Fundo mais suave no hover */
+}
+
+/* Ícone quando está no modo claro */
+body:not(.dark-mode) .dark-mode-btn .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Ícones - removemos a cor dourada específica para o modo escuro */
+body.dark-mode .dark-mode-btn .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: #ffffff; /* Ícone branco no modo escuro */
 }
