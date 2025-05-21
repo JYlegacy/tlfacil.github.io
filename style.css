@@ -140,11 +140,14 @@ button:hover {
 
 #logo {
     position: absolute;
-    top: 30px;
+    top: 17px;
     left: 20px;
     display: flex;
     align-items: center;
+    width: 231px; /* largura fixa */
+    height: 40px; /* altura fixa */
 }
+
 
 #textoGerado {
     text-align: justify;
@@ -312,4 +315,36 @@ body:not(.dark-mode) .dark-mode-btn .material-symbols-outlined {
 body.dark-mode .dark-mode-btn .material-symbols-outlined {
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     color: #ffffff; /* Ícone branco no modo escuro */
+}
+
+
+
+
+.logo-light, .logo-dark {
+    position: absolute;
+    top: 17px;
+    left: 20px;
+    width: 231px;
+    height: 40px;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Estado padrão: light visível */
+body:not(.dark-mode) .logo-light {
+    opacity: 1;
+}
+
+body:not(.dark-mode) .logo-dark {
+    opacity: 0;
+}
+
+/* Estado escuro: dark visível */
+body.dark-mode .logo-light {
+    opacity: 0;
+}
+
+body.dark-mode .logo-dark {
+    opacity: 1;
 }
