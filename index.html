@@ -1,66 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Texto Jurídico</title>
-    <link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
-    <script src="script.js" defer></script>
+    <!-- Meta tags para configuração básica do documento -->
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura viewport para responsividade -->
+    <title>Texto Jurídico</title> <!-- Título da página exibido na aba do navegador -->
+    
+    <!-- Links para folhas de estilo e scripts externos -->
+    <link rel="stylesheet" href="style.css"> <!-- Folha de estilo principal -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!-- Ícones do Material Design -->
+    
+    <!-- Scripts JavaScript externos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Biblioteca jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script> <!-- Plugin para máscara monetária -->
+    <script src="script.js" defer></script> <!-- Script principal da aplicação (carregado com defer) -->
 </head>
 <body>
+    <!-- Efeito visual de parallax -->
     <div class="parallax" id="parallax"></div>
 
+    <!-- Container principal que engloba todo o conteúdo -->
     <div class="container">
-        <!-- Div para o toggle alinhado à direita -->
-		<button id="darkModeButton" class="dark-mode-btn">
-			<span class="material-symbols-outlined">dark_mode</span>
-			
-		</button>
-		<br>
+        <!-- Botão para alternar entre tema claro e escuro -->
+        <button id="darkModeButton" class="dark-mode-btn">
+            <span class="material-symbols-outlined">dark_mode</span> <!-- Ícone de lua para tema escuro -->
+        </button>
+        <br>
 
-        <img src="resources/11.png" alt="Logotipo" class="logo-light">
-		<img src="resources/8.png" alt="Logotipo" class="logo-dark">
+        <!-- Logotipos - um para cada tema (claro/escuro) -->
+        <img src="resources/11.png" alt="Logotipo" class="logo-light"> <!-- Logotipo para tema claro -->
+        <img src="resources/8.png" alt="Logotipo" class="logo-dark"> <!-- Logotipo para tema escuro -->
 
-		<br><br>
-		
+        <br><br>
+        
+        <!-- Cabeçalho com título principal -->
         <div id="header">
-            <h1>Texto Jurídico</h1>
+            <h1>Texto Jurídico</h1> <!-- Título da aplicação -->
         </div>
-	
-	
-	
+        
+        <!-- Seção de seleção do veículo -->
         <h4>Escolha o Veículo:</h4>
-		<div class="radio-group">
-			<label><input type="radio" name="marca" value="FIAT"> FIAT</label>
-			<label><input type="radio" name="marca" value="JEEP"> JEEP</label>
-			<label><input type="radio" name="marca" value="RAM"> RAM</label>
-		</div>
-		<br>
+        <div class="radio-group">
+            <!-- Opções de marca do veículo -->
+            <label><input type="radio" name="marca" value="FIAT"> FIAT</label>
+            <label><input type="radio" name="marca" value="JEEP"> JEEP</label>
+            <label><input type="radio" name="marca" value="RAM"> RAM</label>
+        </div>
+        <br>
 
-			<label for="modelo"></label>
-			<select id="modelo" disabled>
-				<option value="">Selecione o modelo</option>
-			</select>
-			</br>
-
-			<label for="versao"></label>
-			<select id="versao" disabled>
-				<option value="">Selecione a versão</option>
-			</select>
-		</form>
+        <!-- Dropdown para seleção de modelo (inicialmente desabilitado) -->
+        <label for="modelo"></label>
+        <select id="modelo" disabled>
+            <option value="">Selecione o modelo</option> <!-- Opção padrão -->
+        </select>
         </br>
 
-        <label for="nomeCor"></label>
-		<select id="nomeCor" disabled>
-			<option value="">Selecione a Cor</option>
-		</select>
+        <!-- Dropdown para seleção de versão (inicialmente desabilitado) -->
+        <label for="versao"></label>
+        <select id="versao" disabled>
+            <option value="">Selecione a versão</option> <!-- Opção padrão -->
+        </select>
+        </br>
 
-		<label for="anoModelo"></label>
+        <!-- Dropdown para seleção de cor (inicialmente desabilitado) -->
+        <label for="nomeCor"></label>
+        <select id="nomeCor" disabled>
+            <option value="">Selecione a Cor</option> <!-- Opção padrão -->
+        </select>
+
+        <!-- Dropdown para seleção de ano/modelo -->
+        <label for="anoModelo"></label>
         <select id="anoModelo">
-            <option value="">Selecione o ano/modelo</option>
+            <option value="">Selecione o ano/modelo</option> <!-- Opção padrão -->
+            <!-- Opções pré-definidas de anos/modelos -->
             <option value="2024/2024">2024/2024</option>
             <option value="2024/2025">2024/2025</option>
             <option value="2025/2025">2025/2025</option>
@@ -71,53 +83,56 @@
         </select>
         <br><br>
 
+        <!-- Seção para chassi único (com campo condicional) -->
         <label for="chassiUnico">Chassi único:</label>
-        <input type="checkbox" id="chassiUnicoCheckbox">
-        <input type="text" id="numeroChassi" placeholder="Nº final do chassi (Ex: K590634)" style="display: none;">
+        <input type="checkbox" id="chassiUnicoCheckbox"> <!-- Checkbox para ativar -->
+        <input type="text" id="numeroChassi" placeholder="Nº final do chassi (Ex: K590634)" style="display: none;"> <!-- Campo que aparece quando marcado -->
         <br><br>
 
+        <!-- Seção para opcionais (com campo condicional) -->
         <label for="opcional">Opcional:</label>
-        <input type="checkbox" id="opcionalCheckbox">
-        <input type="text" id="nomeOpcional" placeholder="Nome do opcional" style="display: none;">
+        <input type="checkbox" id="opcionalCheckbox"> <!-- Checkbox para ativar -->
+        <input type="text" id="nomeOpcional" placeholder="Nome do opcional" style="display: none;"> <!-- Campo que aparece quando marcado -->
         <br><br>
 
-        
-        <label for="priceDE">Preço "DE":</label>
-        <span style="font-size: 0.9em; font-weight: 300;">(Para ofertas "a partir de", preencher apenas esse campo)</span>
-        <input type="text" id="priceDE" name="priceDE" placeholder="R$ 0,00" required>
+        <!-- Campos para preços -->
+        <label for="priceDE">Preço "a partir de:"</label>
+        <input type="text" id="priceDE" name="priceDE" placeholder="R$ 0,00" required> <!-- Campo formatado com máscara monetária -->
         <br><br>
 
-        <label for="pricePOR">Preço "POR":</label>
-        <input type="text" id="pricePOR" name="pricePOR" placeholder="R$ 0,00" required>
+        <label for="pricePOR">Preço "por:"</label>
+        <input type="text" id="pricePOR" name="pricePOR" placeholder="R$ 0,00" required> <!-- Campo formatado com máscara monetária -->
         <br><br>
         
-        <label for="comusadonatroca">Oferta com Seminovo na Troca?</label>
-		<select id="comusadonatroca">
-			<option value="">Não tem seminovo na troca</option>
-			<option value="Seminovo de qualquer marca na troca">Seminovo de qualquer marca na troca</option>
-			<option value="Seminovo FIAT na troca">Seminovo FIAT na troca</option>
-			<option value="Seminovo JEEP na troca">Seminovo JEEP na troca</option>
-			<option value="Seminovo RAM na troca">Seminovo RAM na troca</option>
-		</select>
-		<br>
+        <!-- Dropdown para seminovos na troca -->
+        <label for="comusadonatroca">Oferta contém SEMINOVO na troca?</label>
+        <select id="comusadonatroca">
+            <option value="">Não tem seminovo na troca</option> <!-- Opção padrão -->
+            <option value="seminovo de qualquer marca na troca">Seminovo de qualquer marca na troca</option>
+            <option value="seminovo FIAT na troca">Seminovo FIAT na troca</option>
+            <option value="seminovo JEEP na troca">Seminovo JEEP na troca</option>
+            <option value="seminovo RAM na troca">Seminovo RAM na troca</option>
+        </select>
+        <br>
         
-         <!-- Botão FIPE adicionado aqui -->
-        <button class="tl-fipe-btn">Criar texto "100% TABELA FIPE no Usado"</button>
-        
-        
-         <!-- Botão Bônus no Usado adicionado aqui -->
-        <button class="tl-bonus-usado-btn">Criar texto "Supervalorização no Usado"</button>
+        <!-- Botões para criação de textos legais específicos -->
+        <button class="tl-fipe-btn">Criar texto "100% Tabela Fipe no Usado"</button> <!-- Botão para texto FIPE -->
+        <button class="tl-bonus-usado-btn">Criar texto "Supervalorização no Usado"</button> <!-- Botão para texto de bônus -->
         <br><br><br>
         
+        <!-- Seção de financiamento (com campos condicionais) -->
         <label for="checkboxFinanciamento">Financiamento:</label>
-        <input type="checkbox" id="checkboxFinanciamento" name="checkboxFinanciamento">
+        <input type="checkbox" id="checkboxFinanciamento" name="checkboxFinanciamento"> <!-- Checkbox para mostrar/ocultar seção -->
         <br><br>
 
+        <!-- Container com opções de financiamento (inicialmente oculto) -->
         <div id="opcoesFinanciamento" style="display: none;">
+            <!-- Campos para detalhes do financiamento -->
             <label for="taxaJuros">Taxa de Juros:</label>
             <input type="text" id="taxaJuros" name="taxaJuros" placeholder="0,00%">
             <br><br>
 
+            <!-- Opções para tipo de entrada -->
             <label for="checkboxEntrada">Entrada:</label>
             <br>
             <input type="radio" id="entradaPorcentagem" name="entradaTipo" value="porcentagem">
@@ -126,18 +141,21 @@
             <label for="entradaReal">Valor em R$</label>
             <br><br>
 
+            <!-- Campo para entrada em porcentagem (condicional) -->
             <div id="campoEntradaPorcentagem" style="display: none;">
                 <label for="valorEntradaPorcentagem">Valor da Entrada (%):</label>
                 <input type="text" id="valorEntradaPorcentagem" name="valorEntradaPorcentagem" placeholder="0,00%">
                 <br><br>
             </div>
 
+            <!-- Campo para entrada em valor real (condicional) -->
             <div id="campoEntradaReal" style="display: none;">
                 <label for="valorEntradaReal">Valor da Entrada (R$):</label>
                 <input type="text" id="valorEntradaReal" name="valorEntradaReal" placeholder="R$ 0,00">
                 <br><br>
             </div>
 
+            <!-- Demais campos do financiamento -->
             <label for="quantidadeParcelas">Quantidade de Parcelas:</label>
             <input type="number" id="quantidadeParcelas" name="quantidadeParcelas" placeholder="Ex: 36">
             <br><br>
@@ -147,14 +165,15 @@
             <br><br>
 
             <label for="carencia">Carência:</label>
-            <input type="text" id="carencia" name="carencia" placeholder="Ex: 30">
+            <input type="number" id="carencia" name="carencia" placeholder="Ex: 30">
             <br><br>
 
-            
+            <!-- Seção para parcela final (plano balão - condicional) -->
             <label for="checkboxParcelaFinal">Parcela Final (Plano Balão)</label>
-			<input type="checkbox" id="checkboxParcelaFinal" name="checkboxParcelaFinal">
+            <input type="checkbox" id="checkboxParcelaFinal" name="checkboxParcelaFinal">
             <br><br>
 
+            <!-- Campos da parcela final (mostrados quando checkbox está marcado) -->
             <div id="camposParcelaFinal" style="display: none;">
                 <label for="numeroParcelaFinal">Número da Parcela Final:</label>
                 <input type="number" id="numeroParcelaFinal" name="numeroParcelaFinal" placeholder="Ex: 36">
@@ -166,59 +185,61 @@
             </div>
         </div>
 
+        <!-- Checkboxes para benefícios adicionais -->
         <label for="ipvaGratis">IPVA Grátis:</label>
         <input type="checkbox" id="ipvaGratis">
         <br><br>
-		
-		<label for="emplacamentoGratis">Emplacamento Grátis:</label>
+        
+        <label for="emplacamentoGratis">Emplacamento Grátis:</label>
         <input type="checkbox" id="emplacamentoGratis">
         <br><br>
-		
-		<label for="revisãoGratis">1ª Revisão Grátis:</label>
+        
+        <label for="revisãoGratis">1ª Revisão Grátis:</label>
         <input type="checkbox" id="revisãoGratis">
         <br><br>
-		
-		<label for="bonusAcessoriosCheckbox">Bônus em Acessórios:</label>
-		<input type="checkbox" id="bonusAcessoriosCheckbox">
-		<input type="text" id="bonusAcessorios" name="bonusAcessorios" placeholder="R$ 0,00" style="display: none;">
-		<br><br>
+        
+        <!-- Seção para bônus em acessórios (com campo condicional) -->
+        <label for="bonusAcessoriosCheckbox">Bônus em Acessórios:</label>
+        <input type="checkbox" id="bonusAcessoriosCheckbox">
+        <input type="text" id="bonusAcessorios" name="bonusAcessorios" placeholder="R$ 0,00" style="display: none;">
+        <br><br>
 
+        <!-- Checkbox para entrada no cartão -->
         <label for="entradaCartao">Entrada em 21x no cartão:</label>
         <input type="checkbox" id="entradaCartao">
         <br><br>
 
+        <!-- Dropdown para tipo de cliente -->
         <label for="tipoCliente">Tipo de Cliente:</label>
         <select id="tipoCliente">
-            <option value="">Selecione o tipo de cliente</option>
+            <option value="">Selecione o tipo de cliente</option> <!-- Opção padrão -->
             <option value="Pessoa Física no canal VAREJO">Pessoa Física</option>
             <option value="Pessoa Física Pessoa Física no canal de VENDAS DIRETAS">Pessoa Física em VD pelo CPF</option>
             <option value="CNPJ e Produtor Rural no canal de VENDAS DIRETAS">CNPJ e Produtor Rural</option>
             <option value="Táxi com isenções de IPI e ICMS no canal de VENDAS DIRETAS">Táxi (isenções de IPI e ICMS)</option>
             <option value="Táxi com isenções de IPI no canal de VENDAS DIRETAS">Táxi (isenções de IPI)</option>
             <option value="PCD com isenções de IPI e ICMS no canal de VENDAS DIRETAS">PCD (isenções de IPI e ICMS)</option>
-			<option value="PCD com isenções de IPI no canal de VENDAS DIRETAS">PCD (isenção de IPI)</option>
+            <option value="PCD com isenções de IPI no canal de VENDAS DIRETAS">PCD (isenção de IPI)</option>
         </select>
         <br><br>
 
+        <!-- Campo para data de validade -->
         <label for="validade">Validade:</label>
         <input type="date" id="validade">
         <br><br>
 
-        <button id="criarTextoBtn">Criar Texto</button>
-        
-        <button class="inserirfipe-btn" id="inserirFipeBtn">Inserir TL "100% FIPE"</button>
-        
-        <button class="inserirBonusUsado-btn" id="inserirBonusUsadoBtn">Inserir TL "Bônus Usado"</button>
-        
-        <button class="limpar-texto-btn" id="limparTextoBtn">Excluir "Fipe" e "Bônus"</button>
-        
-        <button id="copiarTextoBtn">Copiar Texto</button>
-
+        <!-- Botões principais de ação -->
+        <button id="criarTextoBtn">Criar Texto</button> <!-- Gera o texto completo -->
+        <button class="inserirfipe-btn" id="inserirFipeBtn">Inserir TL "100% FIPE"</button> <!-- Insere texto FIPE -->
+        <button class="inserirBonusUsado-btn" id="inserirBonusUsadoBtn">Inserir TL "Bônus Usado"</button> <!-- Insere texto de bônus -->
+        <button class="limpar-texto-btn" id="limparTextoBtn">Excluir "Fipe" e "Bônus"</button> <!-- Limpa textos adicionais -->
+        <button id="copiarTextoBtn">Copiar Texto</button> <!-- Copia texto gerado para clipboard -->
         
         <br><br>
 
+        <!-- Área de exibição do texto gerado -->
         <div>
-            <p id="textoGerado" style="white-space: pre-line;"></p>
+            <p id="textoGerado" style="white-space: pre-line;"></p> <!-- Mantém formatação de quebras de linha -->
         </div>
     </div>
 </body>
