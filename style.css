@@ -1,350 +1,181 @@
+/* ===== ESTILOS GERAIS ===== */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f2f2f2;
-    color: #333;
-    overflow: auto;
+    font-family: Arial, sans-serif; /* Define a fonte principal */
+    margin: 0; /* Remove margens externas */
+    padding: 0; /* Remove espaçamento interno */
+    background-color: #f2f2f2; /* Define a cor de fundo */
+    color: #333; /* Define a cor do texto */
+    overflow: auto; /* Permite rolagem se necessário */
 }
 
+/* ===== EFEITO PARALLAX ===== */
 .parallax {
-    position: fixed;
+    position: fixed; /* Fixa o elemento na tela */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: background-image 1s ease-in-out;
+    width: 100%; /* Ocupa toda a largura */
+    height: 100%; /* Ocupa toda a altura */
+    z-index: -1; /* Coloca o elemento atrás dos demais */
+    background-size: cover; /* Ajusta a imagem para cobrir o fundo */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    background-position: center; /* Centraliza a imagem */
+    transition: background-image 1s ease-in-out; /* Suaviza a troca de imagem */
 }
 
-/* Ajustes do botão toggle do MODO ESCURO*/
-.toggle-container {
-    position: absolute;
-    top: 25px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-}
-
-/* Ajuste o padding do container principal para acomodar o toggle */
+/* ===== CONTAINER PRINCIPAL ===== */
 .container {
-    position: relative; /* Importante para o posicionamento absoluto do toggle */
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Permite posicionar elementos filhos relativamente */
+    max-width: 800px; /* Largura máxima */
+    margin: 20px auto; /* Centraliza e adiciona espaçamento externo */
+    padding: 20px; /* Espaçamento interno */
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-
+/* ===== CABEÇALHO ===== */
 h1 {
-    text-align: center;
-    font-size: 16px;
-    color: #333;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-label {
-    font-weight: bold;
-}
-
-input, select {
-    margin-bottom: 10px;
-    padding: 8px;
-    width: calc(100% - 18px);
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-input[type="checkbox"], input[type="radio"] {
-    width: auto;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button.tl-fipe-btn {
-    background-color: #195da2;
-    color: #fff;
-}
-
-button.tl-fipe-btn:hover {
-    background-color: #073e59;
-}
-
-button.tl-bonus-usado-btn {
-    background-color: #07396b;
-    color: #fff;
-}
-
-button.tl-bonus-usado-btn:hover {
-    background-color: #06364d;
-}
-
-button.inserirfipe-btn {
-    background-color: #195da2;
-    color: #fff;
-}
-
-button.inserirfipe-btn:hover {
-    background-color: #073e59;
-}
-
-button.inserirBonusUsado-btn {
-    background-color: #07396b;
-    color: #fff;
-}
-    
-button.inserirBonusUsado-btn:hover {
-    background-color: #06364d;
-}
-
-.limpar-texto-btn {
-    background-color: #ff0000;
-    color: #fff;
-}
-
-.limpar-texto-btn:hover {
-    background-color: #cc0000;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-#opcoesCor, #opcoesFinanciamento {
-    display: flex;
-    gap: 10px;
+    text-align: center; /* Centraliza o texto */
+    font-size: 16px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+    margin: 0; /* Remove espaçamento externo */
+    text-transform: uppercase; /* Letras maiúsculas */
+    letter-spacing: 2px; /* Espaçamento entre letras */
 }
 
 #header {
-    background-color: #f8f9fa;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa; /* Cor de fundo clara */
+    padding: 10px; /* Espaçamento interno */
+    text-align: center; /* Centraliza o conteúdo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave inferior */
 }
 
-#logo {
-    position: absolute;
-    top: 17px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    width: 231px; /* largura fixa */
-    height: 40px; /* altura fixa */
+/* ===== ELEMENTOS DE FORMULÁRIO ===== */
+label {
+    font-weight: bold; /* Deixa os rótulos em negrito */
 }
 
-
-#textoGerado {
-    text-align: justify;
+input, select {
+    margin-bottom: 10px; /* Espaçamento inferior */
+    padding: 8px; /* Espaçamento interno */
+    width: calc(100% - 18px); /* Ajusta a largura total menos o padding e borda */
+    border-radius: 4px; /* Bordas arredondadas */
+    border: 1px solid #ccc; /* Borda cinza clara */
+    box-sizing: border-box; /* Inclui borda e padding no cálculo do tamanho */
 }
 
-
-/* Configurações do MODO ESCURO */
-.dark-mode-toggle-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    z-index: 1000;
+input[type="checkbox"], input[type="radio"] {
+    width: auto; /* Tamanho automático para esses tipos */
 }
 
+/* ===== BOTÕES ===== */
+button {
+    margin-top: 20px; /* Espaçamento superior */
+    padding: 10px 20px; /* Espaçamento interno vertical e horizontal */
+    background-color: #007bff; /* Cor azul padrão */
+    color: #fff; /* Cor do texto */
+    border: none; /* Remove bordas padrão */
+    border-radius: 4px; /* Bordas arredondadas */
+    cursor: pointer; /* Mostra ponteiro clicável */
+}
+
+/* Botões específicos com cores distintas */
+button.tl-fipe-btn { background-color: #195da2; }
+button.tl-bonus-usado-btn { background-color: #07396b; }
+button.inserirfipe-btn { background-color: #195da2; }
+button.inserirBonusUsado-btn { background-color: #07396b; }
+.limpar-texto-btn { background-color: #ff0000; }
+
+/* Efeitos ao passar o mouse */
+button:hover { background-color: #0056b3; }
+button.inserirfipe-btn:hover { background-color: #073e59; }
+button.inserirBonusUsado-btn:hover { background-color: #06364d; }
+.limpar-texto-btn:hover { background-color: #cc0000; }
+
+/* ===== MODO ESCURO ===== */
 body.dark-mode {
-    background-color: #121212;
+    background-color: #121212; /* Fundo escuro */
+    color: #ffffff; /* Texto branco */
+}
+
+/* Estilo do título no modo escuro */
+body.dark-mode h1 {
     color: #ffffff;
 }
 
+/* Container no modo escuro */
 body.dark-mode .container {
-    background-color: rgba(40, 40, 40, 0.9);
+    background-color: rgba(40, 40, 40, 0.9); /* Fundo escuro semitransparente */
     color: #ffffff;
 }
 
+/* Inputs no modo escuro */
 body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea {
-    background-color: #2c2c2c;
-    color: #ffffff;
-    border: 1px solid #555;
+body.dark-mode select {
+    background-color: #2c2c2c; /* Fundo mais escuro */
+    color: #ffffff; /* Texto branco */
+    border: 1px solid #555; /* Borda escura */
 }
 
+/* Cabeçalho no modo escuro */
 body.dark-mode #header {
-    background-color: #2c2c2c; /* Cor de fundo escura */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra mais escura */
+    background-color: #2c2c2c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-body.dark-mode #header h1 {
-    color: #ffffff;
-	
-}
-
-body.dark-mode .dark-mode-toggle-container {
-    color: #ffffff;
-}
-
-
-
-
-
-/* Estilo do Toggle Switch do MODO ESCURO */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 30px;
-    vertical-align: middle;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 22px;
-    width: 22px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: #195da2;
-}
-
-input:checked + .slider:before {
-    transform: translateX(30px);
-}
-
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
-
-#toggleLabel {
-    margin-left: 10px;
-    font-size: 0.9em;
-}
-
-body.dark-mode #toggleLabel {
-    color: #ffffff;
-}
-
-/* Estilo para o modo escuro */
-body.dark-mode .toggle-container {
-    color: #ffffff;
-}
-
-
-
-
-
-
-
-
-
-
-/* Estilo do botão de modo escuro */
+/* ===== CONTROLE DE TEMA ===== */
 .dark-mode-btn {
-    position: absolute;
+    position: absolute; /* Posicionamento absoluto */
     top: 0px;
-    right: 22px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background-color: transparent;
-    border: none; /* Removemos a borda quadrada */
+    right: 22px; /* Distância da borda direita */
+    display: flex; /* Layout flexível */
+    align-items: center; /* Alinha verticalmente os itens */
+    gap: 8px; /* Espaço entre ícones e texto */
+    padding: 8px 12px; /* Espaçamento interno */
+    background-color: transparent; /* Fundo transparente */
+    border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    color: #333;
+    transition: all 0.3s ease; /* Transição suave */
+    color: #333; /* Cor do texto no modo claro */
 }
 
-.dark-mode-btn:hover {
-    background-color: rgba(240, 240, 240, 0.5); /* Fundo mais suave no hover */
-}
+/* Hover no botão de tema */
+.dark-mode-btn:hover { background-color: rgba(240, 240, 240, 0.5); }
 
-/* Estilos para o modo escuro */
-body.dark-mode .dark-mode-btn {
-    color: #ffffff;
-}
+/* Botão de tema no modo escuro */
+body.dark-mode .dark-mode-btn { color: #ffffff; }
+body.dark-mode .dark-mode-btn:hover { background-color: rgba(51, 51, 51, 0.5); }
 
-body.dark-mode .dark-mode-btn:hover {
-    background-color: rgba(51, 51, 51, 0.5); /* Fundo mais suave no hover */
-}
-
-/* Ícone quando está no modo claro */
-body:not(.dark-mode) .dark-mode-btn .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-
-/* Ícones - removemos a cor dourada específica para o modo escuro */
-body.dark-mode .dark-mode-btn .material-symbols-outlined {
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    color: #ffffff; /* Ícone branco no modo escuro */
-}
-
-
-
-
+/* ===== LOGOTIPOS TEMÁTICOS ===== */
 .logo-light, .logo-dark {
-    position: absolute;
+    position: absolute; /* Posicionamento fixo na tela */
     top: 17px;
     left: 20px;
     width: 231px;
     height: 40px;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease; /* Suaviza transição de opacidade */
     z-index: 10;
-    pointer-events: none;
+    pointer-events: none; /* Não interfere na interação do usuário */
 }
 
-/* Estado padrão: light visível */
-body:not(.dark-mode) .logo-light {
-    opacity: 1;
+/* Controle de visibilidade dos logos */
+body:not(.dark-mode) .logo-light { opacity: 1; } /* Mostra no modo claro */
+body:not(.dark-mode) .logo-dark { opacity: 0; }  /* Esconde no modo claro */
+body.dark-mode .logo-light { opacity: 0; }       /* Esconde no modo escuro */
+body.dark-mode .logo-dark { opacity: 1; }        /* Mostra no modo escuro */
+
+/* ===== ÁREA DE SAÍDA ===== */
+#textoGerado {
+    text-align: justify; /* Alinhamento justificado para melhor legibilidade */
 }
 
-body:not(.dark-mode) .logo-dark {
-    opacity: 0;
+/* ===== AJUSTES DE ÍCONES ===== */
+body:not(.dark-mode) .dark-mode-btn .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; /* Ícone não preenchido */
 }
 
-/* Estado escuro: dark visível */
-body.dark-mode .logo-light {
-    opacity: 0;
-}
-
-body.dark-mode .logo-dark {
-    opacity: 1;
+body.dark-mode .dark-mode-btn .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; /* Ícone preenchido */
+    color: #ffffff; /* Cor branca no modo escuro */
 }
