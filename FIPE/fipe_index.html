@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Modelos de Carro</title>
+    <link rel="stylesheet" href="fipe_style.css">
+</head>
+<body>
+    <div class="parallax" id="parallax"></div>
+
+    <div class="container">
+        <img src="https://.png" alt="Logotipo" id="logo">
+        <br><br>
+        <h1>Formulário: 100% da Tabela Fipe no seu usado</h1>
+        <br>
+        <form id="carForm">
+            <!-- Seção para escolher carro da oferta -->
+            <div class="modelo">            
+                <label>Modelo do carro:</label>
+                <input type="text" name="modelo[]" placeholder="Ex: Argo, Wrangler, etc." required>
+                <div>
+                    <label>Ano / Modelo:</label>
+                    <select name="ano_modelo[]">
+                        <option value="">Selecione o ano / modelo</option>
+                        <option value="2024/2024">2024/2024</option>
+                        <option value="2024/2025">2024/2025</option>
+                        <option value="2025/2025">2025/2025</option>
+                        <option value="2025/2026">2025/2026</option>
+                        <option value="2026/2026">2026/2026</option>
+                        <option value="2026/2027">2026/2027</option>
+                    </select>
+                </div>
+                
+                <label>Selecione as versões que são válidas para oferta:</label>
+                <div>
+                    <input type="checkbox" name="versao_todas[]" value="todas" onchange="handleCheckboxChange(this)"> Todas as versões
+                </div>
+                <div>
+                    <input type="checkbox" name="versao_exceto[]" value="exceto" onchange="handleCheckboxChange(this)"> Exceto versões:
+                    <input type="text" name="versao_exceto_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+                </div>
+                <div>
+                    <input type="checkbox" name="versao_exclusivamente[]" value="exclusivamente" onchange="handleCheckboxChange(this)"> Exclusivamente nas versões:
+                    <input type="text" name="versao_exclusivamente_text[]" placeholder="Ex: 1.3, Limited Flex, etc.">
+                </div>
+                
+                <!-- Função Remover Modelo -->
+                <button type="button" class="remove-button" onclick="removeModelo(this)">Remover modelo</button>
+                <br><br>
+            </div>
+
+            <!-- Botão para adicionar novo modelo -->
+            <button type="button" onclick="addModelo()">Adicionar modelo</button>
+            <br><br><br>
+                
+            <!-- Seção permanente de Tabela FIPE -->
+            <div class="tabelaFipe">
+                <label>Tabela FIPE elegível para:</label><br>
+                <input type="checkbox" name="tabela_fipe[]" value="qualquer_marca" onchange="handleTabelaFipeChange(this)"> Qualquer marca
+                <div>
+                <input type="checkbox" name="tabela_fipe[]" value="fiat_nacional" onchange="handleTabelaFipeChange(this)"> Fiat nacional
+                <div>
+                <input type="checkbox" name="tabela_fipe[]" value="fiat_especifico" onchange="handleTabelaFipeChange(this)"> Fiat modelo(s) especifico(s): <input type="text" name="fiat_modelo" placeholder="Ex: Pulse, Fastback, etc." size="20">
+                <div>
+                <input type="checkbox" name="tabela_fipe[]" value="jeep_nacional" onchange="handleTabelaFipeChange(this)"> Jeep nacional
+                <div>
+                <input type="checkbox" name="tabela_fipe[]" value="jeep_especifico" onchange="handleTabelaFipeChange(this)"> Jeep modelo(s) especifico(s): <input type="text" name="jeep_modelo" placeholder="Ex: Compass, Wrangler, etc." size="20">
+            </div>
+            <br>
+            <!-- Seletor para mês de referência FIPE -->
+            <div class="usadoNaFipe">
+                <label>Mês de referência FIPE:</label>
+                <select name="mes_referencia_fipe">
+                    <option value="">Selecione o Mês</option>
+                    <option value="Janeiro">Janeiro</option>
+                    <option value="Fevereiro">Fevereiro</option>
+                    <option value="Março">Março</option>
+                    <option value="Abril">Abril</option>
+                    <option value="Maio">Maio</option>
+                    <option value="Junho">Junho</option>
+                    <option value="Julho">Julho</option>
+                    <option value="Agosto">Agosto</option>
+                    <option value="Setembro">Setembro</option>
+                    <option value="Outubro">Outubro</option>
+                    <option value="Novembro">Novembro</option>
+                    <option value="Dezembro">Dezembro</option>
+                </select>
+                <span class="info-text">Padrão: 01 mês antes do mês atual.</span>
+            </div>
+            
+            <!-- Seletor para ano de referência FIPE -->
+            <div class="usadoNaFipe">
+                <label>Ano de referência FIPE:</label>
+                <select name="ano_referencia_fipe">
+                    <option value="">Selecione o Ano</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                </select>
+                <span class="info-text">Padrão: Ano atual.</span>
+            </div>
+
+            <!-- Campo para valor máximo da avaliação -->
+            <div class="usadoNaFipe">
+                <label for="valorMaximo">Valor máximo da avaliação:</label>
+                <input type="text" id="valorMaximo" name="valorMaximo" placeholder="Valor Padrão: R$140.000">
+            </div>
+            
+            <!-- Seletor para ano mínimo de fabricação do usado -->
+            <div class="usadoNaFipe">
+                <label>Ano mínimo de Fabricação do Usado:</label>
+                <select name="anoMinimoFabricacao">
+                    <option value="">Selecione o Ano</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
+                <span class="info-text">Padrão: 04 a menos do ano atual.</span>
+            </div>
+            
+            <!-- Campo para média de KM por ano -->
+            <div class="usadoNaFipe">
+                <label>Média de KM por ano:</label>
+                <input type="text" id="mediaKmAno" name="mediaKmAno" placeholder="Valor Padrão: 10.000KM">
+            </div>
+            
+            <!-- Seletor para ano do IPVA quitado -->
+            <div class="usadoNaFipe">
+                <label>Ano do IPVA quitado:</label>
+                <select name="anoIpvaQuitado">
+                    <option value="">Selecione o Ano</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                </select>
+                <span class="info-text">Padrão: Ano atual.</span>
+                <br>
+            </div>
+        </form>
+        
+        <br>
+        <button type="button" onclick="gerarTextoFinal()">Criar Texto Júridico</button>
+        <button type="button" onclick="copiarTexto()">Copiar Texto</button>
+        
+        <div id="textoFinal"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+    <script src="fipe_script.js"></script>
+</body>
+</html>

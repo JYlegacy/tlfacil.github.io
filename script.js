@@ -9,8 +9,8 @@
  */
 let textoFipeInserido = '';
 let textoBonusUsadoInserido = '';
-const images = []; 
-let currentIndex = 0; 
+// const images = ['resources/bg.jpeg']; 
+// let currentIndex = 0; 
 
 // ==============================================
 // INICIALIZAÇÃO DA PÁGINA
@@ -480,7 +480,7 @@ function setupEventListeners() {
     const tlFipeBtn = document.querySelector(".tl-fipe-btn");
     if (tlFipeBtn) {
         tlFipeBtn.addEventListener("click", function() {
-            window.open('FIPE/index.html', '_blank');
+            window.open('FIPE/fipe_index.html', '_blank');
         });
     }
 	
@@ -488,7 +488,7 @@ function setupEventListeners() {
     const tlBonusBtn = document.querySelector(".tl-bonus-usado-btn");
     if (tlBonusBtn) {
         tlBonusBtn.addEventListener("click", function() {
-            window.open('Bônus no Usado/index.html', '_blank');
+            window.open('bônus_no_usado/bonus_no_usado_-_index.html', '_blank');
         });
     }
 	
@@ -515,6 +515,15 @@ function setupEventListeners() {
     }
 });
 
+// Clique na logo ativa/desativa o tema "Super Nintendo"
+document.querySelectorAll('.logo-click').forEach(logo => {
+    logo.style.cursor = "pointer";
+    logo.addEventListener('click', () => {
+        document.body.classList.toggle('super-nintendo');
+    });
+});
+
+
 console.log('Event listeners setup complete');
 }  
 
@@ -525,18 +534,18 @@ console.log('Event listeners setup complete');
 /**
  * Alterna entre imagens de fundo
  */
-function changeBackgroundImage() {
-    try {
-        if (images.length === 0) return;
-        const parallax = document.getElementById("parallax");
-        if (parallax) {
-            parallax.style.backgroundImage = `url(${images[currentIndex]})`;
-            currentIndex = (currentIndex + 1) % images.length;
-        }
-    } catch (error) {
-        console.error('Error in changeBackgroundImage:', error);
-    }
-}
+// function changeBackgroundImage() {
+//     try {
+//         if (images.length === 0) return;
+//         const parallax = document.getElementById("parallax");
+//         if (parallax) {
+//             parallax.style.backgroundImage = `url(${images[currentIndex]})`;
+//             currentIndex = (currentIndex + 1) % images.length;
+//         }
+//     } catch (error) {
+//         console.error('Error in changeBackgroundImage:', error);
+//     }
+// }
 
 /**
  * Mostra/oculta as opções de financiamento

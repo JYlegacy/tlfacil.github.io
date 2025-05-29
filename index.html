@@ -9,6 +9,8 @@
     <!-- Links para folhas de estilo e scripts externos -->
     <link rel="stylesheet" href="style.css"> <!-- Folha de estilo principal -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!-- Ícones do Material Design -->
+	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     
     <!-- Scripts JavaScript externos -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Biblioteca jQuery -->
@@ -16,8 +18,18 @@
     <script src="script.js" defer></script> <!-- Script principal da aplicação (carregado com defer) -->
 </head>
 <body>
-    <!-- Efeito visual de parallax -->
-    <div class="parallax" id="parallax"></div>
+    <!-- Inserir vídeo como BG padrão do site -->
+	<video autoplay muted loop playsinline id="video-background" class="default-video" poster="resources/poster.jpg">
+		<source src="resources/background.mp4" type="video/mp4">
+		<source src="resources/background.webm" type="video/webm"> <!-- Opcional: versão WebM para melhor compatibilidade -->
+	</video>
+	
+	<!-- Inserir vídeo como BG para o tema 16bits -->
+	<video autoplay muted loop playsinline id="video-16bit" class="super-nintendo-video" poster="resources/poster.jpg">
+		<source src="resources/bg.mp4" type="video/mp4">
+		<source src="resources/background-16bit.webm" type="video/webm"> <!-- Opcional: versão WebM para melhor compatibilidade -->
+	</video>
+
 
     <!-- Container principal que engloba todo o conteúdo -->
     <div class="container">
@@ -28,8 +40,8 @@
         <br>
 
         <!-- Logotipos - um para cada tema (claro/escuro) -->
-        <img src="resources/logo_light_mode.png" alt="Logotipo" class="logo-light"> <!-- Logotipo para tema claro -->
-        <img src="resources/logo_dark_mode.png" alt="Logotipo" class="logo-dark"> <!-- Logotipo para tema escuro -->
+        <img src="resources/logo_light_mode.png" alt="Logotipo" class="logo-light logo-click"> <!-- Logotipo para tema claro -->
+        <img src="resources/logo_dark_mode.png" alt="Logotipo" class="logo-dark logo-click"> <!-- Logotipo para tema escuro -->
 
         <br><br>
         

@@ -156,7 +156,7 @@ body.dark-mode .dark-mode-btn:hover { background-color: rgba(51, 51, 51, 0.5); }
     height: 40px;
     transition: opacity 0.3s ease; /* Suaviza transição de opacidade */
     z-index: 10;
-    pointer-events: none; /* Não interfere na interação do usuário */
+    pointer-events: auto; /* Não interfere na interação do usuário */
 }
 
 /* Controle de visibilidade dos logos */
@@ -178,4 +178,104 @@ body:not(.dark-mode) .dark-mode-btn .material-symbols-outlined {
 body.dark-mode .dark-mode-btn .material-symbols-outlined {
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; /* Ícone preenchido */
     color: #ffffff; /* Cor branca no modo escuro */
+}
+
+/* ===== TEMA 16-BITS - ESTILO MAME ARCADE ===== */
+body.super-nintendo {
+    font-family: 'Press Start 2P', monospace !important;
+    background-color: #000018;
+    color: #00ffe0;
+	background-color: #000 !important;
+}
+
+body.super-nintendo .container {
+    background-color: #000025;
+    border: 2px solid #00ffe0;
+    box-shadow: 0 0 12px #00ffe0;
+    border-radius: 4px;
+    padding: 20px;
+	background-color: rgba(0, 0, 20, 0.85) !important;
+}
+
+body.super-nintendo h1 {
+    color: #00ffe0;
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 0 0 3px #00ffe0;
+    letter-spacing: 2px;
+}
+
+body.super-nintendo button {
+    background-color: #ff007c;
+    color: #fff;
+    border: 2px solid #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    box-shadow: 0 0 6px #ff007c;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+body.super-nintendo button:hover {
+    background-color: #ff33a6;
+    box-shadow: 0 0 10px #ff33a6;
+}
+
+body.super-nintendo select,
+body.super-nintendo input {
+    background-color: #000033;
+    color: #00ffe0;
+    border: 2px solid #00ffe0;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 6px;
+    border-radius: 0;
+}
+
+body.super-nintendo label {
+    color: #00ffe0;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+body.super-nintendo #header {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+/* ===== Configuração de video como BG ===== */
+/* Estilo base para ambos os vídeos */
+.default-video, .super-nintendo-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.8;
+    transition: opacity 0.5s ease;
+}
+
+/* Vídeo normal (visível por padrão) */
+.default-video {
+    display: block;
+}
+
+.super-nintendo-video {
+    display: none;
+}
+
+/* Quando o tema 16-bits estiver ativo */
+body.super-nintendo .default-video {
+    display: none;
+}
+
+body.super-nintendo .super-nintendo-video {
+    display: block;
+    opacity: 0.7; /* Ajuste conforme necessário */
+    filter: brightness(1.2) contrast(1.1); /* Efeito pixelado opcional */
+}
 }
