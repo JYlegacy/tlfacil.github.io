@@ -158,35 +158,36 @@ function setupEventListeners() {
     const dados = {
         "FIAT": {
             // Modelos FIAT e suas versões...
-			"ARGO": ["1.0 FLEX MANUAL", "DRIVE 1.0 FLEX MANUAL", "DRIVE 1.3 FLEX AUTOMÁTICO", "TREKKING 1.3 FLEX AUTOMÁTICO"],
-			"CRONOS": ["DRIVE 1.0 FLEX MANUAL", "DRIVE 1.3 FLEX AUTOMÁTICO", "PRECISION 1.3 FLEX AUTOMÁTICO"],
-			"DUCATO": ["CARGO DIESEL MANUAL", "MAXICARGO DIESEL MANUAL", "MULTI DIESEL MANUAL", "MINIBUS CONFORT 19L DIESEL MANUAL", "MINIBUS LUXO 16L DIESEL MANUAL", "MINIBUS EXECUTIVO 17L DIESEL MANUAL"],
-			"FASTBACK": ["T200 FLEX AUTOMÁTICO", "AUDACE T200 HYBRID AUTOMÁTICO", "IMPETUS T200 HYBRID AUTOMÁTICO", "LIMITED EDITION T270 FLEX AUTOMÁTICO", "ABARTH T270 FLEX AUTOMÁTICO"],
+			"ARGO": ["1.0 MANUAL FLEX", "DRIVE 1.0 MANUAL FLEX", "TREKKING 1.3 MANUAL FLEX", "DRIVE 1.3 AUTOMÁTICO FLEX", "TREKKING 1.3 AUTOMÁTICO FLEX"],
+			"CRONOS": ["DRIVE 1.0 MANUAL FLEX", "DRIVE 1.3 AUTOMÁTICO FLEX", "PRECISION 1.3 AUTOMÁTICO FLEX"],
+			"DUCATO": ["CARGO 11,5M 2.2 MANUAL DIESEL", "MAXICARGO 13M 2.2 MANUAL DIESEL", "MINIBUS COMFORT 18L 2.2 MANUAL DIESEL", "MINIBUS LUXO 16L 2.2 MANUAL DIESEL"],
+			"FASTBACK": ["TURBO 200 FLEX AUTOMÁTICO", "AUDACE TURBO 200 HYBRID FLEX AUTOMÁTICO", "IMPETUS TURBO 200 HYBRID FLEX AUTOMÁTICO", "LIMITED EDITION TURBO 270 FLEX AUTOMÁTICO", "ABARTH TURBO 270 FLEX AUTOMÁTICO"],
 			"FIORINO": ["ENDURANCE 1.3 FLEX MANUAL"],
 			"MOBI": ["LIKE 1.0 FLEX MANUAL", "TREKKING 1.0 FLEX MANUAL"],
-			"PULSE": ["DRIVE 1.3 FLEX AUTOMÁTICO", "AUDACE T200 HYBRID AUTOMÁTICO", "IMPETUS T200 HYBRID AUTOMÁTICO", "ABARTH T270 FLEX AUTOMÁTICO"],
+			"PULSE": ["DRIVE 1.3 FLEX MANUAL", "DRIVE 1.3 FLEX AUTOMÁTICO", "T200 FLEX AUTOMÁTICO", "AUDACE T200 HYBRID AUTOMÁTICO", "IMPETUS T200 HYBRID AUTOMÁTICO", "ABARTH T270 FLEX AUTOMÁTICO"],
 			"SCUDO": ["CARGO 1.5 MANUAL TURBODIESEL", "MULTI 1.5 MANUAL TURBODIESEL"],
 			"STRADA": ["ENDURANCE 1.3 CP FLEX MANUAL", "FREEDOM 1.3 CP FLEX MANUAL", "FREEDOM 1.3 CD FLEX MANUAL", "VOLCANO 1.3 CD FLEX MANUAL", "VOLCANO 1.3 CD FLEX AUTOMÁTICO", "RANCH TURBO 200 CD FLEX AUTOMÁTICO", "ULTRA TURBO 200 CD FLEX AUTOMÁTICO"],
-			"TITANO": ["ENDURANCE 2.2 4X4 AUTOMÁTICO DIESEL", "VOLCANO 2.2 4X4 AUTOMÁTICO DIESEL", "RANCH 2.2 4X4 AUTOMÁTICO DIESEL"],
-			"TORO": ["ENDURANCE T270 4X2 FLEX AUTOMÁTICO", "FREEDOM T270 4X2 FLEX AUTOMÁTICO", "VOLCANO T270 4X2 FLEX AUTOMÁTICO", "ULTRA T270 FLEX AUTOMÁTICO", "VOLCANO 2.0 TURBODIESEL 4X4 AUTOMÁTICO", "RANCH 2.0 TURBODIESEL 4X4 AUTOMÁTICO"],
-		},
+			"TITANO": ["ENDURANCE MULTIJET 2.2 TURBODIESEL MT 4X4", "VOLCANO MULTIJET 2.2 TURBODIESEL AT 4X4", "RANCH MULTIJET 2.2 TURBODIESEL AT 4X4"],
+			"TORO": ["ENDURANCE TURBO 270 AUTOMÁTICO FLEX", "FREEDOM TURBO 270 AUTOMÁTICO FLEX", "VOLCANO TURBO 270 AUTOMÁTICO FLEX", "ULTRA TURBO 270 AUTOMÁTICO FLEX", "VOLCANO AUTOMÁTICO 4X4 TURBODIESEL", "RANCH AUTOMÁTICO 4X4 TURBODIESEL"]
+},
 
         "JEEP": {
             // Modelos Jeep e suas versões...
-			"RENEGADE": ["1.3 TURBO T270 4X2 FLEX AUTOMÁTICO", "SPORT T270 4X2 FLEX AUTOMÁTICO", "ALTITUDE T270 4X2 FLEX AUTOMÁTICO", "LONGITUDE T270 4X2 FLEX AUTOMÁTICO", "SAHARA T270 4X2 FLEX AUTOMÁTICO", "TRAILHAWK T270 4X4 FLEX AUTOMÁTICO", "WILLYS T270 4X4 FLEX AUTOMÁTICO"],
-			"COMPASS": ["SPORT T270 FLEX AUTOMÁTICO", "LONGITUDE T270 FLEX AUTOMÁTICO", "LIMITED T270 FLEX AUTOMÁTICO", "SERIE S T270 FLEX AUTOMÁTICO", "OVERLAND HURRICANE GASOLINA AUTOMÁTICO", "BLACKHAWK HURRICANE GASOLINA AUTOMÁTICO", "4XE HIBRIDO PHEV AUTOMÁTICO"],
-			"COMMANDER": ["LONGITUDE 5L T270 FLEX AUTOMÁTICO", "LIMITED T270 FLEX AUTOMÁTICO", "OVERLAND T270 FLEX AUTOMÁTICO", "OVERLAND 2.2 TURBODIESEL 4X4 AUTOMÁTICO", "OVERLAND HURRICANE 4X4 AUTOMÁTICO", "BLACKHAWK HURRICANE 4X4 AUTOMÁTICO"],
-			"WRANGLER": ["RUBICON 4X4 GASOLINA AUTOMÁTICO"],
-			"GLADIATOR": ["RUBICON 4X4 GASOLINA AUTOMÁTICO"],
-			"GRAND CHEROKEE": ["4XE HIBRIDO PHEV"],
+			"RENEGADE": ["SPORT T270 FLEX 4X2", "ALTITUDE T270 FLEX 4X2", "LONGITUDE T270 FLEX 4X2", "SAHARA T270 FLEX 4X2", "WILLYS T270 FLEX 4X4"],
+			"COMPASS": ["SPORT T270 FLEX", "LONGITUDE T270 FLEX", "SERIE S T270 FLEX", "BLACKHAWK HURRICANE"],
+			"COMMANDER": ["LONGITUDE 7L T270 FLEX", "LIMITED T270 FLEX", "OVERLAND T270 FLEX", "OVERLAND 2.2 TURBO DIESEL 4X4", "BLACKHAWK HURRICANE 4X4"],
+			"WRANGLER": ["RUBICON 4X4 GASOLINA"],
+			"GLADIATOR": ["RUBICON 4X4 GASOLINA"],
+			"GRAND CHEROKEE": ["4XE HÍBRIDO PLUG-IN"],
         },
 		
         "RAM": {
             // Modelos RAM e suas versões...
-			"RAMPAGE": ["BIG HORN 2.2 TURBODIESEL AT9 4X4", "REBEL 2.2 TURBODIESEL AT9 4X4", "REBEL 2.0 TURBO GASOLINA AT9 4X4", "LARAMIE 2.2 TURBODIESEL AT9 4X4", "LARAMIE 2.0 TURBO GASOLINA AT9 4X4", "R/T 2.0 TURBO GASOLINA AT9 4X4"],
-			"1500": ["LARAMIE 3.0 BITURBO GASOLINA AT8 4X4", "LARAMIE NIGHT EDITION 3.0 BITURBO GASOLINA AT8 4X4"],
-			"2500": ["LARAMIE 6.7 TURBODIESEL AT6 4X4", "LARAMIE NIGHT EDITION 6.7 TURBODIESEL AT6 4X4"],
-			"3500": ["LARAMIE 6.7 TURBODIESEL AT6 4X4", "LARAMIE NIGHT EDITION 6.7 TURBODIESEL AT6 4X4", "LIMITED LONGHORN 6.7 TURBODIESEL AT6 4X4"],
+			"RAMPAGE": ["BIG HORN 2.2 DIESEL", "REBEL 2.2 DIESEL", "LARAMIE 2.2 DIESEL", "R/T GASOLINA"],
+			"1500": ["LARAMIE TURBODIESEL", "LARAMIE NIGHT EDITION TURBODIESEL"],
+			"2500": ["LARAMIE TURBODIESEL"],
+			"3500": ["LARAMIE NIGHT EDITION TURBODIESEL", "LIMITED LONGHORN TURBODIESEL"],
+
         }
     };
 
@@ -196,48 +197,50 @@ function setupEventListeners() {
 		
 		// LISTA DE CORES PARA MODELOS FIAT
 		"ARGO": {
-			"1.0 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"DRIVE 1.0 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"DRIVE 1.3 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"TREKKING 1.3 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA SILVERSTONE (metálica)"]
+			"1.0 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)"," VERMELHO MONTECARLO (sólida)"," BRANCO BANCHISA (sólida)"," PRATA BARI (metálica)"," CINZA SILVERSTONE (metálica)"],
+			"DRIVE 1.0 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"TREKKING 1.3 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO com TETO PRETO VULCANO (sólida)", "BRANCO BANCHISA com TETO PRETO VULCANO (sólida)", "PRATA BARI com TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE com TETO PRETO VULCANO (metálica)"],
+			"DRIVE 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"TREKKING 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO com TETO PRETO VULCANO (sólida)", "BRANCO BANCHISA com TETO PRETO VULCANO (sólida)", "PRATA BARI com TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE com TETO PRETO VULCANO (metálica)"]			
 		},
 		"CRONOS": {
-			"DRIVE 1.0 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"DRIVE 1.3 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (perolizada)"],
-			"PRECISION 1.3 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (perolizada)"]
+			"DRIVE 1.0 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"DRIVE 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (perolizada)"],
+			"PRECISION 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (perolizada)"]
 		},
 		"DUCATO": {
-			"CARGO DIESEL MANUAL": ["BRANCO BANCHISA (sólida) (padrão)", "GRIGIO ARTENSE (metálica)"],
-			"MAXICARGO DIESEL MANUAL": ["BRANCO BANCHISA (sólida) (padrão)", "GRIGIO ARTENSE (metálica)"],
-			"MULTI DIESEL MANUAL": ["BRANCO BANCHISA (sólida) (padrão)", "GRIGIO ARTENSE (metálica)"],
-			"MINIBUS CONFORT 19L DIESEL MANUAL": ["BRANCO BANCHISA (sólida) (padrão)", "GRIGIO ARTENSE (metálica)"],
-			"MINIBUS LUXO 16L DIESEL MANUAL": ["BRANCO BANCHISA (sólida) (padrão)", "GRIGIO ARTENSE (metálica)"],
-			"MINIBUS EXECUTIVO 17L DIESEL MANUAL": ["BRANCO BANCHISA (sólida) (padrão)", "GRIGIO ARTENSE (metálica)"]
+			"CARGO 11,5M 2.2 MANUAL DIESEL": ["BRANCO BANCHISA (sólida)", "CINZA ARTENSE (metálicas)"],
+			"MAXICARGO 13M 2.2 MANUAL DIESEL": ["BRANCO BANCHISA (sólida)", "CINZA ARTENSE (metálicas)"],
+			"MINIBUS COMFORT 18L 2.2 MANUAL DIESEL": ["BRANCO BANCHISA (sólida)", "CINZA ARTENSE (metálicas)"],
+			"MINIBUS LUXO 16L 2.2 MANUAL DIESEL": ["BRANCO BANCHISA (sólida)", "CINZA ARTENSE (metálicas)"]
 		},
 		"FASTBACK": {
-			"T200 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "CINZA STRATO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"AUDACE T200 HYBRID AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (metálica)"],
-			"IMPETUS T200 HYBRID AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "AZUL AMALFI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (metálica)"],
-			"LIMITED EDITION T270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (metálica)"],
-			"ABARTH T270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA STRATO (metálica)"]
+			"TURBO 200 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "CINZA STRATO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"AUDACE TURBO 200 HYBRID FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
+			"IMPETUS TURBO 200 HYBRID FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "AZUL AMALFI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
+			"LIMITED EDITION TURBO 270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
+			"ABARTH TURBO 270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA STRATO (especiais)"]
 		},
 		"FIORINO": {
 			"ENDURANCE 1.3 FLEX MANUAL": ["BRANCO BANCHISA (sólida) (padrão)"]
 		},
 		"MOBI": {
-			"LIKE 1.0 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"TREKKING 1.0 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"]
+			"LIKE 1.0 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],	
+			"TREKKING 1.0 FLEX MANUAL" :["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "VERMELHO MONTECARLO COM TETO PRETO VULCANO (sólida)", "PRATA BARI COM TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE COM TETO PRETO VULCANO (metálica)"]
 		},
 		"PULSE": {
-			"DRIVE 1.3 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)",  "PRATA BARI (metálica)", "CINZA STRATO (metálica)"],
-			"AUDACE T200 HYBRID AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (metálica)"],
-			"IMPETUS T200 HYBRID AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (metálica)"],
-			"ABARTH T270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA STRATO (metálica)"]
+			"DRIVE 1.3 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA SILVERSTONE (metálica)", "PRATA BARI (metálica)", "CINZA STRATO (especiais)"], 
+			"DRIVE 1.3 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA STRATO (especiais)"],
+			"T200 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"], 
+			"AUDACE T200 HYBRID AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
+			"IMPETUS T200 HYBRID AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
+			"ABARTH T270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA STRATO (especiais)"]
 		},
 		"SCUDO": {
 			"CARGO 1.5 MANUAL TURBODIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "PRETO CARBON (metálica)", "CINZA ALLUMINIUM (metálica)"],
 			"MULTI 1.5 MANUAL TURBODIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "PRETO CARBON (metálica)", "CINZA ALLUMINIUM (metálica)"]
 		},
+	
 		"STRADA": {
 			"ENDURANCE 1.3 CP FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
 			"FREEDOM 1.3 CP FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
@@ -247,77 +250,78 @@ function setupEventListeners() {
 			"RANCH TURBO 200 CD FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
 			"ULTRA TURBO 200 CD FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"]
 		},
+
 		"TITANO": {
-			"ENDURANCE 2.2 4X4 AUTOMÁTICO DIESEL": ["BRANCO AMBIENTE (sólida) (padrão)", "CINZA BILLET(metálica)"],
-			"VOLCANO 2.2 4X4 AUTOMÁTICO DIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "CINZA BILLET(metálica)", "PRETO CARBON (metálica)", "VERMELHO TRAMONTO (metálica)"],
-			"RANCH 2.2 4X4 AUTOMÁTICO DIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "CINZA BILLET(metálica)", "PRETO CARBON (metálica)", "VERMELHO TRAMONTO (metálica)"]
+			"ENDURANCE MULTIJET 2.2 TURBODIESEL MT 4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)"],
+			"VOLCANO MULTIJET 2.2 TURBODIESEL AT 4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "PRETO VULCANO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (especial)"],
+			"RANCH MULTIJET 2.2 TURBODIESEL AT 4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "PRETO VULCANO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (especial)"]
 		},
+	
 		"TORO": {
-			"ENDURANCE T270 4X2 FLEX AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "BRANCO AMBIENTE (sólida)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)"],
-			"FREEDOM T270 4X2 FLEX AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "BRANCO AMBIENTE (sólida)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)"],
-			"VOLCANO T270 4X2 FLEX AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
-			"ULTRA T270 FLEX AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)", ],
-			"VOLCANO 2.0 TURBODIESEL 4X4 AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
-			"RANCH 2.0 TURBODIESEL 4X4 AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"]
+			"ENDURANCE TURBO 270 AUTOMÁTICO FLEX": ["VERMELHO COLORADO (sólida) (padrão)", "BRANCO AMBIENTE (sólida)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)"],
+			"FREEDOM TURBO 270 AUTOMÁTICO FLEX": ["VERMELHO COLORADO (sólida) (padrão)", "BRANCO AMBIENTE (sólida)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)"],
+			"VOLCANO TURBO 270 AUTOMÁTICO FLEX": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)"],
+			"ULTRA TURBO 270 AUTOMÁTICO FLEX": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
+			"VOLCANO AUTOMÁTICO 4X4 TURBODIESEL": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)"],
+			"RANCH AUTOMÁTICO 4X4 TURBODIESEL": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)"]
 		},
 		// LISTA DE CORES PARA MODELOS JEEP
 		"RENEGADE": {
-			"1.3 TURBO T270 4X2 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
-			"SPORT T270 4X2 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
-			"ALTITUDE T270 4X2 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
-			"LONGITUDE T270 4X2 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "STING GREY (metálica)", "BRANCO POLAR (perolizada)"],
-			"SAHARA T270 4X2 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
-			"TRAILHAWK T270 4X4 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"],
-			"WILLYS T270 4X4 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "VERDE RECON (perolizada)", "STING GREY (PEROLIZADO)", "BRANCO POLAR (perolizada)"]
+			"SPORT T270 FLEX 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+			"ALTITUDE T270 FLEX 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"LONGITUDE T270 FLEX 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
+			"SAHARA T270 FLEX 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"WILLYS T270 FLEX 4X4": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "STING GRAY BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"]
 		},
+	
 		"COMPASS": {
-			"SPORT T270 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
-			"LONGITUDE T270 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "PRATA BILLET (metálica)", "CINZA GRANITE (metálica)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"],
-			"LIMITED T270 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
-			"SERIE S T270 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"],
-			"OVERLAND HURRICANE GASOLINA AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
-			"BLACKHAWK HURRICANE GASOLINA AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"],
-			"4XE HIBRIDO PHEV AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "ALPINE WHITE BICOLOR (sólida)", "BLUE SHADE BICOLOR (metálica)"]
+			"SPORT T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "PRATA BILLET (metálica)", "BRANCO POLAR (perolizada)"],
+			"LONGITUDE T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "PRATA BILLET (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
+			"SERIE S T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "CINZA STING BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"BLACKHAWK HURRICANE": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE BICOLOR (metálica)", "STING GRAY BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"]
 		},
+	
 		"COMMANDER": {
-			"LONGITUDE 5L T270 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
-			"LIMITED T270 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
-			"OVERLAND T270 FLEX AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
-			"OVERLAND 2.2 TURBODIESEL 4X4 AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
-			"OVERLAND HURRICANE 4X4 AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "SLASH GOLD (perolizada)", "BRANCO POLAR (perolizada)"],
-			"BLACKHAWK HURRICANE 4X4 AUTOMÁTICO": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "STING GREY (perolizada)", "BRANCO POLAR (perolizada)"]
+			"LONGITUDE 7L T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"LIMITED T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"OVERLAND T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"OVERLAND 2.2 TURBO DIESEL 4X4": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"BLACKHAWK HURRICANE 4X4": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE BICOLOR (metálica)", "CINZA STING BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"]
 		},
+	
 		"WRANGLER": {
-			"RUBICON 4X4 GASOLINA AUTOMÁTICO": ["BRANCO (sólida) (padrão)", "VERMELHO FIRECRACKER (sólida)", "PRETO (sólida)", "ANVIL (metálica)", "GRANITE CRYSTAL (metálica)", "HYDRO BLUE (metálica)"]
+			"RUBICON 4X4 GASOLINA": ["BRANCO (sólida) (padrão)", "PRETO (sólida)", "VERMELHO FIRECRACKER (sólida)", "GRANITE CRYSTAL (metálica)", "VERDE 41' (metálica)", "ANVIL (metálica)", "HYDRO BLUE (metálica)"]
 		},
+	
 		"GLADIATOR": {
-			"RUBICON 4X4 GASOLINA AUTOMÁTICO": ["BRANCO (sólida) (padrão)", "VERMELHO FIRECRACKER (sólida)", "PRETO (sólida)", "ANVIL (metálica)", "GRANITE CRYSTAL (metálica)", "HYDRO BLUE (metálica)"]
+			"RUBICON 4X4 GASOLINA": ["BRANCO (sólida) (padrão)", "PRETO (sólida)", "VERMELHO FIRECRACKER (sólida)", "GRANITE CRYSTAL (metálica)", "VERDE 41' (metálica)", "ANVIL (metálica)", "HYDRO BLUE (metálica)"]
 		},
+	
 		"GRAND CHEROKEE": {
-			"4XE HIBRIDO PHEV": ["BRIGHT WHITE (sólida) (padrão)", "MIDNIGHT SKY (metálica)", "BALTIC GREY METALLIC (metálica)", "DIAMOND BLACK (perolizada)"]
+			"4XE HÍBRIDO PLUG-IN": ["BRIGHT WHITE (sólida) (padrão)", "MIDNIGHT SKY (metálica)", "BALTIC GREY METALLIC (metálica)", "DIAMOND BLACK (perolizada)"]
 		},
 		// LISTA DE CORES PARA MODELOS RAM
 		"RAMPAGE": {
-			"BIG HORN 2.2 TURBODIESEL AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
-			"REBEL 2.2 TURBODIESEL AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
-			"REBEL 2.0 TURBO GASOLINA AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
-			"LARAMIE 2.2 TURBODIESEL AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
-			"LARAMIE 2.0 TURBO GASOLINA AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
-			"R/T 2.0 TURBO GASOLINA AT9 4X4": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PÉROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+			"BIG HORN 2.2 DIESEL": ["VERMELHO FLAME (sólido) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+			"REBEL 2.2 DIESEL": ["VERMELHO FLAME (sólido) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+			"LARAMIE 2.2 DIESEL": ["VERMELHO FLAME (sólido) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+			"R/T GASOLINA": ["VERMELHO FLAME + TETO PRETO (sólido) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY + TETO PRETO (perolizada)", "BRANCO PEROLA + TETO PRETO (perolizada)", "MAXIMUM STEEL + TETO PRETO (metálica)", "AZUL PATRIOT + TETO PRETO (metálica)", "PRATA BILLET + TETO PRETO (metálica)"]
 		},
+		
 		"1500": {
-			"LARAMIE 3.0 BITURBO GASOLINA AT8 4X4": ["PRETO DIAMOND (perolizada) (PADRÃO)", "PRATA BILLET (metálica)", "BRANCO MARFIM (perolizada)", "VERMELHO DELMONICO (perolizada)"],
-			"LARAMIE NIGHT EDITION 3.0 BITURBO GASOLINA AT8 4X4": ["PRETO DIAMOND (perolizada) (PADRÃO)", "PRATA BILLET (metálica)", "BRANCO MARFIM (perolizada)"]
+			"LARAMIE TURBODIESEL": ["PRATA BILLET (metálica) (padrão)", "PRETO DIAMOND (perolizada)", "BRANCO MARFIM (perolizada)", "VERMELHO DELMONICO (perolizada)"],
+			"LARAMIE NIGHT EDITION TURBODIESEL": ["PRATA BILLET (metálica) (padrão)", "PRETO DIAMOND (perolizada)", "BRANCO MARFIM (perolizada)"]
 		},
+		
 		"2500": {
-			"LARAMIE 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (PADRÃO)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"],
-			"LARAMIE NIGHT EDITION 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (PADRÃO)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"]
+			"LARAMIE TURBODIESEL": ["BRANCO BRIGHT (sólida)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"]
 		},
+		
 		"3500": {
-			"LARAMIE 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (PADRÃO)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"],
-			"LARAMIE NIGHT EDITION 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (PADRÃO)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"],
-			"LIMITED LONGHORN 6.7 TURBODIESEL AT6 4X4": ["PRETO DIAMOND (perolizada) (PADRÃO)", "GRANITO CRYSTAL (metálica)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (perolizada)", "VERMELHO DELMONICO (perolizada)"]
+			"LARAMIE NIGHT EDITION TURBODIESEL": ["BRANCO BRIGHT (sólida)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"],
+			"LIMITED LONGHORN TURBODIESEL": ["BRANCO BRIGHT (sólida)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"]
 		}
+
     };
 
     // Elementos do DOM
@@ -813,7 +817,7 @@ function criarTexto() {
         }
 
         if (entradaCartao) {
-            textoFinal += "Entrada facilitada no cartão de crédito da operadora LUCREE, em até 21 vezes com incidência de juros do cartão de acordo com o parcelamento solicitado. ";
+            textoFinal += "Entrada facilitada no cartão de crédito da operadora LUCREE, em até 24 vezes com incidência de juros do cartão de acordo com o parcelamento solicitado, sujeito a aprovação de crédito pelo banco. ";
         }
 
         // 3.7 - Informações finais e termos
