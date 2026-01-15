@@ -153,42 +153,102 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function setupEventListeners() {
     console.log('Setting up event listeners...');
+	
+	// Evento para mostrar campo de modelo específico quando selecionado
+	const comusadonatrocaSelect = document.getElementById("comusadonatroca");
+	if (comusadonatrocaSelect) {
+		comusadonatrocaSelect.addEventListener("change", function() {
+			const modeloEspecificoTroca = document.getElementById("modeloEspecificoTroca");
+			if (modeloEspecificoTroca) {
+				// Mostra o campo apenas se a opção "modelo específico" for selecionada
+				if (this.value === "seminovo de modelo específico na troca") {
+					modeloEspecificoTroca.style.display = "block";
+				} else {
+					modeloEspecificoTroca.style.display = "none";
+					modeloEspecificoTroca.value = ''; // Limpa o valor
+				}
+			}
+		});
+	}
+	
+	// Função para Checkbox de REVISÃO GRÁTIS
+	const revisaoCheckbox = document.getElementById("revisãoGratis");
+	if (revisaoCheckbox) {
+		revisaoCheckbox.addEventListener("change", function() {
+			const opcoesRevisao = document.getElementById("opcoesRevisao");
+			if (opcoesRevisao) {
+				opcoesRevisao.style.display = this.checked ? "block" : "none";
+				
+				// Se desmarcar, limpa todas as opções de revisão
+				if (!this.checked) {
+					document.querySelectorAll('.opcaoRevisao').forEach(checkbox => {
+						checkbox.checked = false;
+					});
+				}
+			}
+		});
+	}
+	
+	// Checkbox do "Bônus no Usado"
+    const bonusUsadoCheckbox = document.getElementById("bonusUsadoCheckbox");
+    if (bonusUsadoCheckbox) {
+        bonusUsadoCheckbox.addEventListener("change", function() {
+            const valorBonusUsado = document.getElementById("valorBonusUsado");
+            if (valorBonusUsado) {
+                valorBonusUsado.style.display = this.checked ? "inline-block" : "none";
+                if (!this.checked) valorBonusUsado.value = '';
+                
+                // Ativar máscara monetária se o campo for exibido
+                if (this.checked && typeof $.fn.maskMoney !== 'undefined') {
+                    $('#valorBonusUsado').maskMoney({
+                        prefix: 'R$ ',
+                        thousands: '.',
+                        decimal: ',',
+                        precision: 2,
+                        allowZero: false,
+                        allowNegative: false
+                    });
+                }
+            }
+        });
+    }
+	
+	
 
     // Dados de versões por modelo/marca
     const dados = {
         "FIAT": {
             // Modelos FIAT e suas versões...
-			"ARGO": ["1.0 MANUAL FLEX", "DRIVE 1.0 MANUAL FLEX", "TREKKING 1.3 MANUAL FLEX", "DRIVE 1.3 AUTOMÁTICO FLEX", "TREKKING 1.3 AUTOMÁTICO FLEX"],
-			"CRONOS": ["DRIVE 1.0 MANUAL FLEX", "DRIVE 1.3 AUTOMÁTICO FLEX", "PRECISION 1.3 AUTOMÁTICO FLEX"],
-			"DUCATO": ["CARGO 11,5M 2.2 MANUAL DIESEL", "MAXICARGO 13M 2.2 MANUAL DIESEL", "MINIBUS COMFORT 18L 2.2 MANUAL DIESEL", "MINIBUS LUXO 16L 2.2 MANUAL DIESEL"],
-			"FASTBACK": ["TURBO 200 FLEX AUTOMÁTICO", "AUDACE TURBO 200 HYBRID FLEX AUTOMÁTICO", "IMPETUS TURBO 200 HYBRID FLEX AUTOMÁTICO", "LIMITED EDITION TURBO 270 FLEX AUTOMÁTICO", "ABARTH TURBO 270 FLEX AUTOMÁTICO"],
+			"ARGO": ["DRIVE 1.0 MANUAL FLEX", "TREKKING 1.3 MANUAL FLEX", "DRIVE 1.3 AUTOMÁTICO FLEX", "TREKKING 1.3 AUTOMÁTICO FLEX"],
+			"CRONOS": ["DRIVE 1.0 MANUAL FLEX", "DRIVE 1.3 MANUAL FLEX", "DRIVE 1.3 AUTOMÁTICO FLEX", "PRECISION 1.3 AUTOMÁTICO FLEX"],
+			"DUCATO": ["CARGO 11,5M 2.2 DIESEL", "MAXICARGA 13M 2.2 DIESEL", "MINIBUS COMFORT 18L 2.2 DIESEL", "MINIBUS LUXO 16L 2.2 DIESEL"],
+			"FASTBACK": ["TURBO 200 FLEX AUTOMÁTICO", "AUDACE TURBO 200 HYBRID FLEX AUTOMÁTICO", "IMPETUS TURBO 200 HYBRID FLEX AUTOMÁTICO", "LIMITED EDITION TURBO 270 FLEX AUTOMÁTICO","ABARTH TURBO 270 FLEX AUTOMÁTICO"],
 			"FIORINO": ["ENDURANCE 1.3 FLEX MANUAL"],
 			"MOBI": ["LIKE 1.0 FLEX MANUAL", "TREKKING 1.0 FLEX MANUAL"],
-			"PULSE": ["DRIVE 1.3 FLEX MANUAL", "DRIVE 1.3 FLEX AUTOMÁTICO", "T200 FLEX AUTOMÁTICO", "AUDACE T200 HYBRID AUTOMÁTICO", "IMPETUS T200 HYBRID AUTOMÁTICO", "ABARTH T270 FLEX AUTOMÁTICO"],
-			"SCUDO": ["CARGO 1.5 MANUAL TURBODIESEL", "MULTI 1.5 MANUAL TURBODIESEL"],
-			"STRADA": ["ENDURANCE 1.3 CP FLEX MANUAL", "FREEDOM 1.3 CP FLEX MANUAL", "FREEDOM 1.3 CD FLEX MANUAL", "VOLCANO 1.3 CD FLEX MANUAL", "VOLCANO 1.3 CD FLEX AUTOMÁTICO", "RANCH TURBO 200 CD FLEX AUTOMÁTICO", "ULTRA TURBO 200 CD FLEX AUTOMÁTICO"],
-			"TITANO": ["ENDURANCE MULTIJET 2.2 TURBODIESEL MT 4X4", "VOLCANO MULTIJET 2.2 TURBODIESEL AT 4X4", "RANCH MULTIJET 2.2 TURBODIESEL AT 4X4"],
-			"TORO": ["ENDURANCE TURBO 270 AUTOMÁTICO FLEX", "FREEDOM TURBO 270 AUTOMÁTICO FLEX", "VOLCANO TURBO 270 AUTOMÁTICO FLEX", "ULTRA TURBO 270 AUTOMÁTICO FLEX", "VOLCANO AUTOMÁTICO 4X4 TURBODIESEL", "RANCH AUTOMÁTICO 4X4 TURBODIESEL"]
-},
+			"PULSE": ["DRIVE 1.3 MANUAL  FLEX", "DRIVE 1.3 AUTOMÁTICO FLEX", "TURBO 200 AUTOMÁTICO FLEX", "AUDACE TURBO 200 HYBRID FLEX AUTOMÁTICO", "IMPETUS TURBO 200 HYBRID FLEX AUTOMÁTICO","ABARTH TURBO 270 FLEX AUTOMÁTICO"],
+			"SCUDO": ["CARGO 2.2 TURBO DIESEL", "MULTI 2.2 TURBO DIESEL"],
+			"STRADA": ["ENDURANCE CABINE PLUS 1.3 MANUAL FLEX", "FREEDOM CABINE PLUS 1.3 MANUAL FLEX", "FREEDOM CABINE DUPLA 1.3 MANUAL FLEX", "VOLCANO CABINE DUPLA 1.3 MANUAL FLEX","VOLCANO CABINE DUPLA 1.3 AUTOMÁTICO FLEX", "ULTRA CABINE DUPLA TURBO 200 AUTOMÁTICO FLEX", "RANCH CABINE DUPLA TURBO 200 AUTOMÁTICO FLEX"],
+			"TITANO": ["ENDURANCE MULTIJET TURBODIESEL MANUAL  4X4", "VOLCANO MULTIJET TURBODIESEL AUTOMÁTICO 4X4", "RANCH MULTIJET TURBODIESEL AUTOMÁTICO 4X4"],
+			"TORO": ["ENDURANCE TURBO 270 FLEX AUTOMÁTICO", "FREEDOM TURBO 270 FLEX AUTOMÁTICO", "VOLCANO TURBO 270 FLEX AUTOMÁTICO", "ULTRA TURBO 270 FLEX AUTOMÁTICO", "VOLCANO TURBODIESEL 4x4 AUTOMÁTICO", "RANCH TURBODIESEL 4x4 AUTOMÁTICO"],
+		},
 
         "JEEP": {
-            // Modelos Jeep e suas versões...
-			"RENEGADE": ["SPORT T270 FLEX 4X2", "ALTITUDE T270 FLEX 4X2", "LONGITUDE T270 FLEX 4X2", "SAHARA T270 FLEX 4X2", "WILLYS T270 FLEX 4X4"],
-			"COMPASS": ["SPORT T270 FLEX", "LONGITUDE T270 FLEX", "SERIE S T270 FLEX", "BLACKHAWK HURRICANE"],
-			"COMMANDER": ["LONGITUDE 7L T270 FLEX", "LIMITED T270 FLEX", "OVERLAND T270 FLEX", "OVERLAND 2.2 TURBO DIESEL 4X4", "BLACKHAWK HURRICANE 4X4"],
-			"WRANGLER": ["RUBICON 4X4 GASOLINA"],
-			"GLADIATOR": ["RUBICON 4X4 GASOLINA"],
-			"GRAND CHEROKEE": ["4XE HÍBRIDO PLUG-IN"],
+			// Modelos FIAT e suas versões...
+			"RENEGADE": ["SPORT T270 4X2", "ALTITUDE T270 4X2", "LONGITUDE T270 4X2", "SAHARA T270 4X2", "WILLYS T270 4X4"],
+			"COMPASS": ["SPORT T270", "LONGITUDE T270", "SERIE S T270", "BLACKHAWK HURRICANE"],
+			"COMMANDER": ["LONGITUDE T270 7L", "LIMITED T270", "OVERLAND T270", "OVERLAND 2.2T DIESEL 4X4", "BLACKHAWK HURRICANE 4X4"],
+			"WRANGLER": ["RUBICON 4X4"],
+			"GLADIATOR": ["RUBICON 4X4 3.6 V6"],
+			"GRAND CHEROKEE": ["4xE HÍBRIDO PLUG-IN"]
         },
 		
         "RAM": {
-            // Modelos RAM e suas versões...
-			"RAMPAGE": ["BIG HORN 2.2 DIESEL", "REBEL 2.2 DIESEL", "LARAMIE 2.2 DIESEL", "R/T GASOLINA"],
-			"1500": ["LARAMIE TURBODIESEL", "LARAMIE NIGHT EDITION TURBODIESEL"],
-			"2500": ["LARAMIE TURBODIESEL"],
-			"3500": ["LARAMIE NIGHT EDITION TURBODIESEL", "LIMITED LONGHORN TURBODIESEL"],
-
-        }
+			// Modelos FIAT e suas versões...
+			"RAMPAGE": ["BIG HORN 2.2 DIESEL", "REBEL 2.2 DIESEL", "LARAMIE 2.2 DIESEL", "R/T 2.0 GASOLINA"],
+			"1500": ["LARAMIE GASOLINA", "LARAMIE NIGHT EDITION GASOLINA"],
+			"2500": ["LARAMIE GASOLINA"],
+			"3500": ["LARAMIE NIGHT EDITION GASOLINA", "LIMITED LONGHORN GASOLINA"]
+		}
     };
 
     // Cores disponíveis por versão
@@ -197,131 +257,120 @@ function setupEventListeners() {
 		
 		// LISTA DE CORES PARA MODELOS FIAT
 		"ARGO": {
-			"1.0 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)"," VERMELHO MONTECARLO (sólida)"," BRANCO BANCHISA (sólida)"," PRATA BARI (metálica)"," CINZA SILVERSTONE (metálica)"],
 			"DRIVE 1.0 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"TREKKING 1.3 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO com TETO PRETO VULCANO (sólida)", "BRANCO BANCHISA com TETO PRETO VULCANO (sólida)", "PRATA BARI com TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE com TETO PRETO VULCANO (metálica)"],
-			"DRIVE 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"TREKKING 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO com TETO PRETO VULCANO (sólida)", "BRANCO BANCHISA com TETO PRETO VULCANO (sólida)", "PRATA BARI com TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE com TETO PRETO VULCANO (metálica)"]			
+			"TREKKING 1.3 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO COM TETO PRETO VULCANO (sólida)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "PRATA BARI COM TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE COM TETO PRETO VULCANO (metálica)"],
+			"DRIVE 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "CINZA SILVERSTONE (metálica)", "PRATA BARI (metálica)"],
+			"TREKKING 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "VERMELHO MONTECARLO COM TETO PRETO VULCANO (sólida)", "PRATA BARI COM TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE COM TETO PRETO VULCANO (metálica)"]
 		},
 		"CRONOS": {
-			"DRIVE 1.0 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"DRIVE 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (perolizada)"],
-			"PRECISION 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (perolizada)"]
+			"DRIVE 1.0 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA SILVERSTONE (metálica)", "PRATA BARI (metálica)"],
+			"DRIVE 1.3 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA SILVERSTONE (metálica)", "PRATA BARI (metálica)", "BRANCO ALASKA (perolizada)"],
+			"DRIVE 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (perolizada)"],
+			"PRECISION 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA SILVERSTONE (metálica)", "PRATA BARI (metálica)", "BRANCO ALASKA (perolizada)"]
 		},
 		"DUCATO": {
-			"CARGO 11,5M 2.2 MANUAL DIESEL": ["BRANCO BANCHISA (sólida)", "CINZA ARTENSE (metálicas)"],
-			"MAXICARGO 13M 2.2 MANUAL DIESEL": ["BRANCO BANCHISA (sólida)", "CINZA ARTENSE (metálicas)"],
-			"MINIBUS COMFORT 18L 2.2 MANUAL DIESEL": ["BRANCO BANCHISA (sólida)", "CINZA ARTENSE (metálicas)"],
-			"MINIBUS LUXO 16L 2.2 MANUAL DIESEL": ["BRANCO BANCHISA (sólida)", "CINZA ARTENSE (metálicas)"]
+			"CARGO 11,5M 2.2 DIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "CINZA ARTENSE (metálica)"],
+			"MAXICARGA 13M 2.2 DIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "CINZA ARTENSE (metálica)"],
+			"MINIBUS COMFORT 18L 2.2 DIESEL": ["BRANCO BANCHISA (sólida) (padrão)"],
+			"MINIBUS LUXO 16L 2.2 DIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "CINZA GRAFITO (metálica)", "CINZA ARTENSE (metálica)"]
 		},
 		"FASTBACK": {
-			"TURBO 200 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "CINZA STRATO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"AUDACE TURBO 200 HYBRID FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
-			"IMPETUS TURBO 200 HYBRID FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "AZUL AMALFI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
-			"LIMITED EDITION TURBO 270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
-			"ABARTH TURBO 270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA STRATO (especiais)"]
+			"TURBO 200 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "CINZA STRATO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA SILVERSTONE (metálica)", "PRATA BARI (metálica)"],
+			"AUDACE TURBO 200 HYBRID FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "AZUL AMALFI (metálica)", "CINZA STRATO (especiais)"],
+			"IMPETUS TURBO 200 HYBRID FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "CINZA SILVERSTONE COM TETO PRETO VULCANO (metálica)", "AZUL AMALFI COM TETO PRETO VULCANO (metálica)", "PRATA BARI COM TETO PRETO VULCANO (metálica)", "CINZA STRATO COM TETO PRETO VULCANO (especiais)"],
+			"LIMITED EDITION TURBO 270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "PRATA BARI COM TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE COM TETO PRETO VULCANO (metálica)", "CINZA STRATO COM TETO PRETO VULCANO (especiais)"],
+			"ABARTH TURBO 270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO COM TETO PRETO VULCANO (sólida)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "CINZA STRATO COM TETO PRETO VULCANO (especiais)"]
 		},
 		"FIORINO": {
 			"ENDURANCE 1.3 FLEX MANUAL": ["BRANCO BANCHISA (sólida) (padrão)"]
 		},
 		"MOBI": {
-			"LIKE 1.0 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],	
-			"TREKKING 1.0 FLEX MANUAL" :["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "VERMELHO MONTECARLO COM TETO PRETO VULCANO (sólida)", "PRATA BARI COM TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE COM TETO PRETO VULCANO (metálica)"]
+			"LIKE 1.0 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"TREKKING 1.0 MANUAL  FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "VERMELHO MONTECARLO COM TETO PRETO VULCANO (sólida)", "PRATA BARI COM TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE COM TETO PRETO VULCANO (metálica)"]
 		},
 		"PULSE": {
-			"DRIVE 1.3 FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA SILVERSTONE (metálica)", "PRATA BARI (metálica)", "CINZA STRATO (especiais)"], 
-			"DRIVE 1.3 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA STRATO (especiais)"],
-			"T200 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"], 
-			"AUDACE T200 HYBRID AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
-			"IMPETUS T200 HYBRID AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "AZUL AMALFI (metálica)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
-			"ABARTH T270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "CINZA STRATO (especiais)"]
+			"DRIVE 1.3 MANUAL  FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
+			"DRIVE 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
+			"TURBO 200 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "CINZA STRATO (especiais)"],
+			"AUDACE TURBO 200 HYBRID FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "AZUL AMALFI (metálica)", "CINZA STRATO (especiais)"],
+			"IMPETUS TURBO 200 HYBRID FLEX AUTOMÁTICO": ["PRETO VULCANO COM TETO CINZA STRATO (sólida) (padrão)", "VERMELHO MONTECARLO COM TETO PRETO VULCANO (sólida)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "AZUL AMALFI COM TETO PRETO VULCANO (metálica)", "CINZA SILVERSTONE COM TETO PRETO VULCANO (metálica)", "PRATA BARI COM TETO PRETO VULCANO (metálica)", "CINZA STRATO COM TETO PRETO VULCANO (especiais)"],
+			"ABARTH TURBO 270 FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO COM TETO PRETO VULCANO (sólida)", "BRANCO BANCHISA COM TETO PRETO VULCANO (sólida)", "CINZA STRATO COM TETO PRETO VULCANO (especiais)"]
 		},
 		"SCUDO": {
-			"CARGO 1.5 MANUAL TURBODIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "PRETO CARBON (metálica)", "CINZA ALLUMINIUM (metálica)"],
-			"MULTI 1.5 MANUAL TURBODIESEL": ["BRANCO BANCHISA (sólida) (padrão)", "PRETO CARBON (metálica)", "CINZA ALLUMINIUM (metálica)"]
+			"CARGO 2.2 TURBO DIESEL": ["BRANCO BANCHISA (sólida) (padrão)"],
+			"MULTI 2.2 TURBO DIESEL": ["BRANCO BANCHISA (sólida) (padrão)"]
 		},
-	
 		"STRADA": {
-			"ENDURANCE 1.3 CP FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"FREEDOM 1.3 CP FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"FREEDOM 1.3 CD FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"VOLCANO 1.3 CD FLEX MANUAL": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"VOLCANO 1.3 CD FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"RANCH TURBO 200 CD FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
-			"ULTRA TURBO 200 CD FLEX AUTOMÁTICO": ["PRETO VULCANO (sólida) (padrão)", "VERMELHO MONTECARLO (sólida)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"]
+			"ENDURANCE CABINE PLUS 1.3 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"FREEDOM CABINE PLUS 1.3 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"FREEDOM CABINE DUPLA 1.3 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"VOLCANO CABINE DUPLA 1.3 MANUAL FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"VOLCANO CABINE DUPLA 1.3 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"ULTRA CABINE DUPLA TURBO 200 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"],
+			"RANCH CABINE DUPLA TURBO 200 AUTOMÁTICO FLEX": ["PRETO VULCANO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "VERMELHO MONTECARLO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)"]
 		},
-
 		"TITANO": {
-			"ENDURANCE MULTIJET 2.2 TURBODIESEL MT 4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)"],
-			"VOLCANO MULTIJET 2.2 TURBODIESEL AT 4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "PRETO VULCANO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (especial)"],
-			"RANCH MULTIJET 2.2 TURBODIESEL AT 4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "PRETO VULCANO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (especial)"]
+			"ENDURANCE MULTIJET TURBODIESEL MANUAL  4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "BRANCO BANCHISA (sólida)", "PRATA BARI (metálica)"],
+			"VOLCANO MULTIJET TURBODIESEL AUTOMÁTICO 4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "PRETO VULCANO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (especiais)"],
+			"RANCH MULTIJET TURBODIESEL AUTOMÁTICO 4X4": ["VERMELHO MONTECARLO (sólida) (padrão)", "PRETO VULCANO (sólida)", "PRATA BARI (metálica)", "CINZA SILVERSTONE (metálica)", "BRANCO ALASKA (especiais)"]
 		},
-	
 		"TORO": {
-			"ENDURANCE TURBO 270 AUTOMÁTICO FLEX": ["VERMELHO COLORADO (sólida) (padrão)", "BRANCO AMBIENTE (sólida)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)"],
-			"FREEDOM TURBO 270 AUTOMÁTICO FLEX": ["VERMELHO COLORADO (sólida) (padrão)", "BRANCO AMBIENTE (sólida)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)"],
-			"VOLCANO TURBO 270 AUTOMÁTICO FLEX": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)"],
-			"ULTRA TURBO 270 AUTOMÁTICO FLEX": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
-			"VOLCANO AUTOMÁTICO 4X4 TURBODIESEL": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)"],
-			"RANCH AUTOMÁTICO 4X4 TURBODIESEL": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)"]
+			"ENDURANCE TURBO 270 FLEX AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "BRANCO AMBIENTE (sólida)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)"],
+			"FREEDOM TURBO 270 FLEX AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "BRANCO AMBIENTE (sólida)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)"],
+			"VOLCANO TURBO 270 FLEX AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRATA BILLET (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
+			"ULTRA TURBO 270 FLEX AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "PRETO CARBON (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
+			"VOLCANO TURBODIESEL 4x4 AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "PRATA BILLET (metálica)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRETO CARBON (metálica)", "BRANCO POLAR (perolizada)", "CINZA STING (perolizada)"],
+			"RANCH TURBODIESEL 4x4 AUTOMÁTICO": ["VERMELHO COLORADO (sólida) (padrão)", "AZUL JAZZ (metálica)", "GRANITE CRYSTAL (metálica)", "PRETO CARBON (metálica)", "PRATA BILLET (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"]
 		},
+		
 		// LISTA DE CORES PARA MODELOS JEEP
 		"RENEGADE": {
-			"SPORT T270 FLEX 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
-			"ALTITUDE T270 FLEX 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "BRANCO POLAR BICOLOR (perolizada)"],
-			"LONGITUDE T270 FLEX 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
-			"SAHARA T270 FLEX 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
-			"WILLYS T270 FLEX 4X4": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "STING GRAY BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"]
+			"SPORT T270 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+			"ALTITUDE T270 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"LONGITUDE T270 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)", "CINZA STING (perolizada)"],
+			"SAHARA T270 4X2": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"WILLYS T270 4X4": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "STING GRAY BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"]
 		},
-	
 		"COMPASS": {
-			"SPORT T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "PRATA BILLET (metálica)", "BRANCO POLAR (perolizada)"],
-			"LONGITUDE T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE (metálica)", "PRATA BILLET (metálica)", "CINZA STING (perolizada)", "BRANCO POLAR (perolizada)"],
-			"SERIE S T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "CINZA STING BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"SPORT T270": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "PRATA BILLET (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)"],
+			"LONGITUDE T270": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ (metálica)", "PRATA BILLET (metálica)", "CINZA GRANITE (metálica)", "BRANCO POLAR (perolizada)", "CINZA STING (perolizada)"],
+			"SERIE S T270": ["PRETO CARBON (sólida) (padrão)", "CINZA STING BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
 			"BLACKHAWK HURRICANE": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE BICOLOR (metálica)", "STING GRAY BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"]
 		},
-	
 		"COMMANDER": {
-			"LONGITUDE 7L T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "BRANCO POLAR BICOLOR (perolizada)"],
-			"LIMITED T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
-			"OVERLAND T270 FLEX": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
-			"OVERLAND 2.2 TURBO DIESEL 4X4": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
-			"BLACKHAWK HURRICANE 4X4": ["PRETO CARBON (sólida) (padrão)", "CINZA GRANITE BICOLOR (metálica)", "CINZA STING BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"]
+			"LONGITUDE T270 7L": ["PRETO CARBON (sólida) (padrão)", "PRATA BILLET BICOLOR (metálica)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"LIMITED T270": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "PRATA BILLET BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"OVERLAND T270": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "PRATA BILLET BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"OVERLAND 2.2T DIESEL 4X4": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "PRATA BILLET BICOLOR (metálica)", "SLASH GOLD BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"],
+			"BLACKHAWK HURRICANE 4X4": ["PRETO CARBON (sólida) (padrão)", "AZUL JAZZ BICOLOR (metálica)", "CINZA GRANITE BICOLOR (metálica)", "CINZA STING BICOLOR (perolizada)", "BRANCO POLAR BICOLOR (perolizada)"]
 		},
-	
 		"WRANGLER": {
-			"RUBICON 4X4 GASOLINA": ["BRANCO (sólida) (padrão)", "PRETO (sólida)", "VERMELHO FIRECRACKER (sólida)", "GRANITE CRYSTAL (metálica)", "VERDE 41' (metálica)", "ANVIL (metálica)", "HYDRO BLUE (metálica)"]
+			"RUBICON 4X4": ["BRANCO (sólida) (padrão)", "VERMELHO FIRECRACKER (sólida)", "PRETO (sólida)", "GRANITE CRYSTAL (metálica)", "VERDE 41' (metálica)", "HYDRO BLUE (metálica)", "ANVIL (metálica)"]
 		},
-	
 		"GLADIATOR": {
-			"RUBICON 4X4 GASOLINA": ["BRANCO (sólida) (padrão)", "PRETO (sólida)", "VERMELHO FIRECRACKER (sólida)", "GRANITE CRYSTAL (metálica)", "VERDE 41' (metálica)", "ANVIL (metálica)", "HYDRO BLUE (metálica)"]
+			"RUBICON 4X4 3.6 V6": ["BRANCO (sólida) (padrão)", "VERMELHO FIRECRACKER (sólida)", "PRETO (sólida)", "GRANITE CRYSTAL (metálica)", "VERDE 41' (metálica)", "HYDRO BLUE (metálica)", "ANVIL (metálica)"]
 		},
-	
 		"GRAND CHEROKEE": {
-			"4XE HÍBRIDO PLUG-IN": ["BRIGHT WHITE (sólida) (padrão)", "MIDNIGHT SKY (metálica)", "BALTIC GREY METALLIC (metálica)", "DIAMOND BLACK (perolizada)"]
+			"4xE HÍBRIDO PLUG-IN": ["BRIGHT WHITE (sólida) (padrão)", "BALTIC GREY METALLIC (metálica)", "MIDNIGHT SKY (metálica)", "DIAMOND BLACK (perolizada)"]
 		},
 		// LISTA DE CORES PARA MODELOS RAM
 		"RAMPAGE": {
-			"BIG HORN 2.2 DIESEL": ["VERMELHO FLAME (sólido) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
-			"REBEL 2.2 DIESEL": ["VERMELHO FLAME (sólido) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
-			"LARAMIE 2.2 DIESEL": ["VERMELHO FLAME (sólido) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
-			"R/T GASOLINA": ["VERMELHO FLAME + TETO PRETO (sólido) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY + TETO PRETO (perolizada)", "BRANCO PEROLA + TETO PRETO (perolizada)", "MAXIMUM STEEL + TETO PRETO (metálica)", "AZUL PATRIOT + TETO PRETO (metálica)", "PRATA BILLET + TETO PRETO (metálica)"]
+			"BIG HORN 2.2 DIESEL": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+			"REBEL 2.2 DIESEL": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+			"LARAMIE 2.2 DIESEL": ["VERMELHO FLAME (sólida) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY (perolizada)", "BRANCO PEROLA (perolizada)", "MAXIMUM STEEL (metálica)", "AZUL PATRIOT (metálica)", "PRATA BILLET (metálica)"],
+			"R/T 2.0 GASOLINA": ["VERMELHO FLAME + TETO PRETO (especiais) (padrão)", "PRETO DIAMOND (sólida)", "STING GREY + TETO PRETO (perolizada)", "BRANCO PEROLA + TETO PRETO (perolizada)", "MAXIMUM STEEL + TETO PRETO (metálica)", "AZUL PATRIOT + TETO PRETO (metálica)", "PRATA BILLET + TETO PRETO (metálica)"]
 		},
-		
 		"1500": {
-			"LARAMIE TURBODIESEL": ["PRATA BILLET (metálica) (padrão)", "PRETO DIAMOND (perolizada)", "BRANCO MARFIM (perolizada)", "VERMELHO DELMONICO (perolizada)"],
-			"LARAMIE NIGHT EDITION TURBODIESEL": ["PRATA BILLET (metálica) (padrão)", "PRETO DIAMOND (perolizada)", "BRANCO MARFIM (perolizada)"]
+			"LARAMIE GASOLINA": ["PRATA BILLET (metálica) (padrão)", "PRETO DIAMOND (perolizada)", "BRANCO MARFIM (perolizada)", "VERMELHO DELMONICO (perolizada)"],
+			"LARAMIE NIGHT EDITION GASOLINA": ["PRATA BILLET (metálica) (padrão)", "BRANCO MARFIM (perolizada)", "PRETO DIAMOND (perolizada)"]
 		},
-		
 		"2500": {
-			"LARAMIE TURBODIESEL": ["BRANCO BRIGHT (sólida)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"]
+			"LARAMIE GASOLINA": ["BRANCO BRIGHT (sólida) (padrão)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"]
 		},
-		
 		"3500": {
-			"LARAMIE NIGHT EDITION TURBODIESEL": ["BRANCO BRIGHT (sólida)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"],
-			"LIMITED LONGHORN TURBODIESEL": ["BRANCO BRIGHT (sólida)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"]
+			"LARAMIE NIGHT EDITION GASOLINA": ["BRANCO BRIGHT (sólida) (padrão)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"],
+			"LIMITED LONGHORN GASOLINA": ["BRANCO BRIGHT (sólida) (padrão)", "GRANITO CRYSTAL (metálica)", "PRETO DIAMOND (perolizada)"]
 		}
-
     };
 
     // Elementos do DOM
@@ -479,6 +528,11 @@ function setupEventListeners() {
     
     const copiarTextoBtn = document.getElementById("copiarTextoBtn");
     if (copiarTextoBtn) copiarTextoBtn.addEventListener("click", copiarTexto);
+	
+	// NOVO: Botão para criar briefing
+    const criarBriefingBtn = document.getElementById("criarBriefingBtn");
+    if (criarBriefingBtn) criarBriefingBtn.addEventListener("click", criarBriefing);
+	
     
     // Redirecionamento do botão FIPE para o formulário de TABELA FIPE
     const tlFipeBtn = document.querySelector(".tl-fipe-btn");
@@ -488,13 +542,6 @@ function setupEventListeners() {
         });
     }
 	
-    // Redirecionamento do botão BÔNUS para o formulário de BÔNUS NO USADO
-    const tlBonusBtn = document.querySelector(".tl-bonus-usado-btn");
-    if (tlBonusBtn) {
-        tlBonusBtn.addEventListener("click", function() {
-            window.open('bônus_no_usado/bonus_no_usado_-_index.html', '_blank');
-        });
-    }
 	
 	// Isso é alguma função do modo escuro
 	const darkModeToggle = document.getElementById('darkModeToggle');
@@ -624,19 +671,6 @@ function popupInserirFipe() {
     }
 }
 
-// Exibe um prompt para inserir texto do bônus no usado e atualiza o texto final
-function popupBonusUsado() {
-    try {
-        const textoInserido = prompt("Por favor, insira o texto do Bônus / Supervalorização no Usado:");
-        if (textoInserido !== null) {
-            textoBonusUsadoInserido = textoInserido;
-            criarTexto(); // Atualiza o texto final
-        }
-    } catch (error) {
-        console.error('Erro em popupBonusUsado:', error);
-        alert('Ocorreu um erro ao inserir o texto do Bônus. Por favor, tente novamente.');
-    }
-}
 
 // Limpa os textos inseridos da FIPE e do bônus no usado
 function limparResultado() {
@@ -691,6 +725,7 @@ function criarTexto() {
         const priceDE = getValue("priceDE");
         const pricePOR = getValue("pricePOR");
         const comusadonatroca = getValue("comusadonatroca"); // Alterado de checkbox para select
+		const modeloEspecificoTroca = getValue("modeloEspecificoTroca"); // Nome do carro especifico que será usado na troca.
         
         // Condições de financiamento
         const financiamento = getCheckboxValue("checkboxFinanciamento");
@@ -700,11 +735,27 @@ function criarTexto() {
         const quantidadeParcelas = getValue("quantidadeParcelas");
         const valorParcela = getValue("valorParcela");
         const carencia = getValue("carencia");
-        
+		
+		// Valor de Bõnus na troca do seu Seminovo
+		const bonusUsado = getCheckboxValue("bonusUsadoCheckbox"); // NOVO
+        const valorBonusUsado = getValue("valorBonusUsado"); // NOVO
+		
+		// Condições Extras
+		const ipvaGratis = getCheckboxValue("ipvaGratis");
+		const taxaEmplacamentoGratis = getCheckboxValue("taxaEmplacamentoGratis");
+		const emplacamentoGratis = getCheckboxValue("emplacamentoGratis");
+		const revisãoGratis = getCheckboxValue("revisãoGratis");
+
+		// Capturar as revisões selecionadas
+		const revisoesSelecionadas = [];
+		if (revisãoGratis) {
+			document.querySelectorAll('.opcaoRevisao:checked').forEach(checkbox => {
+				revisoesSelecionadas.push(checkbox.value);
+			});
+		}
+		
+		
         // Promoções e benefícios
-        const ipvaGratis = getCheckboxValue("ipvaGratis");
-        const emplacamentoGratis = getCheckboxValue("emplacamentoGratis");
-        const revisãoGratis = getCheckboxValue("revisãoGratis");
         const bonusAcessorios = getValue("bonusAcessorios");
         const entradaCartao = getCheckboxValue("entradaCartao");
         
@@ -749,7 +800,7 @@ function criarTexto() {
             textoFinal += "sem opcional, ";
         }
 
-        // 3.3 - Preços e condições de pagamento
+        // 3.3.1 - Preços e condições de pagamento
         textoFinal += `cor ${nomeCor}, com valor à vista `;
         textoFinal += `de ${priceDE}`;
 
@@ -758,10 +809,29 @@ function criarTexto() {
         }
         
         if (comusadonatroca && comusadonatroca.trim() !== '') {
-            textoFinal += ` com ${comusadonatroca}`;
+			if (comusadonatroca === "seminovo de modelo específico na troca" && modeloEspecificoTroca && modeloEspecificoTroca.trim() !== '') {
+				textoFinal += ` com seminovo ${modeloEspecificoTroca} na troca`;
+			} else {
+				textoFinal += ` com ${comusadonatroca}`;
+			}
+		}
+		
+		textoFinal += `. `;
+		
+		// 3.3.2 - Valor do Bõnus na troca do Seminovo
+		if (bonusUsado && valorBonusUsado && valorBonusUsado.trim() !== '') {
+            textoFinal += `"BÔNUS TRADE-IN". O valor de supervalorização de ${valorBonusUsado} será concedido na forma de bônus aplicado diretamente na compra do veículo 0km deste anúncio, mediante avaliação e entrega de 1 (um) veículo usado na negociação. O bônus não é convertido em dinheiro e não é cumulativo com outras campanhas, programas ou condições comerciais, salvo indicação expressa em contrário. `;
         }
+		
+		// 3.3.3 - Verificar se há seminovo na troca ou bônus na troca
+        const temTroca = (comusadonatroca && comusadonatroca.trim() !== '') || 
+                        (bonusUsado && valorBonusUsado && valorBonusUsado.trim() !== '');
         
-        textoFinal += `. `;
+        if (temTroca) {
+            textoFinal += `A promoção não aceita veículos seminovos em nome de terceiros, salvo se o proprietário for parente de primeiro grau (cônjuge, filho ou pai) do comprador, mediante comprovação documental. Outros parentescos estão excluídos. `;
+        }
+		
+			
         
         // 3.4 - Textos adicionais (FIPE e Bônus)
         if (textoFipeInserido.trim() !== '') {
@@ -772,7 +842,7 @@ function criarTexto() {
             textoFinal += ` ${textoBonusUsadoInserido}. `;
         }
         
-        // 3.5 - Condições de financiamento
+        // 3.5.1 - Condições de financiamento
         if (financiamento) {
             textoFinal += `Financiamento com taxa a partir de ${taxa} a.m., `;
 
@@ -799,26 +869,35 @@ function criarTexto() {
             textoFinal += `com ${carencia} dias de carência para pagamento da 1ª parcela, na modalidade crédito direto ao consumidor – cdc, pessoa física, incluindo tarifas, custos e impostos (i.O.F.). Todas as propostas estarão sujeitas a aprovação de crédito pelo banco STELLANTIS. `;
         }
 
-        // 3.6 - Promoções e benefícios
-        if (ipvaGratis) {
-            textoFinal += "Ação \"IPVA GRÁTIS\". O veículo divulgado neste anúncio terá o valor correspondente ao IPVA do ano atual custeados pela concessionária Italiana. ";
-        }
+
+        // 3.6.1 - Condições Extras
+		const condicoesExtras = [];
+	
+		if (ipvaGratis) condicoesExtras.push("IPVA grátis");
+		if (taxaEmplacamentoGratis) condicoesExtras.push("Taxa de Emplacamento grátis");
+		if (emplacamentoGratis) condicoesExtras.push("Emplacamento Total grátis");
+		
+		if (revisãoGratis && revisoesSelecionadas.length > 0) {
+			const revisoesTexto = revisoesSelecionadas.map(r => `${r}`).join(', ');
+			condicoesExtras.push(`${revisoesTexto} revisão grátis`);
+		}
+		
+		if (condicoesExtras.length > 0) {
+			const condicoesTexto = condicoesExtras.join(', ');
+			textoFinal += `"CONDIÇÕES EXTRAS". O cliente receberá como cortesia do grupo ITALIANA o(s) seguinte(s) benefício(s) na compra do veículo deste anúncio: ${condicoesTexto}. `;
+		}
+
         
-        if (emplacamentoGratis) {
-            textoFinal += "Ação \"EMPLACAMENTO GRÁTIS\". O veículo divulgado neste anúncio terá o valor correspondente a taxa de emplacamento do ano atual custeados pela concessionária Italiana. ";
-        }
-        
-        if (revisãoGratis) {
-            textoFinal += "Ação \"1ª REVISÃO GRÁTIS\". O veículo divulgado neste anúncio terá o valor correspondente a 1ª revisão de quilometragem registrada no manual de garantia do veículo custeados pela concessionária Italiana. ";
-        }
-        
-        if (getCheckboxValue("bonusAcessoriosCheckbox") && bonusAcessorios && bonusAcessorios.trim() !== '') {
-            textoFinal += ` "Ação \"BÔNUS EM ACESSÓRIOS\". Será bonificado ao cliente o valor de ${bonusAcessorios} em acessórios para serem instalados no veículo comprado. Não será possível resgatar o valor total ou parcial deste bônus em dinheiro ou transferido para outra pessoa. `;
-        }
+        // 3.6.2 - Bônus em Acessórios (mantenha esta seção)
+		if (getCheckboxValue("bonusAcessoriosCheckbox") && bonusAcessorios && bonusAcessorios.trim() !== '') {
+			textoFinal += `"Ação \"BÔNUS EM ACESSÓRIOS\". Será bonificado ao cliente o valor de ${bonusAcessorios} em acessórios para serem instalados no veículo comprado. Não será possível resgatar o valor total ou parcial deste bônus em dinheiro ou transferido para outra pessoa. `;
+		}
 
         if (entradaCartao) {
             textoFinal += "Entrada facilitada no cartão de crédito da operadora LUCREE, em até 24 vezes com incidência de juros do cartão de acordo com o parcelamento solicitado, sujeito a aprovação de crédito pelo banco. ";
         }
+		
+				
 
         // 3.7 - Informações finais e termos
         textoFinal += `Ofertas citadas acima são exclusivas para ${tipoCliente}, `;
@@ -838,6 +917,341 @@ function criarTexto() {
     } catch (error) {
         console.error('Erro em criarTexto:', error);
         alert('Ocorreu um erro ao gerar o texto. Por favor, verifique os campos e tente novamente.');
+    }
+}
+
+
+
+
+// ==============================================
+// FUNÇÃO PARA CRIAR BRIEFING RESUMIDO
+// ==============================================
+
+function criarBriefing() {
+    try {
+        console.log('Iniciando criação de briefing...');
+        
+        // ==================================================
+        // SEÇÃO 1: CAPTURA DE VALORES DO FORMULÁRIO
+        // ==================================================
+        
+        // Informações básicas do veículo
+        const marca = document.querySelector('input[name="marca"]:checked')?.value || '';
+        const modelo = getValue("modelo");
+        const versao = getValue("versao");
+        const anoModelo = getValue("anoModelo");
+        
+        // Preços
+        const priceDE = getValue("priceDE");
+        const pricePOR = getValue("pricePOR");
+        const comusadonatroca = getValue("comusadonatroca");
+        const modeloEspecificoTroca = getValue("modeloEspecificoTroca");
+        
+        // Tipo de cliente
+        const tipoCliente = getValue("tipoCliente");
+        
+        // Condições extras
+        const bonusUsado = getCheckboxValue("bonusUsadoCheckbox");
+        const valorBonusUsado = getValue("valorBonusUsado");
+        
+        const financiamento = getCheckboxValue("checkboxFinanciamento");
+        const taxa = getValue("taxaJuros");
+        
+        const ipvaGratis = getCheckboxValue("ipvaGratis");
+        const emplacamentoGratis = getCheckboxValue("emplacamentoGratis");
+        const taxaEmplacamentoGratis = getCheckboxValue("taxaEmplacamentoGratis");
+        const revisãoGratis = getCheckboxValue("revisãoGratis");
+        
+        // Capturar revisões selecionadas
+        const revisoesSelecionadas = [];
+        if (revisãoGratis) {
+            document.querySelectorAll('.opcaoRevisao:checked').forEach(checkbox => {
+                revisoesSelecionadas.push(checkbox.value);
+            });
+        }
+        
+        const bonusAcessoriosCheckbox = getCheckboxValue("bonusAcessoriosCheckbox");
+        const bonusAcessorios = getValue("bonusAcessorios");
+        const entradaCartao = getCheckboxValue("entradaCartao");
+        
+        // ==================================================
+        // SEÇÃO 2: FUNÇÕES AUXILIARES PARA FORMATAÇÃO
+        // ==================================================
+        
+        /**
+         * Remove centavos dos valores monetários
+         * @param {string} valor - Valor formatado (ex: "R$ 100.000,00")
+         * @return {string} Valor sem centavos (ex: "R$ 100.000")
+         */
+        function removerCentavos(valor) {
+            if (!valor) return '';
+            
+            // Remove os centavos (últimos 3 caracteres: ",00")
+            if (valor.includes(',00')) {
+                return valor.substring(0, valor.length - 3);
+            }
+            return valor;
+        }
+        
+        /**
+         * Formata taxa de juros - se for 0,0% mostra "zero"
+         * @param {string} taxa - Taxa formatada (ex: "0,00%")
+         * @return {string} Taxa formatada
+         */
+        function formatarTaxaJuros(taxa) {
+            if (!taxa) return '';
+            
+            // Remove o símbolo de porcentagem e converte para número
+            const taxaNumerica = taxa.replace('%', '').replace(',', '.');
+            const valor = parseFloat(taxaNumerica);
+            
+            if (valor === 0) {
+                return 'zero';
+            }
+            
+            // Retorna com apenas 1 casa decimal se for diferente de zero
+            return taxa.replace(',0', ',');
+        }
+        
+        /**
+         * Formata ano do modelo - remove o primeiro ano se tiver formato XXXX/YYYY
+         * @param {string} ano - Ano do modelo (ex: "2025/2026")
+         * @return {string} Ano formatado (ex: "2026")
+         */
+        function formatarAnoModelo(ano) {
+            if (!ano) return '';
+            
+            // Se o formato for XXXX/YYYY, retorna apenas o segundo ano
+            if (ano.includes('/')) {
+                const partes = ano.split('/');
+                if (partes.length === 2) {
+                    return partes[1]; // Retorna apenas o segundo ano
+                }
+            }
+            return ano;
+        }
+        
+        /**
+         * Formata a opção de seminovo na troca
+         * @param {string} opcaoTroca - Opção selecionada
+         * @return {string} Texto formatado
+         */
+        function formatarOpcaoTroca(opcaoTroca) {
+            if (!opcaoTroca) return '';
+            
+            const mapeamento = {
+                'seminovo de qualquer marca na troca': 'com seu usado na troca',
+                'seminovo FIAT na troca': 'com seu FIAT usado na troca',
+                'seminovo JEEP na troca': 'com seu JEEP usado na troca',
+                'seminovo RAM na troca': 'com seu RAM usado na troca',
+                'seminovo de modelo específico na troca': '' // Tratamento especial abaixo
+            };
+            
+            // Para modelo específico, o texto será tratado separadamente
+            if (opcaoTroca === 'seminovo de modelo específico na troca') {
+                return ''; // Será tratado na lógica principal
+            }
+            
+            return mapeamento[opcaoTroca] || opcaoTroca;
+        }
+        
+        /**
+         * Formata o tipo de cliente para o briefing
+         * @param {string} tipoCliente - Tipo de cliente selecionado
+         * @return {string} Texto formatado
+         */
+        function formatarTipoCliente(tipoCliente) {
+            if (!tipoCliente) return '';
+            
+            const mapeamento = {
+                'Pessoa Física no canal de VENDAS DIRETAS': 'Preço de empresa para pessoa física',
+                'CNPJ e Produtor Rural no canal de VENDAS DIRETAS': 'Exclusivo para CNPJ e Produtor Rural',
+                'Táxi com isenções de IPI e ICMS no canal de VENDAS DIRETAS': 'Exclusivo para Táxi',
+                'Táxi com isenções de IPI no canal de VENDAS DIRETAS': 'Exclusivo para Táxi',
+                'PCD (pessoas com deficiência) já contemplando isenções de IPI e ICMS no canal de VENDAS DIRETAS, desde que seja apresentado as devidas documentações para adquirir as isenções fiscais': 'Exclusivo para PCD',
+                'PCD (pessoas com deficiência) já contemplando isenções de IPI no canal de VENDAS DIRETAS, desde que seja apresentado as devidas documentações para adquirir as isenções fiscais': 'Exclusivo para PCD'
+            };
+            
+            return mapeamento[tipoCliente] || tipoCliente;
+        }
+        
+        // ==================================================
+        // SEÇÃO 3: VALIDAÇÕES BÁSICAS
+        // ==================================================
+        
+        if (!marca || !modelo || !anoModelo) {
+            alert('Por favor, preencha pelo menos a marca, modelo e ano do veículo.');
+            return;
+        }
+        
+        if (!priceDE) {
+            alert('Por favor, informe o preço "DE".');
+            return;
+        }
+        
+        // ==================================================
+        // SEÇÃO 4: CONSTRUÇÃO DO BRIEFING
+        // ==================================================
+        
+        let briefing = "";
+        
+        // 4.1 - Cabeçalho com informações básicas
+        briefing += `📌 OFERTA:\n\n`;
+        briefing += `${modelo} ${versao || ""}`;
+        
+        // Adicionar ano formatado (apenas o segundo ano)
+        const anoFormatado = formatarAnoModelo(anoModelo);
+        if (anoFormatado) {
+            briefing += ` ${anoFormatado}\n`;
+        } else {
+            briefing += `\n`;
+        }
+        
+        // Formatar preço DE sem centavos
+        const priceDESemCentavos = removerCentavos(priceDE);
+        
+        if (pricePOR && pricePOR.trim() !== '') {
+            // Formatar preço POR sem centavos
+            const pricePORSemCentavos = removerCentavos(pricePOR);
+            briefing += `De: ${priceDESemCentavos}\n`;
+            briefing += `Por: ${pricePORSemCentavos}\n`;
+        } else {
+            // Se não tem POR, mostrar DE com "a partir de"
+            briefing += `A partir de: ${priceDESemCentavos}\n`;
+        }
+        
+        // 4.2 - Informação sobre seminovo na troca
+        if (comusadonatroca && comusadonatroca.trim() !== '') {
+            if (comusadonatroca === "seminovo de modelo específico na troca" && modeloEspecificoTroca && modeloEspecificoTroca.trim() !== '') {
+                briefing += `com seu ${modeloEspecificoTroca} usado na troca\n\n`;
+            } else {
+                const opcaoTrocaFormatada = formatarOpcaoTroca(comusadonatroca);
+                if (opcaoTrocaFormatada) {
+                    briefing += `${opcaoTrocaFormatada}\n\n`;
+                }
+            }
+        } else {
+            briefing += `\n\n`;
+        }
+        
+        // 4.3 - Tipo de cliente formatado
+        if (tipoCliente && tipoCliente !== "Pessoa Física no canal VAREJO") {
+            const tipoClienteFormatado = formatarTipoCliente(tipoCliente);
+            if (tipoClienteFormatado) {
+                briefing += `${tipoClienteFormatado}\n\n\n`;
+            } else {
+                briefing += `\n`;
+            }
+        } else {
+            briefing += `\n`;
+        }
+        
+        // 4.4 - Seção "CONDIÇÕES"
+        briefing += `📌 CONDIÇÕES DA OFERTA:\n\n`;
+        
+        // Bônus no usado
+        if (bonusUsado && valorBonusUsado && valorBonusUsado.trim() !== '') {
+            const bonusSemCentavos = removerCentavos(valorBonusUsado);
+            briefing += `• Bônus no seu usado de ${bonusSemCentavos}\n`;
+        }
+        
+        // Financiamento (apenas taxa de juros)
+        if (financiamento && taxa && taxa.trim() !== '') {
+            const taxaFormatada = formatarTaxaJuros(taxa);
+            if (taxaFormatada) {
+                briefing += `• Taxa ${taxaFormatada}\n`;
+            }
+        }
+        
+        // IPVA grátis
+        if (ipvaGratis) {
+            briefing += `• IPVA grátis\n`;
+        }
+        
+        // Emplacamento total grátis
+        if (emplacamentoGratis) {
+            briefing += `• Emplacamento total grátis\n`;
+        }
+        
+        // Taxa de emplacamento grátis
+        if (taxaEmplacamentoGratis) {
+            briefing += `• Taxa de emplacamento grátis\n`;
+        }
+        
+        // Revisão grátis
+        if (revisãoGratis && revisoesSelecionadas.length > 0) {
+            const revisoesTexto = revisoesSelecionadas.map(r => `${r} revisão`).join(', ');
+            briefing += `• ${revisoesTexto} grátis\n`;
+        }
+        
+        // Bônus de acessórios
+        if (bonusAcessoriosCheckbox && bonusAcessorios && bonusAcessorios.trim() !== '') {
+            const acessoriosSemCentavos = removerCentavos(bonusAcessorios);
+            briefing += `• Bônus em acessórios de ${acessoriosSemCentavos}\n`;
+        }
+        
+        // Entrada no cartão
+        if (entradaCartao) {
+            briefing += `• Entrada facilitada em 24x\n`;
+        }
+        
+        // Verificar se há alguma condição
+        const temCondicoes = bonusUsado || financiamento || ipvaGratis || emplacamentoGratis || 
+                            taxaEmplacamentoGratis || revisãoGratis || 
+                            bonusAcessoriosCheckbox || entradaCartao;
+        
+        if (!temCondicoes) {
+            briefing += `• Nenhuma condição extra selecionada\n`;
+        }
+        
+        // ==================================================
+        // SEÇÃO 5: EXIBIÇÃO DO RESULTADO
+        // ==================================================
+        
+        const textoGerado = document.getElementById("textoGerado");
+        if (textoGerado) {
+            // Salva o briefing gerado
+            const briefingGerado = briefing;
+            
+            // Chama a função criarTexto para gerar o texto jurídico completo
+            const textoJuridicoCompleto = criarTextoParaBriefing();
+            
+            // Combina briefing + texto jurídico
+            const resultadoCompleto = `${briefingGerado}\n\n📌 TL:\n${textoJuridicoCompleto}`;
+            
+            textoGerado.textContent = resultadoCompleto;
+        }
+        
+        console.log('Briefing gerado com sucesso!');
+        
+    } catch (error) {
+        console.error('Erro em criarBriefing:', error);
+        alert('Ocorreu um erro ao gerar o briefing. Por favor, tente novamente.');
+    }
+}
+
+// ==============================================
+// FUNÇÃO AUXILIAR PARA CRIAR TEXTO JURÍDICO
+// (Versão simplificada para uso com briefing)
+// ==============================================
+
+function criarTextoParaBriefing() {
+    try {
+        // Chama a função criarTexto original, mas captura o resultado
+        // Em vez de exibir diretamente, retorna o texto gerado
+        criarTexto();
+        
+        // Pega o texto gerado pelo criarTexto
+        const textoGeradoElement = document.getElementById("textoGerado");
+        if (textoGeradoElement) {
+            return textoGeradoElement.textContent;
+        }
+        
+        return "Erro ao gerar texto jurídico.";
+        
+    } catch (error) {
+        console.error('Erro em criarTextoParaBriefing:', error);
+        return "Erro ao gerar texto jurídico.";
     }
 }
 

@@ -47,7 +47,7 @@
         
         <!-- Cabeçalho com título principal -->
         <div id="header">
-            <h1>Texto Jurídico - atualizado em 04/10/2025</h1> <!-- Título da aplicação -->
+            <h1>Texto Jurídico</h1> <!-- Título da aplicação -->
         </div>
         
         <!-- Seção de seleção do veículo -->
@@ -124,13 +124,22 @@
             <option value="seminovo FIAT na troca">Seminovo FIAT na troca</option>
             <option value="seminovo JEEP na troca">Seminovo JEEP na troca</option>
             <option value="seminovo RAM na troca">Seminovo RAM na troca</option>
+			<option value="seminovo de modelo específico na troca">Seminovo de modelo específico na troca</option>
         </select>
-        <br>
+		<!-- Adicione este campo após o select -->
+		<input type="text" id="modeloEspecificoTroca" placeholder="Digite o modelo específico (ex: FIAT ARGO DRIVE)" style="display: none; margin-top: 5px;">
+		<br>
         
         <!-- Botões para criação de textos legais específicos -->
         <button class="tl-fipe-btn">Criar texto "100% Tabela Fipe no Usado"</button> <!-- Botão para texto FIPE -->
-        <button class="tl-bonus-usado-btn">Criar texto "Supervalorização no Usado"</button> <!-- Botão para texto de bônus -->
         <br><br><br>
+		
+		<!-- Seção para Bônus no Usado -->
+		<label for="bonusUsadoCheckbox">Supervalorização do Usado / Bônus Trade-in:</label>
+		<input type="checkbox" id="bonusUsadoCheckbox" name="bonusUsado">
+		<input type="text" id="valorBonusUsado" placeholder="R$ 0,00" style="display: none; margin-left: 10px;">
+		<br><br><br>
+		
         
         <!-- Seção de financiamento (com campos condicionais) -->
         <label for="checkboxFinanciamento">Financiamento:</label>
@@ -196,18 +205,46 @@
                 <br><br>
             </div>
         </div>
+		<br>
+		
+				
+        <!-- Seção para Condições Extras -->
+		<label for="CondiçõesExtras">Condições extras / Cortesias:</label>
+		<br><br>
+		
+		<!-- Checkboxes principais -->
+		<label for="taxaEmplacamentoGratis">
+			<input type="checkbox" id="taxaEmplacamentoGratis" name="condicoesExtras">
+			Taxa de Emplacamento Grátis
+		</label>
+		<br>
+		
+		<label for="ipvaGratis">
+			<input type="checkbox" id="ipvaGratis" name="condicoesExtras">
+			IPVA Grátis
+		</label>
+		<br>
+		
+		<label for="emplacamentoGratis">
+			<input type="checkbox" id="emplacamentoGratis" name="condicoesExtras">
+			Emplacamento Total Grátis
+		</label>
+		<br>
+		
+		<label for="revisãoGratis">
+			<input type="checkbox" id="revisãoGratis" name="condicoesExtras">
+			Revisão Grátis
+		</label>
+		<br>
 
-        <!-- Checkboxes para benefícios adicionais -->
-        <label for="ipvaGratis">IPVA Grátis:</label>
-        <input type="checkbox" id="ipvaGratis">
-        <br><br>
-        
-        <label for="emplacamentoGratis">Emplacamento Grátis:</label>
-        <input type="checkbox" id="emplacamentoGratis">
-        <br><br>
-        
-        <label for="revisãoGratis">1ª Revisão Grátis:</label>
-        <input type="checkbox" id="revisãoGratis">
+		<!-- Container para opções de REVISÃO GRÁTIS (inicialmente oculto) -->
+		<div id="opcoesRevisao" style="display: none; margin-left: 20px;">
+			<label><input type="checkbox" class="opcaoRevisao" value="1ª"> 1ª revisão</label>
+			<label><input type="checkbox" class="opcaoRevisao" value="2ª"> 2ª revisão</label>
+			<label><input type="checkbox" class="opcaoRevisao" value="3ª"> 3ª revisão</label>
+			<label><input type="checkbox" class="opcaoRevisao" value="4ª"> 4ª revisão</label>
+			<label><input type="checkbox" class="opcaoRevisao" value="5ª"> 5ª revisão</label>
+		</div>
         <br><br>
         
         <!-- Seção para bônus em acessórios (com campo condicional) -->
@@ -219,19 +256,19 @@
         <!-- Checkbox para entrada no cartão -->
         <label for="entradaCartao">Entrada em 24x no cartão:</label>
         <input type="checkbox" id="entradaCartao">
-        <br><br>
+        <br><br><br>
 
         <!-- Dropdown para tipo de cliente -->
         <label for="tipoCliente">Tipo de Cliente:</label>
         <select id="tipoCliente">
             <option value="">Selecione o tipo de cliente</option> <!-- Opção padrão -->
             <option value="Pessoa Física no canal VAREJO">Pessoa Física</option>
-            <option value="Pessoa Física no canal de VENDAS DIRETAS por meio de CPF">Pessoa Física em VD pelo CPF</option>
+            <option value="Pessoa Física no canal de VENDAS DIRETAS">Pessoa Física em VD pelo CPF</option>
             <option value="CNPJ e Produtor Rural no canal de VENDAS DIRETAS">CNPJ e Produtor Rural</option>
             <option value="Táxi com isenções de IPI e ICMS no canal de VENDAS DIRETAS">Táxi (isenções de IPI e ICMS)</option>
             <option value="Táxi com isenções de IPI no canal de VENDAS DIRETAS">Táxi (isenções de IPI)</option>
-            <option value="PCD com isenções de IPI e ICMS no canal de VENDAS DIRETAS">PCD (isenções de IPI e ICMS)</option>
-            <option value="PCD com isenções de IPI no canal de VENDAS DIRETAS">PCD (isenção de IPI)</option>
+            <option value="PCD (pessoas com deficiência) já contemplando isenções de IPI e ICMS no canal de VENDAS DIRETAS, desde que seja apresentado as devidas documentações para adquirir as isenções fiscais">PCD (isenções de IPI e ICMS)</option>
+            <option value="PCD (pessoas com deficiência) já contemplando isenções de IPI no canal de VENDAS DIRETAS, desde que seja apresentado as devidas documentações para adquirir as isenções fiscais">PCD (isenção de IPI)</option>
         </select>
         <br><br>
 
@@ -241,12 +278,12 @@
         <br><br>
 
         <!-- Botões principais de ação -->
-        <button id="criarTextoBtn">Criar Texto</button> <!-- Gera o texto completo -->
+        <button id="criarTextoBtn">Criar Texto Jurídico</button> <!-- Gera o texto completo -->
         <button class="inserirfipe-btn" id="inserirFipeBtn">Inserir TL "100% FIPE"</button> <!-- Insere texto FIPE -->
-        <button class="inserirBonusUsado-btn" id="inserirBonusUsadoBtn">Inserir TL "Bônus Usado"</button> <!-- Insere texto de bônus -->
-        <button class="limpar-texto-btn" id="limparTextoBtn">Excluir "Fipe" e "Bônus"</button> <!-- Limpa textos adicionais -->
+        <button class="limpar-texto-btn" id="limparTextoBtn">Excluir TL "100% Fipe"</button> <!-- Limpa textos adicionais -->
+		<button id="criarBriefingBtn">Criar Briefing + TL</button>
         <button id="copiarTextoBtn">Copiar Texto</button> <!-- Copia texto gerado para clipboard -->
-        
+		        
         <br><br>
 
         <!-- Área de exibição do texto gerado -->
