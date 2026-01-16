@@ -565,11 +565,26 @@ function setupEventListeners() {
     }
 });
 
-// Clique na logo ativa/desativa o tema "Super Nintendo"
+
+
+
+
+
+
+
+
+
+
+// Alternar tema Blade Runner ao clicar na logo
 document.querySelectorAll('.logo-click').forEach(logo => {
-    logo.style.cursor = "pointer";
-    logo.addEventListener('click', () => {
-        document.body.classList.toggle('super-nintendo');
+    logo.addEventListener('click', function() {
+        document.body.classList.toggle('blade-runner');
+        
+        // Remover outros temas quando ativar Blade Runner (opcional)
+        if (document.body.classList.contains('blade-runner')) {
+            // Se quiser remover dark mode quando ativar blade runner
+            // document.body.classList.remove('dark-mode');
+        }
     });
 });
 

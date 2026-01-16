@@ -16,20 +16,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Biblioteca jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script> <!-- Plugin para máscara monetária -->
     <script src="script.js" defer></script> <!-- Script principal da aplicação (carregado com defer) -->
+	
+	
+	<!-- tag de fonte para tema NEON RETRO BLADE RUNNER -->
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+	
+	
 </head>
 <body>
-    <!-- Inserir vídeo como BG padrão do site -->
-	<video autoplay muted loop playsinline id="video-background" class="default-video" poster="resources/poster.jpg">
-		<source src="resources/background.mp4" type="video/mp4">
-		<source src="resources/background.webm" type="video/webm"> <!-- Opcional: versão WebM para melhor compatibilidade -->
-	</video>
-	
-	<!-- Inserir vídeo como BG para o tema 16bits -->
-	<video autoplay muted loop playsinline id="video-16bit" class="super-nintendo-video" poster="resources/poster.jpg">
-		<source src="resources/bg.mp4" type="video/mp4">
-		<source src="resources/background-16bit.webm" type="video/webm"> <!-- Opcional: versão WebM para melhor compatibilidade -->
-	</video>
-
 
     <!-- Container principal que engloba todo o conteúdo -->
     <div class="container">
@@ -38,10 +32,11 @@
             <span class="material-symbols-outlined">dark_mode</span> <!-- Ícone de lua para tema escuro -->
         </button>
         <br>
+				
 
         <!-- Logotipos - um para cada tema (claro/escuro) -->
-        <img src="resources/logo_light_mode.png" alt="Logotipo" class="logo-light logo-click"> <!-- Logotipo para tema claro -->
-        <img src="resources/logo_dark_mode.png" alt="Logotipo" class="logo-dark logo-click"> <!-- Logotipo para tema escuro -->
+        <img src="resources/logo_light_mode.png" alt="Logotipo" class="logo-light logo-click" id="logo-tlfacil">
+		<img src="resources/logo_dark_mode.png" alt="Logotipo" class="logo-dark logo-click" id="logo-tlfacil-dark">
 
         <br><br>
         
