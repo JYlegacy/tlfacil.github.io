@@ -924,6 +924,13 @@ function criarTexto() {
 
 
 
+
+
+
+
+
+
+
 // ==============================================
 // FUNÇÃO PARA CRIAR BRIEFING RESUMIDO
 // ==============================================
@@ -941,6 +948,12 @@ function criarBriefing() {
         const modelo = getValue("modelo");
         const versao = getValue("versao");
         const anoModelo = getValue("anoModelo");
+        
+        // Detalhes específicos do veículo (NOVO: para seção Destaques)
+        const chassiUnico = getCheckboxValue("chassiUnicoCheckbox");
+        const numeroChassi = getValue("numeroChassi");
+        const opcional = getCheckboxValue("opcionalCheckbox");
+        const nomeOpcional = getValue("nomeOpcional");
         
         // Preços
         const priceDE = getValue("priceDE");
@@ -1139,7 +1152,7 @@ function criarBriefing() {
         if (tipoCliente && tipoCliente !== "Pessoa Física no canal VAREJO") {
             const tipoClienteFormatado = formatarTipoCliente(tipoCliente);
             if (tipoClienteFormatado) {
-                briefing += `${tipoClienteFormatado}\n\n\n`;
+                briefing += `${tipoClienteFormatado}\n\n`;
             } else {
                 briefing += `\n`;
             }
@@ -1147,8 +1160,28 @@ function criarBriefing() {
             briefing += `\n`;
         }
         
-        // 4.4 - Seção "CONDIÇÕES"
-        briefing += `📌 CONDIÇÕES DA OFERTA:\n\n`;
+        // 4.4 - NOVA SEÇÃO: DESTAQUES (chassi único e opcional)
+        const destaques = [];
+        
+        // Chassi único
+        if (chassiUnico) {
+            destaques.push("• Chassi único");
+        }
+        
+        // Opcional
+        if (opcional && nomeOpcional && nomeOpcional.trim() !== '') {
+            destaques.push(`• ${nomeOpcional}`);
+        }
+        
+        // Se houver destaques, adicionar a seção
+        if (destaques.length > 0) {
+            briefing += `📌 DESTAQUES:\n\n`;
+            briefing += destaques.join('\n');
+            briefing += `\n\n`;
+        }
+        
+        // 4.5 - Seção "CONDIÇÕES"
+        briefing += `\n\n📌 CONDIÇÕES DA OFERTA:\n\n`;
         
         // Bônus no usado
         if (bonusUsado && valorBonusUsado && valorBonusUsado.trim() !== '') {
@@ -1214,10 +1247,12 @@ function criarBriefing() {
             // Salva o briefing gerado
             const briefingGerado = briefing;
             
-            // Chama a função criarTexto para gerar o texto jurídico completo
-            const textoJuridicoCompleto = criarTextoParaBriefing();
+            // CORREÇÃO AQUI: Em vez de criarTextoParaBriefing() que não existe,
+            // chamamos a função criarTexto() que já existe e gera o texto jurídico
+            criarTexto(); // Isso preenche o campo com o texto completo
+            const textoJuridicoCompleto = document.getElementById("textoGerado").textContent;
             
-            // Combina briefing + texto jurídico
+            // Limpa o campo e combina briefing + texto jurídico
             const resultadoCompleto = `${briefingGerado}\n\n📌 TL:\n${textoJuridicoCompleto}`;
             
             textoGerado.textContent = resultadoCompleto;
@@ -1231,30 +1266,21 @@ function criarBriefing() {
     }
 }
 
-// ==============================================
-// FUNÇÃO AUXILIAR PARA CRIAR TEXTO JURÍDICO
-// (Versão simplificada para uso com briefing)
-// ==============================================
 
-function criarTextoParaBriefing() {
-    try {
-        // Chama a função criarTexto original, mas captura o resultado
-        // Em vez de exibir diretamente, retorna o texto gerado
-        criarTexto();
-        
-        // Pega o texto gerado pelo criarTexto
-        const textoGeradoElement = document.getElementById("textoGerado");
-        if (textoGeradoElement) {
-            return textoGeradoElement.textContent;
-        }
-        
-        return "Erro ao gerar texto jurídico.";
-        
-    } catch (error) {
-        console.error('Erro em criarTextoParaBriefing:', error);
-        return "Erro ao gerar texto jurídico.";
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ==============================================
 // FUNÇÕES AUXILIARES
