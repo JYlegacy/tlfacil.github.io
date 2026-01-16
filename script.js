@@ -521,9 +521,7 @@ function setupEventListeners() {
     const inserirFipeBtn = document.getElementById("inserirFipeBtn");
     if (inserirFipeBtn) inserirFipeBtn.addEventListener("click", popupInserirFipe);
     
-    const inserirBonusUsadoBtn = document.getElementById("inserirBonusUsadoBtn");
-    if (inserirBonusUsadoBtn) inserirBonusUsadoBtn.addEventListener("click", popupBonusUsado);
-    
+       
     const limparTextoBtn = document.getElementById("limparTextoBtn");
     if (limparTextoBtn) limparTextoBtn.addEventListener("click", limparResultado);
     
@@ -932,7 +930,7 @@ function criarTexto() {
 
 
 // ==============================================
-// FUNÇÃO PARA CRIAR BRIEFING RESUMIDO
+// FUNÇÃO PARA CRIAR BRIEFING 
 // ==============================================
 
 function criarBriefing() {
@@ -964,6 +962,9 @@ function criarBriefing() {
         // Tipo de cliente
         const tipoCliente = getValue("tipoCliente");
         
+        // Data de validade - CRÍTICA PARA VALIDAÇÃO
+        const validade = getValue("validade");
+        
         // Condições extras
         const bonusUsado = getCheckboxValue("bonusUsadoCheckbox");
         const valorBonusUsado = getValue("valorBonusUsado");
@@ -989,7 +990,45 @@ function criarBriefing() {
         const entradaCartao = getCheckboxValue("entradaCartao");
         
         // ==================================================
-        // SEÇÃO 2: FUNÇÕES AUXILIARES PARA FORMATAÇÃO
+        // SEÇÃO 2: VALIDAÇÕES BÁSICAS - CAMPOS OBRIGATÓRIOS
+        // ==================================================
+        
+        let camposFaltantes = [];
+        
+        // Verificar marca selecionada
+        if (!marca) {
+            camposFaltantes.push("Marca");
+        }
+        
+        // Verificar modelo selecionado
+        if (!modelo) {
+            camposFaltantes.push("Modelo");
+        }
+        
+        // Verificar ano do modelo selecionado
+        if (!anoModelo) {
+            camposFaltantes.push("Ano");
+        }
+        
+        // Verificar preço DE preenchido
+        if (!priceDE) {
+            camposFaltantes.push("Preço 'DE'");
+        }
+        
+        // Verificar data de validade preenchida
+        if (!validade) {
+            camposFaltantes.push("Data de validade");
+        }
+        
+        // Se houver campos faltantes, mostrar alerta específico
+        if (camposFaltantes.length > 0) {
+            const mensagem = `Por favor, preencha os seguintes campos obrigatórios:\n\n• ${camposFaltantes.join('\n• ')}`;
+            alert(mensagem);
+            return; // Interrompe a execução da função
+        }
+        
+        // ==================================================
+        // SEÇÃO 3: FUNÇÕES AUXILIARES PARA FORMATAÇÃO
         // ==================================================
         
         /**
@@ -1090,20 +1129,6 @@ function criarBriefing() {
         }
         
         // ==================================================
-        // SEÇÃO 3: VALIDAÇÕES BÁSICAS
-        // ==================================================
-        
-        if (!marca || !modelo || !anoModelo) {
-            alert('Por favor, preencha pelo menos a marca, modelo e ano do veículo.');
-            return;
-        }
-        
-        if (!priceDE) {
-            alert('Por favor, informe o preço "DE".');
-            return;
-        }
-        
-        // ==================================================
         // SEÇÃO 4: CONSTRUÇÃO DO BRIEFING
         // ==================================================
         
@@ -1181,7 +1206,7 @@ function criarBriefing() {
         }
         
         // 4.5 - Seção "CONDIÇÕES"
-        briefing += `\n\n📌 CONDIÇÕES DA OFERTA:\n\n`;
+        briefing += `📌 CONDIÇÕES DA OFERTA:\n\n`;
         
         // Bônus no usado
         if (bonusUsado && valorBonusUsado && valorBonusUsado.trim() !== '') {
@@ -1247,14 +1272,19 @@ function criarBriefing() {
             // Salva o briefing gerado
             const briefingGerado = briefing;
             
-            // CORREÇÃO AQUI: Em vez de criarTextoParaBriefing() que não existe,
-            // chamamos a função criarTexto() que já existe e gera o texto jurídico
+            // CORREÇÃO: Salva o texto jurídico atual (se houver)
+            const textoJuridicoAtual = document.getElementById("textoGerado").textContent;
+            
+            // Gera o texto jurídico completo
             criarTexto(); // Isso preenche o campo com o texto completo
+            
+            // Pega o texto jurídico gerado
             const textoJuridicoCompleto = document.getElementById("textoGerado").textContent;
             
-            // Limpa o campo e combina briefing + texto jurídico
+            // Combina briefing + texto jurídico
             const resultadoCompleto = `${briefingGerado}\n\n📌 TL:\n${textoJuridicoCompleto}`;
             
+            // Exibe o resultado final
             textoGerado.textContent = resultadoCompleto;
         }
         
