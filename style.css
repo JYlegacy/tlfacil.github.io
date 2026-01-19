@@ -487,7 +487,6 @@ body.blade-runner .logo-dark {
     filter: 
         brightness(1.2) 
         contrast(1.1)
-        hue-rotate(180deg)
         drop-shadow(0 0 10px rgba(0, 230, 255, 0.7));
 }
 
@@ -529,4 +528,58 @@ body.blade-runner::after {
 .logo-click:hover {
     transform: scale(1.05);
     filter: brightness(1.3) contrast(1.2);
+}
+
+/* Logo Blade Runner */
+.logo-blade-runner {
+    position: absolute !important;
+    top: 40px !important;
+    left: 20px !important;
+    width: 231px;
+    height: 40px;
+    transition: opacity 0.3s ease;
+    z-index: 99;
+    pointer-events: auto;
+}
+
+/* Controle de visibilidade dos logos - Adicione ao final das regras existentes */
+body:not(.blade-runner) .logo-blade-runner { 
+    opacity: 0; 
+    display: none !important; 
+}
+
+body.blade-runner .logo-light, 
+body.blade-runner .logo-dark { 
+    opacity: 0; 
+    display: none !important; 
+}
+
+body.blade-runner .logo-blade-runner { 
+    opacity: 1; 
+    display: block !important; 
+}
+
+/* Efeito especial para a logo Blade Runner */
+body.blade-runner .logo-blade-runner {
+    filter: 
+        brightness(1.2) 
+        contrast(1.1)
+        drop-shadow(0 0 10px rgba(0, 230, 255, 0.7));
+    animation: logoNeonPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoNeonPulse {
+    0%, 100% { 
+        filter: 
+            brightness(1.2) 
+            contrast(1.1)
+            drop-shadow(0 0 10px rgba(0, 230, 255, 0.7));
+    }
+    50% { 
+        filter: 
+            brightness(1.4) 
+            contrast(1.3)
+            drop-shadow(0 0 20px rgba(0, 230, 255, 0.9))
+            drop-shadow(0 0 30px rgba(255, 0, 255, 0.5));
+    }
 }

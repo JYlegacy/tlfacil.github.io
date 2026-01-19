@@ -553,8 +553,14 @@ function setupEventListeners() {
 		});
 	}
 	
-	// Isso é alguma função do modo escuro
+	// Modifique o evento do botão darkModeButton
 	document.getElementById('darkModeButton').addEventListener('click', function() {
+		// Se estiver em modo Blade Runner, desativá-lo primeiro
+		if (document.body.classList.contains('blade-runner')) {
+			document.body.classList.remove('blade-runner');
+		}
+    
+    // Alternar modo escuro
     document.body.classList.toggle('dark-mode');
     
     const icon = this.querySelector('.material-symbols-outlined');
@@ -580,10 +586,30 @@ document.querySelectorAll('.logo-click').forEach(logo => {
     logo.addEventListener('click', function() {
         document.body.classList.toggle('blade-runner');
         
-        // Remover outros temas quando ativar Blade Runner (opcional)
-        if (document.body.classList.contains('blade-runner')) {
-            // Se quiser remover dark mode quando ativar blade runner
-            // document.body.classList.remove('dark-mode');
+        // Verificar se o tema Blade Runner está ativo
+        const isBladeRunner = document.body.classList.contains('blade-runner');
+        
+        // Se ativar Blade Runner, desativar dark mode (opcional)
+        if (isBladeRunner) {
+            document.body.classList.remove('dark-mode');
+            
+            // Atualizar ícone do botão dark mode
+            const icon = document.querySelector('#darkModeButton .material-symbols-outlined');
+            if (icon) {
+                icon.textContent = 'dark_mode';
+            }
+        }
+        
+        // Se desativar Blade Runner, restaurar o tema baseado na preferência do sistema
+        if (!isBladeRunner) {
+            // Verificar se o sistema prefere modo escuro
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+                const icon = document.querySelector('#darkModeButton .material-symbols-outlined');
+                if (icon) {
+                    icon.textContent = 'light_mode';
+                }
+            }
         }
     });
 });
