@@ -654,7 +654,7 @@ function criarTexto() {
                         (bonusUsado && valorBonusUsado && valorBonusUsado.trim() !== '');
         
         if (temTroca) {
-            textoFinal += `A promoção não aceita veículos seminovos em nome de terceiros, salvo se o proprietário for parente de primeiro grau (cônjuge, filho ou pai) do comprador, mediante comprovação documental. Outros parentescos estão excluídos. `;
+            textoFinal += `A promoção não aceita veículos que tenha ocorrido transferência de propriedade nos últimos 3 meses e em nome de terceiros, salvo se o proprietário for parente de primeiro grau (cônjuge, filho ou pai) do comprador, mediante comprovação documental. Outros parentescos estão excluídos. `;
         }
 		
 			
@@ -949,7 +949,8 @@ function criarBriefing() {
                 'Táxi com isenções de IPI e ICMS no canal de VENDAS DIRETAS': 'Exclusivo para Táxi',
                 'Táxi com isenções de IPI no canal de VENDAS DIRETAS': 'Exclusivo para Táxi',
                 'PCD (pessoas com deficiência) já contemplando isenções de IPI e ICMS no canal de VENDAS DIRETAS, desde que seja apresentado as devidas documentações para adquirir as isenções fiscais': 'Exclusivo para PCD',
-                'PCD (pessoas com deficiência) já contemplando isenções de IPI no canal de VENDAS DIRETAS, desde que seja apresentado as devidas documentações para adquirir as isenções fiscais': 'Exclusivo para PCD'
+                'PCD (pessoas com deficiência) já contemplando isenções de IPI no canal de VENDAS DIRETAS, desde que seja apresentado as devidas documentações para adquirir as isenções fiscais': 'Exclusivo para PCD',
+				'Motoristas de Aplicativo no canal de VENDAS DIRETAS, desde que seja apresentado a CNH com observação EAR (Exerce Atividade Remunerada) e comprovante de cadastro ativo em plataforma de transporte por aplicativo. Toda a documentação apresentada estará sujeita à validação e aprovação interna.': 'Exclusivo para Motorista de APP',
             };
             
             return mapeamento[tipoCliente] || tipoCliente;
