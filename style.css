@@ -224,9 +224,9 @@ body:not(.dark-mode) .logo-dark  { opacity: 0; }
    3. TEMA ESCURO (body.dark-mode)
    ===================================================================== */
 
-/* ----- Base do body (Camada 1 - Mais escura, mas aliviada) ----- */
+/* ----- Base do body (Camada 1 - Fundo externo) ----- */
 body.dark-mode {
-    background-color: #151b24; /* Antes: #0d1117. Agora um azul um pouco mais claro */
+    background-color: #151b24; 
     color: #e2e8f0;
 }
 
@@ -239,18 +239,18 @@ body.dark-mode label {
 
 /* ----- Container (Camada 2 - Tom médio) ----- */
 body.dark-mode .container {
-    background-color: #1c222b; /* Azul escuro acinzentado */
+    background-color: #1c222b; 
     color: #e2e8f0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra para separar do fundo */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
 }
 
-/* ----- Cabeçalho e Inputs (Camada 3 - Mais clara) ----- */
+/* ----- Cabeçalho e Inputs (Camada 3 - Mais escuros) ----- */
 body.dark-mode #header,
 body.dark-mode input,
 body.dark-mode select {
-    background-color: #2a3646; /* Azul acinzentado mais claro */
+    background-color: #202936; /* Antes: #242f3d. Agora mais escuro */
     color: #e2e8f0;
-    border: 1px solid #394758; /* Borda azul para os inputs */
+    border: 1px solid #394758; 
 }
 
 body.dark-mode #header {
