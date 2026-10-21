@@ -66,6 +66,36 @@ input, select {
     box-sizing: border-box;
 }
 
+/* ----- Layout de inputs lado a lado (como os anos) ----- */
+.input-row {
+    display: flex;
+    gap: 10px; /* Espaço entre os dois campos */
+    margin-bottom: 10px;
+}
+
+.input-row select {
+    flex: 1; /* Faz os dois dividirem o espaço igualmente */
+    width: 100%; /* Sobrescreve o calc(100% - 18px) */
+    margin-bottom: 0; /* Remove a margem inferior do select para alinhar com o container */
+}
+
+/* ----- Colunas para inputs com labels (ex: Preço DE / POR) ----- */
+.input-col {
+    flex: 1; /* Faz as colunas dividirem o espaço igualmente */
+    display: flex;
+    flex-direction: column; /* Coloca o label em cima e o input embaixo */
+}
+
+.input-col label {
+    margin-bottom: 5px; /* Espaço entre o label e o input */
+}
+
+.input-col input {
+    width: 100%; /* Ocupa todo o espaço da coluna */
+    margin-bottom: 0; /* Remove a margem inferior para alinhar com a outra coluna */
+}
+
+
 input[type="checkbox"], input[type="radio"] {
     width: auto;
 }
@@ -137,6 +167,22 @@ body:not(.blade-runner) .logo-blade-runner {
 /* ----- Botão legado do Blade Runner (não usado) ----- */
 .blade-runner-btn {
     display: none !important;
+}
+
+
+
+/* ----- Ajuste de Margem Direita (Ano Modelo e Preço POR) ----- */
+
+/* 1. Ano Modelo */
+#anoModelo {
+    margin-right: 20px; /* Altere para o valor que preferir */
+}
+
+/* 2. Preço POR */
+#pricePOR {
+    /* O width: calc desconta o valor da margem para o campo não vazar do container */
+    width: calc(100% - 20px) !important; 
+    margin-right: 20px; /* Mantenha o mesmo valor usado no width acima */
 }
 
 
