@@ -46,20 +46,27 @@
             <h1>Texto Jurídico</h1> <!-- Título da aplicação -->
         </div>
         
+		
+		
+		<br>
         <!-- Seção de seleção do veículo -->
-        <h4>Selecione o Ano / Modelo:</h4>
+        <h4>Selecione o Ano do Veículo:</h4>
 		
-		<!-- Seletor para seleção de ano de fabricação -->
-        <label for="anoFabricação"></label>
-		<select id="anoFabricação">
-			<option value="">Selecione o Ano de Fabricação</option>
-		</select>
+		<!-- NOVO CONTAINER FLEXÍVEL PARA OS ANOS -->
+		<div class="input-row">
+			<!-- Seletor para seleção de ano de fabricação -->
+			<select id="anoFabricação">
+				<option value="">Ano de Fabricação</option>
+			</select>
+			
+			<!-- Seletor para seleção de ano modelo -->
+			<select id="anoModelo">
+				<option value="">Ano Modelo</option>
+			</select>
+		</div>			
 		
-		<!-- Seletor para seleção de ano modelo -->
-        <label for="anoModelo"></label>
-		<select id="anoModelo">
-			<option value="">Selecione o Ano Modelo</option>
-		</select>		
+		
+		
 		
         <!-- Seção de seleção do veículo -->
         <h4>Selecione a Marca:</h4>
@@ -104,15 +111,28 @@
         <input type="text" id="nomeOpcional" placeholder="Nome do opcional" style="display: none;"> <!-- Campo que aparece quando marcado -->
         <br><br>
 
-        <!-- Campos para preços -->
-        <label for="priceDE">Preço "a partir de:"</label>
-        <input type="text" id="priceDE" name="priceDE" placeholder="R$ 0,00" required> <!-- Campo formatado com máscara monetária -->
-        <br><br>
 
-        <label for="pricePOR">Preço "por:"</label>
-        <input type="text" id="pricePOR" name="pricePOR" placeholder="R$ 0,00" required> <!-- Campo formatado com máscara monetária -->
-        <br><br>
+
+
+
+        <!-- Campos para preços lado a lado -->
+        <div class="input-row">
+            <div class="input-col">
+                <label for="priceDE">Preço "a partir de:"</label>
+                <input type="text" id="priceDE" name="priceDE" placeholder="R$ 0,00" required>
+            </div>
+            <div class="input-col">
+                <label for="pricePOR">Preço "por:"</label>
+                <input type="text" id="pricePOR" name="pricePOR" placeholder="R$ 0,00">
+            </div>
+        </div>
+        <br>
         
+		
+		
+		
+		
+		
         <!-- Dropdown para seminovos na troca -->
         <label for="comusadonatroca">O preço final é com seminovo na troca?</label>
         <select id="comusadonatroca">
