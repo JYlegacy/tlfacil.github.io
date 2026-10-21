@@ -51,8 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Carrega o arquivo de marcas (modelos por marca)
     carregarMarcas(() => {
-        setupEventListeners();
-    });
+		popularAnos();        // <-- novo
+		setupEventListeners();
+	});
 
     // Inicia rotação de fundo se houver imagens
     // if (images.length > 0) setInterval(changeBackgroundImage, 5000);
@@ -171,6 +172,77 @@ function atualizarModelos() {
         console.warn(`Nenhum modelo encontrado para marca=${marca}, ano=${ano}`);
     }
 }
+
+
+
+// LER ANOS QUE ESTÃO EM MARCAS.JS
+/**
+ * Popula os selects de Ano Fabricação e Ano Modelo
+ * a partir das chaves de window.marcas (carregado de marcas.js).
+ *
+ * Regra aplicada:
+ *  - Ano Modelo    -> apenas os anos existentes em marcas.js
+ *  - Ano Fabricação -> anos existentes + o ano anterior
+ *    (ex.: um modelo 2026 pode ter sido fabricado em 2025 ou 2026)
+ */
+function popularAnos() {
+    if (!window.marcas) {
+        console.warn('marcas.js ainda não carregado — não é possível popular os anos.');
+        return;
+    }
+
+    const anosModelo = Object.keys(window.marcas).sort();
+
+    // Constrói lista de anos de fabricação (ano do modelo + ano anterior)
+    const anosFabricacaoSet = new Set();
+    anosModelo.forEach(ano => {
+        const n = parseInt(ano, 10);
+        if (!isNaN(n)) {
+            anosFabricacaoSet.add(String(n - 1));
+            anosFabricacaoSet.add(String(n));
+        }
+    });
+    const anosFabricacao = Array.from(anosFabricacaoSet).sort();
+
+    const selFab = document.getElementById('anoFabricação');
+    const selMod = document.getElementById('anoModelo');
+
+    if (!selFab || !selMod) {
+        console.warn('Selects de ano não encontrados no DOM.');
+        return;
+    }
+
+    // Preserva seleções atuais (útil se a função rodar mais de uma vez)
+    const fabAtual = selFab.value;
+    const modAtual = selMod.value;
+
+    // Popula Ano Fabricação
+    selFab.innerHTML = '<option value="">Selecione o Ano de Fabricação</option>';
+    anosFabricacao.forEach(ano => {
+        const opt = document.createElement('option');
+        opt.value = ano;
+        opt.textContent = ano;
+        selFab.appendChild(opt);
+    });
+
+    // Popula Ano Modelo
+    selMod.innerHTML = '<option value="">Selecione o Ano Modelo</option>';
+    anosModelo.forEach(ano => {
+        const opt = document.createElement('option');
+        opt.value = ano;
+        opt.textContent = ano;
+        selMod.appendChild(opt);
+    });
+
+    // Restaura se o valor ainda existir
+    if (fabAtual && anosFabricacao.includes(fabAtual)) selFab.value = fabAtual;
+    if (modAtual && anosModelo.includes(modAtual)) selMod.value = modAtual;
+
+    console.log('Anos populados:', { anosFabricacao, anosModelo });
+}
+
+
+
 
 
 
