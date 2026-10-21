@@ -257,14 +257,7 @@ function setupEventListeners() {
 
     // Exemplo: ao selecionar marca, preenche modelo usando window.marcas
 	
-	
-	
-	
-	
-	
-	
-	
-    document.querySelectorAll('input[name="marca"]').forEach(radio => {
+	    document.querySelectorAll('input[name="marca"]').forEach(radio => {
         radio.addEventListener("change", atualizarModelos);
     });
 
@@ -595,6 +588,17 @@ document.querySelectorAll('.logo-click').forEach(logo => {
         }
     });
 });
+
+
+	// Abre o calendário nativo ao clicar em qualquer ponto do campo de validade
+	const validadeInput = document.getElementById('validade');
+	if (validadeInput) {
+		validadeInput.addEventListener('click', function () {
+			if (typeof this.showPicker === 'function') {
+				try { this.showPicker(); } catch (e) { /* ignora */ }
+			}
+		});
+	}
 
 
 console.log('Event listeners setup complete');
