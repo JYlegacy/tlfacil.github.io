@@ -216,54 +216,74 @@ body:not(.dark-mode) .logo-light { opacity: 1; }
 body:not(.dark-mode) .logo-dark  { opacity: 0; }
 
 
+
+
+
+
 /* =====================================================================
    3. TEMA ESCURO (body.dark-mode)
    ===================================================================== */
 
-/* ----- Base do body ----- */
+/* ----- Base do body (Camada 1 - Mais escura, mas aliviada) ----- */
 body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
+    background-color: #151b24; /* Antes: #0d1117. Agora um azul um pouco mais claro */
+    color: #e2e8f0;
 }
 
-/* ----- Cabeçalho ----- */
-body.dark-mode h1 {
-    color: #ffffff;
+/* ----- Títulos e Labels (Ciano) ----- */
+body.dark-mode h1,
+body.dark-mode h4,
+body.dark-mode label {
+    color: #4bc4d4; 
+}
+
+/* ----- Container (Camada 2 - Tom médio) ----- */
+body.dark-mode .container {
+    background-color: #1c222b; /* Azul escuro acinzentado */
+    color: #e2e8f0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra para separar do fundo */
+}
+
+/* ----- Cabeçalho e Inputs (Camada 3 - Mais clara) ----- */
+body.dark-mode #header,
+body.dark-mode input,
+body.dark-mode select {
+    background-color: #2a3646; /* Azul acinzentado mais claro */
+    color: #e2e8f0;
+    border: 1px solid #394758; /* Borda azul para os inputs */
 }
 
 body.dark-mode #header {
-    background-color: #2c2c2c;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: none; 
 }
 
-/* ----- Container ----- */
-body.dark-mode .container {
-    background-color: rgba(40, 40, 40, 0.9);
-    color: #ffffff;
+/* Placeholder */
+body.dark-mode input::placeholder {
+    color: #72829b;
 }
 
-/* ----- Inputs e selects ----- */
-body.dark-mode input,
-body.dark-mode select {
-    background-color: #2c2c2c;
-    color: #ffffff;
-    border: 1px solid #555;
+/* ----- Botão de alternância de tema (Amarelo) ----- */
+body.dark-mode .dark-mode-btn { 
+    background-color: #f7b923; 
+    color: #1c222b; 
+    border-radius: 6px; 
 }
 
+body.dark-mode .dark-mode-btn:hover { 
+    background-color: #e0a61f; 
+}
 
-/* ----- Botão de alternância de tema ----- */
-body.dark-mode .dark-mode-btn { color: #ffffff; }
-body.dark-mode .dark-mode-btn:hover { background-color: rgba(51, 51, 51, 0.5); }
-
-/* ----- Ícone do botão de tema (modo escuro) ----- */
 body.dark-mode .dark-mode-btn .material-symbols-outlined {
+    color: #1c222b !important; 
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    color: #ffffff;
 }
 
-/* ----- Logotipos: esconde light, mostra dark ----- */
+/* ----- Logotipos ----- */
 body.dark-mode .logo-light { opacity: 0; }
 body.dark-mode .logo-dark  { opacity: 1; }
+
+
+
 
 
 /* =====================================================================
