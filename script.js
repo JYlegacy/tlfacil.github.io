@@ -8,6 +8,8 @@ let textoBonusUsadoInserido = '';
 
 // Cache para modelos já carregados
 const modelosCarregados = new Set();
+// Cache dos dados por "ano/marca/modelo" (para não misturar anos diferentes)
+const dadosModelos = {};
 
 // ==============================================
 // INICIALIZAÇÃO DA PÁGINA
@@ -73,31 +75,105 @@ function carregarMarcas(callback) {
     document.head.appendChild(script);
 }
 
-function carregarModelo(marca, modelo, callback) {
-    const chave = `${marca}/${modelo}`;
-    if (modelosCarregados.has(chave)) {
-        if (callback) callback();
+
+
+
+
+
+
+
+
+
+function carregarModelo(marca, modelo, ano, callback) {
+    if (!ano) {
+        console.warn('Ano não selecionado, não é possível carregar os dados.');
+        if (callback) callback(null);
         return;
     }
 
-    // Converte nome do modelo para nome de arquivo:
-    // - Substitui espaços por "_"
-    // - Remove caracteres especiais, se necessário
+    const chave = `${ano}/${marca}/${modelo}`;
+
+    // Já carregado: entrega direto do cache
+    if (modelosCarregados.has(chave)) {
+        if (callback) callback(dadosModelos[chave]);
+        return;
+    }
+
+    // Ajuste o nome do arquivo conforme sua convenção real:
+    // - Se seus arquivos têm espaço (ex.: "GRAND CHEROKEE.js"), use `${modelo}.js`
+    // - Se têm underline (ex.: "GRAND_CHEROKEE.js"), use `.replace(/ /g, '_')`
     const nomeArquivo = modelo.replace(/ /g, '_') + '.js';
-    const caminho = `js/${marca}/${nomeArquivo}`;
-    
+    const caminho = `js/${ano}/${marca}/${nomeArquivo}`;
+
     const script = document.createElement('script');
     script.src = caminho;
     script.onload = () => {
+        // ⚠️ Captura os dados ANTES que outro arquivo com mesmo nome os sobrescreva.
+        // Isso é o que permite o mesmo modelo existir em 2026 e 2027 sem conflito.
+        const dados = window.modelData?.[marca]?.[modelo] || null;
+        dadosModelos[chave] = dados;
         modelosCarregados.add(chave);
-        if (callback) callback();
+        if (callback) callback(dados);
     };
     script.onerror = () => {
         console.error(`Erro ao carregar modelo: ${caminho}`);
-        alert(`Dados do modelo ${modelo} não encontrados.`);
+        alert(`Dados do modelo ${modelo} para o ano ${ano} não encontrados.`);
+        if (callback) callback(null);
     };
     document.head.appendChild(script);
 }
+
+
+
+
+
+
+
+
+/**
+ * Repopula o select de modelos com base na marca E no ano selecionados.
+ * Limpa sempre os selects dependentes (versão e cor).
+ * Se marca ou ano não estiverem preenchidos, o select de modelo fica desabilitado.
+ */
+function atualizarModelos() {
+    const marca = document.querySelector('input[name="marca"]:checked')?.value;
+    const ano = document.getElementById("anoModelo").value;
+
+    const modeloSelect = document.getElementById("modelo");
+    const versaoSelect = document.getElementById("versao");
+    const corSelect    = document.getElementById("nomeCor");
+
+    // Sempre limpa dependentes
+    modeloSelect.innerHTML = '<option value="">Selecione o modelo</option>';
+    versaoSelect.innerHTML = '<option value="">Selecione a versão</option>';
+    versaoSelect.disabled = true;
+    corSelect.innerHTML    = '<option value="">Selecione a Cor</option>';
+    corSelect.disabled     = true;
+
+    // Só popula se ambos estiverem preenchidos
+    if (!marca || !ano) {
+        modeloSelect.disabled = true;
+        return;
+    }
+
+    const listaModelos = window.marcas?.[ano]?.[marca];
+
+    if (listaModelos && listaModelos.length > 0) {
+        modeloSelect.disabled = false;
+        listaModelos.forEach(m => {
+            const opt = document.createElement("option");
+            opt.value = m;
+            opt.textContent = m;
+            modeloSelect.appendChild(opt);
+        });
+    } else {
+        modeloSelect.disabled = true;
+        console.warn(`Nenhum modelo encontrado para marca=${marca}, ano=${ano}`);
+    }
+}
+
+
+
 
 // ==============================================
 // CONFIGURAÇÃO DE LISTENERS (modificada)
@@ -108,45 +184,45 @@ function setupEventListeners() {
     // Mantenha o código original, mas substitua as partes que acessam dados embutidos.
 
     // Exemplo: ao selecionar marca, preenche modelo usando window.marcas
+	
+	
+	
+	
+	
+	
+	
+	
     document.querySelectorAll('input[name="marca"]').forEach(radio => {
-        radio.addEventListener("change", function() {
-            const marca = this.value;
-            const modeloSelect = document.getElementById("modelo");
-            modeloSelect.innerHTML = '<option value="">Selecione o modelo</option>';
-            document.getElementById("versao").innerHTML = '<option value="">Selecione a versão</option>';
-            document.getElementById("versao").disabled = true;
-            document.getElementById("nomeCor").innerHTML = '<option value="">Selecione a Cor</option>';
-            document.getElementById("nomeCor").disabled = true;
-
-            if (window.marcas && window.marcas[marca]) {
-                modeloSelect.disabled = false;
-                window.marcas[marca].forEach(modelo => {
-                    const opt = document.createElement("option");
-                    opt.value = modelo;
-                    opt.textContent = modelo;
-                    modeloSelect.appendChild(opt);
-                });
-            } else {
-                modeloSelect.disabled = true;
-            }
-        });
+        radio.addEventListener("change", atualizarModelos);
     });
 
-    // Ao selecionar modelo, carrega os dados daquele modelo e preenche versões
+
+
+
+
+
+
+
+
+
+
+
+
+// Ao selecionar modelo, carrega os dados daquele modelo e preenche versões
     const modeloSelect = document.getElementById("modelo");
     modeloSelect.addEventListener("change", function() {
         const marca = document.querySelector('input[name="marca"]:checked')?.value;
         const modelo = this.value;
+        const ano = document.getElementById("anoModelo").value;
         const versaoSelect = document.getElementById("versao");
+
         versaoSelect.innerHTML = '<option value="">Selecione a versão</option>';
         versaoSelect.disabled = true;
         document.getElementById("nomeCor").innerHTML = '<option value="">Selecione a Cor</option>';
         document.getElementById("nomeCor").disabled = true;
 
-        if (marca && modelo) {
-            carregarModelo(marca, modelo, () => {
-                // Após carregar, popula versões
-                const dadosModelo = window.modelData?.[marca]?.[modelo];
+        if (marca && modelo && ano) {
+            carregarModelo(marca, modelo, ano, (dadosModelo) => {
                 if (dadosModelo && dadosModelo.versoes) {
                     versaoSelect.disabled = false;
                     dadosModelo.versoes.forEach(versao => {
@@ -156,25 +232,62 @@ function setupEventListeners() {
                         versaoSelect.appendChild(opt);
                     });
                 } else {
-                    console.warn(`Nenhum dado encontrado para ${marca} ${modelo}`);
+                    console.warn(`Nenhum dado encontrado para ${marca} ${modelo} (ano ${ano})`);
                 }
             });
         }
     });
 
-    // Ao selecionar versão, carrega cores
+    // Ao mudar o Ano Modelo: repopula modelos e, se aplicável, recarrega versões
+    document.getElementById("anoModelo").addEventListener("change", function() {
+        // Guarda o modelo selecionado antes de limpar
+        const modeloAnterior = document.getElementById("modelo").value;
+
+        // Repopula modelos de acordo com o novo ano
+        atualizarModelos();
+
+        // Se o modelo anterior ainda existir no novo ano, re-seleciona e
+        // dispara 'change' para carregar as versões correspondentes
+        const modeloSelect = document.getElementById("modelo");
+        if (modeloAnterior) {
+            const existe = Array.from(modeloSelect.options).some(o => o.value === modeloAnterior);
+            if (existe) {
+                modeloSelect.value = modeloAnterior;
+                modeloSelect.dispatchEvent(new Event('change'));
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Ao selecionar versão, carrega cores
     const versaoSelect = document.getElementById("versao");
     versaoSelect.addEventListener("change", function() {
         const marca = document.querySelector('input[name="marca"]:checked')?.value;
         const modelo = document.getElementById("modelo").value;
+        const ano = document.getElementById("anoModelo").value;
         const versao = this.value;
         const nomeCorSelect = document.getElementById("nomeCor");
+
         nomeCorSelect.innerHTML = '<option value="">Selecione a Cor</option>';
         nomeCorSelect.disabled = true;
 
-        if (marca && modelo && versao) {
-            // Garante que os dados do modelo já estejam carregados (pode já estar)
-            const dadosModelo = window.modelData?.[marca]?.[modelo];
+        if (marca && modelo && versao && ano) {
+            // Usa o cache específico do ano (evita pegar dados de outro ano)
+            const chave = `${ano}/${marca}/${modelo}`;
+            const dadosModelo = dadosModelos[chave];
+
             if (dadosModelo && dadosModelo.cores && dadosModelo.cores[versao]) {
                 dadosModelo.cores[versao].forEach(cor => {
                     const opt = document.createElement("option");
@@ -184,10 +297,21 @@ function setupEventListeners() {
                 });
                 nomeCorSelect.disabled = false;
             } else {
-                console.warn(`Cores não encontradas para ${marca} ${modelo} ${versao}`);
+                console.warn(`Cores não encontradas para ${marca} ${modelo} ${versao} (ano ${ano})`);
             }
         }
     });
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
     // Listeners para checkboxes diversos
 	
@@ -535,10 +659,12 @@ function criarTexto() {
         // ==================================================
         
         // Informações básicas do veículo
+        const anoFabricação = getValue("anoFabricação");
+		const anoModelo = getValue("anoModelo");
         const marca = document.querySelector('input[name="marca"]:checked')?.value || '';
         const modelo = getValue("modelo");
         const versao = getValue("versao");
-        const anoModelo = getValue("anoModelo");
+
         
         // Detalhes específicos do veículo
         const chassiUnico = getCheckboxValue("chassiUnicoCheckbox");
@@ -613,7 +739,7 @@ function criarTexto() {
         
         // 3.1 - Informações básicas do veículo
         let textoFinal = `${marca} ${modelo} ${versao}, 0km`;
-        textoFinal += `, ${anoModelo}, `;
+        textoFinal += `, ${anoFabricação}/${anoModelo}, `;
 
         // 3.2 - Detalhes específicos
         if (chassiUnico && numeroChassi) {
@@ -769,10 +895,12 @@ function criarBriefing() {
         // ==================================================
         
         // Informações básicas do veículo
+        const anoFabricação = getValue("anoFabricação");
+        const anoModelo = getValue("anoModelo");
         const marca = document.querySelector('input[name="marca"]:checked')?.value || '';
         const modelo = getValue("modelo");
         const versao = getValue("versao");
-        const anoModelo = getValue("anoModelo");
+
         
         // Detalhes específicos do veículo (NOVO: para seção Destaques)
         const chassiUnico = getCheckboxValue("chassiUnicoCheckbox");
