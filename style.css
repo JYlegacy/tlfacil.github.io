@@ -1,192 +1,278 @@
-/* ===== ESTILOS GERAIS ===== */
+/* =====================================================================
+   ESTRUTURA DO ARQUIVO
+   ---------------------------------------------------------------------
+   1. FUNÇÕES GLOBAIS    → regras que valem em TODOS os temas
+   2. TEMA PADRÃO        → aparência padrão (claro)
+   3. TEMA ESCURO        → overrides de body.dark-mode
+   4. TEMA BLADE RUNNER  → overrides de body.blade-runner (prioridade
+                            máxima por vir por último)
+   ===================================================================== */
+
+
+/* =====================================================================
+   1. FUNÇÕES GLOBAIS (servem para todos os temas)
+   ===================================================================== */
+
+/* ----- Reset / base do body ----- */
 body {
-    font-family: Arial, sans-serif; /* Define a fonte principal */
-    margin: 0; /* Remove margens externas */
-    padding: 0; /* Remove espaçamento interno */
-    background-color: #f2f2f2; /* Define a cor de fundo */
-    color: #333; /* Define a cor do texto */
-    overflow: auto; /* Permite rolagem se necessário */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
 }
 
-/* ===== EFEITO PARALLAX ===== */
+/* ----- Efeito Parallax ----- */
 .parallax {
-    position: fixed; /* Fixa o elemento na tela */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Ocupa toda a largura */
-    height: 100%; /* Ocupa toda a altura */
-    z-index: -1; /* Coloca o elemento atrás dos demais */
-    background-size: cover; /* Ajusta a imagem para cobrir o fundo */
-    background-repeat: no-repeat; /* Evita repetição da imagem */
-    background-position: center; /* Centraliza a imagem */
-    transition: background-image 1s ease-in-out; /* Suaviza a troca de imagem */
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
 }
 
-/* ===== CONTAINER PRINCIPAL ===== */
+/* ----- Container: estrutura compartilhada ----- */
 .container {
-    position: relative; /* Permite posicionar elementos filhos relativamente */
-    max-width: 800px; /* Largura máxima */
-    margin: 20px auto; /* Centraliza e adiciona espaçamento externo */
-    padding: 20px; /* Espaçamento interno */
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    position: relative;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 8px;
+    padding-top: 80px !important; /* espaço p/ logos e botão de tema */
 }
 
-/* ===== CABEÇALHO ===== */
+/* ----- Cabeçalho (estrutura tipográfica) ----- */
 h1 {
-    text-align: center; /* Centraliza o texto */
-    font-size: 16px; /* Tamanho da fonte */
-    color: #333; /* Cor do texto */
-    margin: 0; /* Remove espaçamento externo */
-    text-transform: uppercase; /* Letras maiúsculas */
-    letter-spacing: 2px; /* Espaçamento entre letras */
+    text-align: center;
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-#header {
-    background-color: #f8f9fa; /* Cor de fundo clara */
-    padding: 10px; /* Espaçamento interno */
-    text-align: center; /* Centraliza o conteúdo */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave inferior */
-}
-
-/* ===== ELEMENTOS DE FORMULÁRIO ===== */
+/* ----- Elementos de formulário (estrutura) ----- */
 label {
-    font-weight: bold; /* Deixa os rótulos em negrito */
+    font-weight: bold;
 }
 
 input, select {
-    margin-bottom: 10px; /* Espaçamento inferior */
-    padding: 8px; /* Espaçamento interno */
-    width: calc(100% - 18px); /* Ajusta a largura total menos o padding e borda */
-    border-radius: 4px; /* Bordas arredondadas */
-    border: 1px solid #ccc; /* Borda cinza clara */
-    box-sizing: border-box; /* Inclui borda e padding no cálculo do tamanho */
+    margin-bottom: 10px;
+    padding: 8px;
+    width: calc(100% - 18px);
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 input[type="checkbox"], input[type="radio"] {
-    width: auto; /* Tamanho automático para esses tipos */
+    width: auto;
 }
 
-/* ===== BOTÕES ===== */
+/* ----- Botões (estrutura comum) ----- */
 button {
-    margin-top: 20px; /* Espaçamento superior */
-    padding: 10px 20px; /* Espaçamento interno vertical e horizontal */
-    background-color: #007bff; /* Cor azul padrão */
-    color: #fff; /* Cor do texto */
-    border: none; /* Remove bordas padrão */
-    border-radius: 4px; /* Bordas arredondadas */
-    cursor: pointer; /* Mostra ponteiro clicável */
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-/* Botões específicos com cores distintas */
-button.tl-fipe-btn { background-color: #195da2; }
-button.tl-bonus-usado-btn { background-color: #07396b; }
-button.inserirfipe-btn { background-color: #195da2; }
+/* ----- Botão de alternância de tema (estrutura) ----- */
+.dark-mode-btn {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+/* ----- Logotipos (posicionamento e dimensões) ----- */
+.logo-light,
+.logo-dark,
+.logo-blade-runner {
+    position: absolute !important;
+    top: 40px !important;
+    left: 20px !important;
+    width: 231px;
+    height: 40px;
+    transition: opacity 0.3s ease;
+    z-index: 99;
+    pointer-events: auto;
+}
+
+/* Por padrão (qualquer tema que não seja Blade Runner),
+   o logo exclusivo do Blade Runner fica escondido. */
+body:not(.blade-runner) .logo-blade-runner {
+    opacity: 0;
+    display: none !important;
+}
+
+/* Efeito de clique no logo */
+.logo-click {
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-click:hover {
+    transform: scale(1.05);
+    filter: brightness(1.3) contrast(1.2);
+}
+
+/* ----- Área de texto gerado ----- */
+#textoGerado {
+    text-align: justify;
+}
+
+/* ----- Botão legado do Blade Runner (não usado) ----- */
+.blade-runner-btn {
+    display: none !important;
+}
+
+
+
+
+/* =====================================================================
+   2. TEMA PADRÃO (claro)
+   ===================================================================== */
+
+/* ----- Base do body ----- */
+body {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+/* ----- Container ----- */
+.container {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste de margem da esquerda dentro do container (claro e escuro herdam este) */
+.container {
+    padding-left: 33px;   /* antes: 20px (vindo do atalho padding) */
+}
+
+/* ----- Cabeçalho ----- */
+h1 {
+    color: #333;
+}
+
+#header {
+	margin-top: -15px;  /* sobe a caixa inteira do Título TEXTO JURIDICO */
+	margin-right: 15px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* ----- Inputs e selects ----- */
+input, select {
+    border: 1px solid #ccc;
+}
+
+/* ----- Botões: cores do tema padrão ----- */
+button {
+    background-color: #007bff;
+}
+
+button.tl-fipe-btn         { background-color: #195da2; }
+button.tl-bonus-usado-btn  { background-color: #07396b; }
+button.inserirfipe-btn     { background-color: #195da2; }
 button.inserirBonusUsado-btn { background-color: #07396b; }
-.limpar-texto-btn { background-color: #ff0000; }
+.limpar-texto-btn          { background-color: #ff0000; }
 
-/* Efeitos ao passar o mouse */
-button:hover { background-color: #0056b3; }
-button.inserirfipe-btn:hover { background-color: #073e59; }
-button.inserirBonusUsado-btn:hover { background-color: #06364d; }
-.limpar-texto-btn:hover { background-color: #cc0000; }
+/* Hover dos botões */
+button:hover                          { background-color: #0056b3; }
+button.inserirfipe-btn:hover          { background-color: #073e59; }
+button.inserirBonusUsado-btn:hover    { background-color: #06364d; }
+.limpar-texto-btn:hover               { background-color: #cc0000; }
 
-/* ===== MODO ESCURO ===== */
-body.dark-mode {
-    background-color: #121212; /* Fundo escuro */
-    color: #ffffff; /* Texto branco */
+/* ----- Botão de alternância de tema ----- */
+.dark-mode-btn { color: #333; }
+.dark-mode-btn:hover { background-color: rgba(240, 240, 240, 0.5); }
+
+/* ----- Ícone do botão de tema (modo claro) ----- */
+body:not(.dark-mode) .dark-mode-btn .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-/* Estilo do título no modo escuro */
+/* ----- Logotipos: mostra light, esconde dark ----- */
+body:not(.dark-mode) .logo-light { opacity: 1; }
+body:not(.dark-mode) .logo-dark  { opacity: 0; }
+
+
+/* =====================================================================
+   3. TEMA ESCURO (body.dark-mode)
+   ===================================================================== */
+
+/* ----- Base do body ----- */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* ----- Cabeçalho ----- */
 body.dark-mode h1 {
     color: #ffffff;
 }
 
-/* Container no modo escuro */
-body.dark-mode .container {
-    background-color: rgba(40, 40, 40, 0.9); /* Fundo escuro semitransparente */
-    color: #ffffff;
-}
-
-/* Inputs no modo escuro */
-body.dark-mode input,
-body.dark-mode select {
-    background-color: #2c2c2c; /* Fundo mais escuro */
-    color: #ffffff; /* Texto branco */
-    border: 1px solid #555; /* Borda escura */
-}
-
-/* Cabeçalho no modo escuro */
 body.dark-mode #header {
     background-color: #2c2c2c;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* ===== CONTROLE DE TEMA - ESCURO E CLARO ===== */
-.dark-mode-btn {
-    position: absolute !important; /* Posicionamento absoluto dentro do container */
-    top: 20px !important; /* Distância do topo do container */
-    right: 20px !important; /* Distância da borda direita do container */
-    display: flex; /* Layout flexível */
-    align-items: center; /* Alinha verticalmente os itens */
-    gap: 8px; /* Espaço entre ícones e texto */
-    padding: 8px 12px; /* Espaçamento interno */
-    background-color: transparent; /* Fundo transparente */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease; /* Transição suave */
-    color: #333; /* Cor do texto no modo claro */
-    z-index: 100; /* Garante que fique acima de outros elementos do container */
+/* ----- Container ----- */
+body.dark-mode .container {
+    background-color: rgba(40, 40, 40, 0.9);
+    color: #ffffff;
 }
 
-/* Hover no botão de tema */
-.dark-mode-btn:hover { background-color: rgba(240, 240, 240, 0.5); }
+/* ----- Inputs e selects ----- */
+body.dark-mode input,
+body.dark-mode select {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: 1px solid #555;
+}
 
-/* Botão de tema no modo escuro */
+
+/* ----- Botão de alternância de tema ----- */
 body.dark-mode .dark-mode-btn { color: #ffffff; }
 body.dark-mode .dark-mode-btn:hover { background-color: rgba(51, 51, 51, 0.5); }
 
-/* ===== LOGOTIPO  TL FACIL  ===== */
-.logo-light, .logo-dark {
-    position: absolute !important; /* Posicionamento absoluto dentro do container */
-    top: 40px !important;
-    left: 20px !important;
-    width: 231px;
-    height: 40px;
-    transition: opacity 0.3s ease; /* Suaviza transição de opacidade */
-    z-index: 99; /* Abaixo do botão mas acima do conteúdo */
-    pointer-events: auto; /* Permite interação do usuário */
-}
-
-/* Controle de visibilidade dos logos */
-body:not(.dark-mode) .logo-light { opacity: 1; } /* Mostra no modo claro */
-body:not(.dark-mode) .logo-dark { opacity: 0; }  /* Esconde no modo claro */
-body.dark-mode .logo-light { opacity: 0; }       /* Esconde no modo escuro */
-body.dark-mode .logo-dark { opacity: 1; }        /* Mostra no modo escuro */
-
-/* Ajuste do padding superior do container para acomodar logos e botão */
-.container {
-    padding-top: 80px !important; /* Espaço para logos e botão no topo */
-}
-
-/* ===== ÁREA DE SAÍDA ===== */
-#textoGerado {
-    text-align: justify; /* Alinhamento justificado para melhor legibilidade */
-}
-
-/* ===== AJUSTES DE ÍCONES ===== */
-body:not(.dark-mode) .dark-mode-btn .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; /* Ícone não preenchido */
-}
-
+/* ----- Ícone do botão de tema (modo escuro) ----- */
 body.dark-mode .dark-mode-btn .material-symbols-outlined {
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; /* Ícone preenchido */
-    color: #ffffff; /* Cor branca no modo escuro */
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: #ffffff;
 }
 
-/* ===== TEMA BLADE RUNNER - NEON RETRO ===== */
+/* ----- Logotipos: esconde light, mostra dark ----- */
+body.dark-mode .logo-light { opacity: 0; }
+body.dark-mode .logo-dark  { opacity: 1; }
+
+
+/* =====================================================================
+   4. TEMA BLADE RUNNER (body.blade-runner)
+   Prioridade máxima: por vir por último, sobrescreve os anteriores
+   em empates de especificidade.
+   ===================================================================== */
+
+/* ----- Base do body ----- */
 body.blade-runner {
     font-family: 'Orbitron', 'Arial', sans-serif !important;
     background-color: #0a0a1a !important;
@@ -194,7 +280,7 @@ body.blade-runner {
     background: linear-gradient(45deg, #0a0a1a 0%, #1a0033 50%, #0a0a1a 100%) !important;
 }
 
-/* Efeito de grade de linhas neon no fundo */
+/* Grade de linhas neon no fundo */
 body.blade-runner::before {
     content: '';
     position: fixed;
@@ -202,7 +288,7 @@ body.blade-runner::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         linear-gradient(90deg, rgba(0, 230, 255, 0.1) 1px, transparent 1px),
         linear-gradient(0deg, rgba(0, 230, 255, 0.1) 1px, transparent 1px);
     background-size: 50px 50px;
@@ -210,44 +296,93 @@ body.blade-runner::before {
     animation: gridMove 20s linear infinite;
 }
 
+/* Efeito de fumaça/sombras no fundo */
+body.blade-runner::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 230, 255, 0.1) 0%, transparent 50%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ----- Animações do tema ----- */
 @keyframes gridMove {
-    0% { transform: translate(0, 0); }
+    0%   { transform: translate(0, 0); }
     100% { transform: translate(50px, 50px); }
 }
 
-/* Efeito de brilho pulsante */
 @keyframes neonPulse {
     0%, 100% { box-shadow: 0 0 5px #00e6ff, 0 0 10px #00e6ff; }
-    50% { box-shadow: 0 0 20px #00e6ff, 0 0 40px #00e6ff; }
+    50%      { box-shadow: 0 0 20px #00e6ff, 0 0 40px #00e6ff; }
 }
 
-/* Container principal Blade Runner */
+@keyframes headerGlow {
+    0%, 100% {
+        box-shadow:
+            0 0 10px rgba(0, 230, 255, 0.5),
+            0 0 20px rgba(0, 230, 255, 0.3),
+            inset 0 0 15px rgba(0, 230, 255, 0.2);
+    }
+    50% {
+        box-shadow:
+            0 0 15px rgba(0, 230, 255, 0.7),
+            0 0 30px rgba(0, 230, 255, 0.5),
+            inset 0 0 20px rgba(0, 230, 255, 0.3);
+    }
+}
+
+@keyframes logoNeonPulse {
+    0%, 100% {
+        filter:
+            brightness(1.2)
+            contrast(1.1)
+            drop-shadow(0 0 10px rgba(0, 230, 255, 0.7));
+    }
+    50% {
+        filter:
+            brightness(1.4)
+            contrast(1.3)
+            drop-shadow(0 0 20px rgba(0, 230, 255, 0.9))
+            drop-shadow(0 0 30px rgba(255, 0, 255, 0.5));
+    }
+}
+
+/* ----- Container ----- */
 body.blade-runner .container {
     background-color: rgba(10, 10, 26, 0.85) !important;
     border: 1px solid #00e6ff;
-    box-shadow: 
+    box-shadow:
         0 0 15px rgba(0, 230, 255, 0.5),
         0 0 30px rgba(0, 230, 255, 0.3),
         inset 0 0 20px rgba(0, 230, 255, 0.1);
     border-radius: 0;
     padding: 25px;
-    padding-top: 80px !important; /* Mantém o padding superior */
+    padding-top: 80px !important;
     animation: neonPulse 4s ease-in-out infinite;
 }
 
-/* Títulos Blade Runner */
+/* /* Ajuste de margem da esquerda dentro do container (Tema Blade Runner) */
+body.blade-runner .container {
+    padding-left: 40px;   /* antes: 25px */
+}
+
+/* ----- Títulos ----- */
 body.blade-runner h1 {
-    color: #00e6ff    !important;
+    color: #00e6ff !important;
     font-size: 14px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 3px;
-    text-shadow: 
-        0 0 5px #00e6ff;
+    text-shadow: 0 0 5px #00e6ff;
     margin-bottom: 0px;
 }
 
-/* Subtítulos */
 body.blade-runner h4 {
     color: #00e6ff !important;
     border-bottom: 0px solid #00e6ff;
@@ -255,7 +390,55 @@ body.blade-runner h4 {
     text-shadow: 0 0 5px rgba(0, 230, 255, 0.5);
 }
 
-/* Botões Blade Runner */
+/* ----- Cabeçalho ----- */
+body.blade-runner #header {
+    background-color: rgba(0, 10, 20, 0.8) !important;
+    padding: 10px !important;
+    text-align: center;
+    box-shadow:
+        0 0 10px rgba(0, 230, 255, 0.5),
+        0 0 20px rgba(0, 230, 255, 0.3),
+        inset 0 0 15px rgba(0, 230, 255, 0.2) !important;
+    border: 1px solid #00e6ff !important;
+    border-radius: 0px !important;
+    margin-bottom: 20px !important;
+    position: relative;
+    overflow: hidden;
+    animation: headerGlow 3s ease-in-out infinite;
+}
+
+body.blade-runner #header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 230, 255, 0.1) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+body.blade-runner #header h1 {
+    position: relative;
+    z-index: 2;
+}
+
+/* ----- Linha divisória ----- */
+body.blade-runner hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        #00e6ff,
+        #ff00ff,
+        #00e6ff,
+        transparent
+    );
+    margin: 20px 0;
+}
+
+/* ----- Botões ----- */
 body.blade-runner button {
     background-color: transparent !important;
     color: #00e6ff !important;
@@ -273,7 +456,6 @@ body.blade-runner button {
     letter-spacing: 1px;
 }
 
-/* Efeito de brilho nos botões ao passar mouse */
 body.blade-runner button::before {
     content: '';
     position: absolute;
@@ -297,13 +479,13 @@ body.blade-runner button:hover::before {
 
 body.blade-runner button:hover {
     background-color: rgba(0, 230, 255, 0.1) !important;
-    box-shadow: 
+    box-shadow:
         0 0 20px rgba(0, 230, 255, 0.8),
         0 0 40px rgba(0, 230, 255, 0.4);
     transform: translateY(-2px);
 }
 
-/* Botões específicos */
+/* Variante laranja (TL FIPE) */
 body.blade-runner .tl-fipe-btn {
     border-color: #ff9900 !important;
     color: #ff9900 !important;
@@ -314,6 +496,7 @@ body.blade-runner .tl-fipe-btn:hover {
     box-shadow: 0 0 20px rgba(255, 153, 0, 0.8);
 }
 
+/* Variante vermelho neon claro (Excluir TL) */
 body.blade-runner .limpar-texto-btn {
     border-color: #ff4d4d !important;
     color: #ff4d4d !important;
@@ -327,7 +510,7 @@ body.blade-runner .limpar-texto-btn:hover {
                 0 0 40px rgba(255, 77, 77, 0.5);
 }
 
-/* Inputs e selects Blade Runner */
+/* ----- Inputs e selects ----- */
 body.blade-runner select,
 body.blade-runner input {
     background-color: rgba(10, 10, 26, 0.8) !important;
@@ -340,12 +523,10 @@ body.blade-runner input {
     transition: all 0.3s ease;
 }
 
-/* Placeholder neon */
 body.blade-runner input::placeholder {
     color: rgba(0, 230, 255, 0.5) !important;
 }
 
-/* Foco nos inputs */
 body.blade-runner select:focus,
 body.blade-runner input:focus {
     outline: none;
@@ -353,7 +534,7 @@ body.blade-runner input:focus {
     border-color: #ff00ff !important;
 }
 
-/* Labels Blade Runner */
+/* ----- Labels ----- */
 body.blade-runner label {
     color: #00e6ff !important;
     font-size: 12px;
@@ -362,86 +543,14 @@ body.blade-runner label {
     letter-spacing: 0.5px;
 }
 
-/* Checkboxes e radio buttons Blade Runner */
+/* ----- Checkboxes e radios ----- */
 body.blade-runner input[type="checkbox"],
 body.blade-runner input[type="radio"] {
     accent-color: #00e6ff;
     filter: drop-shadow(0 0 3px rgba(0, 230, 255, 0.7));
 }
 
-
-
-
-
-
-/* Cabeçalho Blade Runner */
-body.blade-runner #header {
-    background-color: rgba(0, 10, 20, 0.8) !important; /* Fundo escuro azulado */
-    padding: 10px !important; /* Espaçamento interno */
-    text-align: center; /* Centraliza o conteúdo */
-    box-shadow: 
-        0 0 10px rgba(0, 230, 255, 0.5),
-        0 0 20px rgba(0, 230, 255, 0.3),
-        inset 0 0 15px rgba(0, 230, 255, 0.2) !important; /* Sombra neon */
-    border: 1px solid #00e6ff !important; /* Borda neon */
-    border-radius: 0px !important; /* Cantos arredondados */
-    margin-bottom: 20px !important; /* Espaço abaixo */
-    position: relative; /* Para efeitos adicionais */
-    overflow: hidden; /* Para conter efeitos internos */
-}
-
-/* Efeito de brilho interno */
-body.blade-runner #header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(
-        circle,
-        rgba(0, 230, 255, 0.1) 0%,
-        transparent 70%
-    );
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Garantir que o texto fique acima dos efeitos */
-body.blade-runner #header h1 {
-    position: relative;
-    z-index: 2;
-}
-
-/* Efeito de brilho pulsante no cabeçalho */
-@keyframes headerGlow {
-    0%, 100% { 
-        box-shadow: 
-            0 0 10px rgba(0, 230, 255, 0.5),
-            0 0 20px rgba(0, 230, 255, 0.3),
-            inset 0 0 15px rgba(0, 230, 255, 0.2);
-    }
-    50% { 
-        box-shadow: 
-            0 0 15px rgba(0, 230, 255, 0.7),
-            0 0 30px rgba(0, 230, 255, 0.5),
-            inset 0 0 20px rgba(0, 230, 255, 0.3);
-    }
-}
-
-/* Aplicar animação de brilho */
-body.blade-runner #header {
-    animation: headerGlow 3s ease-in-out infinite;
-}
-
-
-
-
-
-
-
-
-/* Área de texto gerado Blade Runner */
+/* ----- Área de texto gerado ----- */
 body.blade-runner #textoGerado {
     background-color: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(0, 230, 255, 0.3);
@@ -452,7 +561,7 @@ body.blade-runner #textoGerado {
     text-shadow: 0 0 10px rgba(0, 230, 255, 0.3);
 }
 
-/* Botão dark mode no tema Blade Runner - APENAS ESTILOS VISUAIS */
+/* ----- Botão de alternância de tema ----- */
 body.blade-runner .dark-mode-btn {
     background-color: rgba(0, 230, 255, 0.1) !important;
     border: 1px solid #00e6ff !important;
@@ -460,129 +569,41 @@ body.blade-runner .dark-mode-btn {
     border-radius: 0;
 }
 
-/* Efeito hover no botão dark mode no tema Blade Runner */
 body.blade-runner .dark-mode-btn:hover {
     background-color: rgba(0, 230, 255, 0.2) !important;
     box-shadow: 0 0 15px rgba(0, 230, 255, 0.5);
 }
 
-/* Ícone MODO DARK E LIGHT no tema Blade Runner */
 body.blade-runner .dark-mode-btn .material-symbols-outlined {
-    color: #00e6ff  !important;
+    color: #00e6ff !important;
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 !important;
     text-shadow: 0 0 5px rgba(0, 230, 255, 0.5);
 }
 
-/* Ícone MODO DARK E LIGHT - Quando estiver em dark mode dentro do tema Blade Runner */
+/* Combinação Blade Runner + Dark Mode */
 body.blade-runner.dark-mode .dark-mode-btn .material-symbols-outlined {
-    color: #00e6ff   !important;
+    color: #00e6ff !important;
     text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
 }
 
-/* Remover o estilo de blade-runner-btn já que removemos o botão */
-.blade-runner-btn {
+/* ----- Logotipos ----- */
+body.blade-runner .logo-light,
+body.blade-runner .logo-dark {
+    opacity: 0;
     display: none !important;
 }
 
-/* Logotipos Blade Runner */
-body.blade-runner .logo-light,
-body.blade-runner .logo-dark {
-    filter: 
-        brightness(1.2) 
-        contrast(1.1)
-        drop-shadow(0 0 10px rgba(0, 230, 255, 0.7));
-}
-
-/* Linhas de separação */
-body.blade-runner hr {
-    border: none;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        #00e6ff, 
-        #ff00ff, 
-        #00e6ff, 
-        transparent
-    );
-    margin: 20px 0;
-}
-
-/* Efeito de fumaça/sombras no fundo */
-body.blade-runner::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(0, 230, 255, 0.1) 0%, transparent 50%);
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* Logo clicável - efeito adicional */
-.logo-click {
-    cursor: pointer;
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.logo-click:hover {
-    transform: scale(1.05);
-    filter: brightness(1.3) contrast(1.2);
-}
-
-/* Logo Blade Runner */
-.logo-blade-runner {
-    position: absolute !important;
-    top: 40px !important;
-    left: 20px !important;
-    width: 231px;
-    height: 40px;
-    transition: opacity 0.3s ease;
-    z-index: 99;
-    pointer-events: auto;
-}
-
-/* Controle de visibilidade dos logos - Adicione ao final das regras existentes */
-body:not(.blade-runner) .logo-blade-runner { 
-    opacity: 0; 
-    display: none !important; 
-}
-
-body.blade-runner .logo-light, 
-body.blade-runner .logo-dark { 
-    opacity: 0; 
-    display: none !important; 
-}
-
-body.blade-runner .logo-blade-runner { 
-    opacity: 1; 
-    display: block !important; 
-}
-
-/* Efeito especial para a logo Blade Runner */
 body.blade-runner .logo-blade-runner {
-    filter: 
-        brightness(1.2) 
+    opacity: 1;
+    display: block !important;
+    filter:
+        brightness(1.2)
         contrast(1.1)
         drop-shadow(0 0 10px rgba(0, 230, 255, 0.7));
     animation: logoNeonPulse 3s ease-in-out infinite;
 }
 
-@keyframes logoNeonPulse {
-    0%, 100% { 
-        filter: 
-            brightness(1.2) 
-            contrast(1.1)
-            drop-shadow(0 0 10px rgba(0, 230, 255, 0.7));
-    }
-    50% { 
-        filter: 
-            brightness(1.4) 
-            contrast(1.3)
-            drop-shadow(0 0 20px rgba(0, 230, 255, 0.9))
-            drop-shadow(0 0 30px rgba(255, 0, 255, 0.5));
-    }
-}
+
+
+
+
